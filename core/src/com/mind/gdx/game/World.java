@@ -3,7 +3,7 @@ package com.mind.gdx.game;
 public class World {
 
 	public static boolean endGame = false;
-	
+	public static int maxScore = 3;
 	public static void update() {	
 		GameScreen.bar1.update();
 		GameScreen.bar2.update();
@@ -33,7 +33,7 @@ public class World {
 	
 	
 	private static void checkEnding(){
-		if(GameScreen.bar1.score==3 || GameScreen.bar2.score==3){
+		if(GameScreen.bar1.score==maxScore || GameScreen.bar2.score==maxScore){
 			endGame = true;
 			Ball.moveStatus = false;
 		}

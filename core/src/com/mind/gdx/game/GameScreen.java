@@ -31,6 +31,7 @@ public class GameScreen extends ScreenAdapter {
 	static GlyphLayout ending;
 	static float fontsize = 5;
 	static float endingfontsize = 10;
+	
 	public GameScreen(PongGame pongGame) {
 		GameScreen.pongGame = pongGame;
 		

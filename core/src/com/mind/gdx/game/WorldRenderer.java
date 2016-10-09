@@ -10,34 +10,16 @@ public class WorldRenderer {
 	private static float endingXPosition;
 	private static float endingYPosition;
 	
+	private static SpriteBatch batch = GameScreen.pongGame.batch;
+	
 	public static void render() {
-		SpriteBatch batch = GameScreen.pongGame.batch;
 		batch.begin();
 		
-		batch.draw(GameScreen.bar1.barImg, GameScreen.bar1.position.x, GameScreen.bar1.position.y);
-		batch.draw(GameScreen.bar2.barImg, GameScreen.bar2.position.x, GameScreen.bar2.position.y);
+		drawBars();
+		drawScores();
+		drawBall();
+		whenEndGame();
 		
-		GameScreen.bar1Score.setText(GameScreen.bar1Score_bitmap,Integer.toString(GameScreen.bar1.score));
-		GameScreen.bar1Score_bitmap.draw(batch, GameScreen.bar1Score, bar1ScoreXPosition, ScoreYPosition);
-		
-		
-		GameScreen.bar2Score.setText(GameScreen.bar2Score_bitmap,Integer.toString(GameScreen.bar2.score));
-		GameScreen.bar2Score_bitmap.draw(batch, GameScreen.bar2Score, bar2ScoreXPosition, ScoreYPosition);
-		
-		//if(Ball.hitStatusLeftRight==Ball.hitPlayer2)
-		batch.draw(GameScreen.ballImg, GameScreen.ball.position.x, GameScreen.ball.position.y);
-		//else if(Ball.hitStatusLeftRight==Ball.hitPlayer2)
-			//batch.draw(GameScreen.ballImg, GameScreen.ball.position.x, GameScreen.ball.position.y);
-		if(World.endGame) {
-
-			if(GameScreen.bar1.score>GameScreen.bar2.score){
-				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player1 WIN");
-			}else{
-				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player2 WIN");
-			}
-			getEndingPosition();
-			GameScreen.ending_bitmap.draw(batch, GameScreen.ending, endingXPosition, endingYPosition);
-		}
 		batch.end();
 	}
 	
@@ -46,4 +28,35 @@ public class WorldRenderer {
 		endingYPosition = (GameScreen.height+GameScreen.ending.height)/2;
 	}
 	
+	private static void whenEndGame() {
+		if(World.endGame) {
+			if(GameScreen.bar1.score>GameScreen.bar2.score){
+				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player1 WIN");
+			}else{
+				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player2 WIN");
+			}
+			getEndingPosition();
+			GameScreen.ending_bitmap.draw(batch, GameScreen.ending, endingXPosition, endingYPosition);
+		}
+	}
+	
+	private static void drawBall() {
+		//if(Ball.hitStatusLeftRight==Ball.hitPlayer2)
+				batch.draw(GameScreen.ballImg, GameScreen.ball.position.x, GameScreen.ball.position.y);
+		//else if(Ball.hitStatusLeftRight==Ball.hitPlayer2)
+				//batch.draw(GameScreen.ballImg, GameScreen.ball.position.x, GameScreen.ball.position.y);
+	}
+	
+	private static void drawBars() {
+		batch.draw(GameScreen.bar1.barImg, GameScreen.bar1.position.x, GameScreen.bar1.position.y);
+		batch.draw(GameScreen.bar2.barImg, GameScreen.bar2.position.x, GameScreen.bar2.position.y);
+	}
+	
+	private static void drawScores() {
+		GameScreen.bar1Score.setText(GameScreen.bar1Score_bitmap,Integer.toString(GameScreen.bar1.score));
+		GameScreen.bar1Score_bitmap.draw(batch, GameScreen.bar1Score, bar1ScoreXPosition, ScoreYPosition);
+		
+		GameScreen.bar2Score.setText(GameScreen.bar2Score_bitmap,Integer.toString(GameScreen.bar2.score));
+		GameScreen.bar2Score_bitmap.draw(batch, GameScreen.bar2Score, bar2ScoreXPosition, ScoreYPosition);
+	}
 }
