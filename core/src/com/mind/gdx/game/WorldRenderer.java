@@ -9,6 +9,8 @@ public class WorldRenderer {
 	private static float bar2ScoreXPosition = GameScreen.width/2-200-GameScreen.bar2Score.width;
 	private static float endingXPosition;
 	private static float endingYPosition;
+	static float abilityXPosition = (GameScreen.width - GameScreen.fireballAbilityImg.getWidth())/2;
+	static float abilityYPosition = (GameScreen.height - GameScreen.fireballAbilityImg.getHeight())/2;
 	
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
 	
@@ -18,9 +20,16 @@ public class WorldRenderer {
 		drawBars();
 		drawScores();
 		drawBall();
+		drawAbility();
 		whenEndGame();
 		
 		batch.end();
+	}
+	
+	private static void drawAbility() {
+		if(Ability.showAbility == Ability.FIREBALL) {
+			batch.draw(GameScreen.fireballAbilityImg, abilityXPosition, abilityYPosition);
+		}
 	}
 	
 	private static void getEndingPosition() {

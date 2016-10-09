@@ -14,7 +14,7 @@ public class Bar {
 	public Texture barImg;
 	private int pressUp;
 	private int pressDown;
-	private float speed = 30;
+	private float speed = 20;
 	public Bar(Texture barImg,float x,int up,int down) {
 		this.barImg = barImg;
 		length = barImg.getWidth();

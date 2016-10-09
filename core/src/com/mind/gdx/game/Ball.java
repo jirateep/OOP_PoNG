@@ -12,10 +12,15 @@ public class Ball {
 	public static float radius = dilimiter/2;
 	public static float width = GameScreen.ballImg.getWidth();
 
+	public static int FIREBALL = 1;
+	public static int NOTHING = 0;
+	public static int ballAbilityStatus = NOTHING;
+	
 	public static final float INITSPEED = 20;
 	public static float speed = INITSPEED;
 	public static float speedX;
 	public static float speedY;
+	public static float fireballSpeedFactor = 1.5f;
 	
 	private static float startingX ;
 	private static float startingY ;
@@ -33,8 +38,7 @@ public class Ball {
 	public Ball(){
 		updateStartingPosition();
 		position = new Vector2(startingX,startingY);
-		getXSpeed();
-		getYSpeed();
+		getSpeed();
 	}
 	public void update() {
 		if(!moveStatus&&!World.endGame) {
@@ -62,17 +66,20 @@ public class Ball {
 	}
 
 	static void updateSpeed() {
-		speed *= 1.0001;
-		getXSpeed();
-		getYSpeed();
+		speed *= 1.0002;
+		getSpeed();
 	}
 	
-	static void getXSpeed() {
-		speedX = speed*3/5;
+	static void getSpeed() {
+		if(ballAbilityStatus == FIREBALL){
+			speedX = speed*fireballSpeedFactor*3/5;
+			speedY = speed*fireballSpeedFactor*4/5;
+		} else if(ballAbilityStatus == NOTHING){
+			speedX = speed*3/5;
+			speedY = speed*4/5;
+		}
 	}
-	static void getYSpeed() {
-		speedY = speed*4/5;
-	}
+	
 	static void updateStartingPosition() {
 		if(hitStatusLeftRight == hitPlayer2) {
 			startingX = GameScreen.bar2.position.x+Bar.length;
