@@ -37,7 +37,7 @@ public class Ball {
 		getYSpeed();
 	}
 	public void update() {
-		if(!moveStatus) {
+		if(!moveStatus&&!World.endGame) {
 			checkStartMove();
 		}
 			move();

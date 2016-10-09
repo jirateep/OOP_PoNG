@@ -14,6 +14,7 @@ public class Bar {
 	public Texture barImg;
 	private int pressUp;
 	private int pressDown;
+	private float speed = 30;
 	public Bar(Texture barImg,float x,int up,int down) {
 		this.barImg = barImg;
 		length = barImg.getWidth();
@@ -29,15 +30,16 @@ public class Bar {
 	}
 	
 	public void update() {
-		move();
+		if(!World.endGame)
+			move();
 	}
 	
 	private void move() {
 		if(Gdx.input.isKeyPressed(pressUp)){
-			position.y+=10;
+			position.y+=speed;
 		}
 		if(Gdx.input.isKeyPressed(pressDown)){
-			position.y-=10;
+			position.y-=speed;
 		}
 		moveScope();
 	}
