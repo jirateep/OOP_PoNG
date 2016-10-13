@@ -12,8 +12,8 @@ public class Ball {
 	public static float radius = dilimiter/2;
 	public static float width = GameScreen.ballImg.getWidth();
 
-	public static int FIREBALL = 1;
-	public static int NOTHING = 0;
+	public static final int FIREBALL = 1;
+	public static final int NOTHING = 0;
 	public static int ballAbilityStatus = NOTHING;
 	
 	public static final float INITSPEED = 20;
@@ -66,7 +66,7 @@ public class Ball {
 	}
 
 	static void updateSpeed() {
-		speed *= 1.0002;
+		speed *= 1.000001;
 		getSpeed();
 	}
 	
@@ -82,11 +82,11 @@ public class Ball {
 	
 	static void updateStartingPosition() {
 		if(hitStatusLeftRight == hitPlayer2) {
-			startingX = GameScreen.bar2.position.x+Bar.length;
-			startingY = GameScreen.bar2.position.y+Bar.width/2-radius;
+			startingX = World.bar2.position.x+Bar.length;
+			startingY = World.bar2.position.y+Bar.width/2-radius;
 		}else if (hitStatusLeftRight == hitPlayer1) {
-			startingX = GameScreen.bar1.position.x-Ball.width;
-			startingY = GameScreen.bar1.position.y+Bar.width/2-radius;
+			startingX = World.bar1.position.x-Ball.width;
+			startingY = World.bar1.position.y+Bar.width/2-radius;
 		}
 	}
 	
@@ -118,16 +118,16 @@ public class Ball {
 	}
 	
 	public boolean hitingBar1() {
-		return (position.x > GameScreen.bar1.position.x-Ball.width &&
-				position.x <GameScreen.bar1.position.x) && 
-			   (position.y > GameScreen.bar1.position.y && 
-			    position.y < GameScreen.bar1.position.y+Bar.width);
+		return (position.x > World.bar1.position.x-Ball.width &&
+				position.x < World.bar1.position.x) && 
+			   (position.y > World.bar1.position.y && 
+			    position.y < World.bar1.position.y+Bar.width);
 	}
 	
 	public boolean hitingBar2() {
-		return (position.x < GameScreen.bar2.position.x+Ball.width &&  
-			    position.x > GameScreen.bar2.position.x) && 
-			   (position.y > GameScreen.bar2.position.y && 
-			    position.y < GameScreen.bar2.position.y+Bar.width);
+		return (position.x < World.bar2.position.x+Ball.width &&  
+			    position.x > World.bar2.position.x) && 
+			   (position.y > World.bar2.position.y && 
+			    position.y < World.bar2.position.y+Bar.width);
 	}
 }

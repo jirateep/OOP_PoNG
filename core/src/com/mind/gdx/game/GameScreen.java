@@ -1,30 +1,37 @@
 package com.mind.gdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-
 public class GameScreen extends ScreenAdapter {
+	
 	public static PongGame pongGame;
+	public static World world;
+	public static WorldRenderer worldRenderer;
+	
 	public static Texture barImg1;
 	public static Texture barImg2;
 	public static Texture ballImg;
+	public static Texture fireballImg;
+	public static Texture abilityImg;
 	public static Texture fireballAbilityImg;
-	
-	public static int width = 1800;
-	public static int height = 950;
-	public static Bar bar1;
-	public static Bar bar2;
-	public static Ball ball;
-	public static Ability ability;
-	public float player2BarXInit;
-	public float player1BarXInit;
-	
-
+	public static Texture bar1Img1;
+	public static Texture bar1Img2;
+	public static Texture bar2Img1;
+	public static Texture bar2Img2;
+	public static Texture bar3Img1;
+	public static Texture bar3Img2;
+	public static Texture bar4Img1;
+	public static Texture bar4Img2;
+	public static Texture bar5Img1;
+	public static Texture bar5Img2;
+	public static Texture bar6Img1;
+	public static Texture bar6Img2;
+	public static Texture bar7Img1;
+	public static Texture bar7Img2;
 	
 	public static BitmapFont bar1Score_bitmap;
 	public static BitmapFont bar2Score_bitmap;
@@ -34,31 +41,46 @@ public class GameScreen extends ScreenAdapter {
 	static GlyphLayout bar2Score;
 	static GlyphLayout ending;
 	
-	static float fontsize = 5;
+	public static int width = 1920;
+	public static int height = 1000;
+	static float fontsize = 7;
 	static float endingfontsize = 10;
 	
 	public GameScreen(PongGame pongGame) {
 		GameScreen.pongGame = pongGame;
 		
-		barImg1 = new Texture("normalBarP1.png");
-		barImg2 = new Texture("normalBarP2.png");
+		bar1Img1 = new Texture("normalBar1P1.png");
+		bar1Img2 = new Texture("normalBar1P2.png");
+		bar2Img1 = new Texture("normalBar2P1.png");
+		bar2Img2 = new Texture("normalBar2P2.png");
+		bar3Img1 = new Texture("normalBar3P1.png");
+		bar3Img2 = new Texture("normalBar3P2.png");
+		bar4Img1 = new Texture("normalBar4P1.png");
+		bar4Img2 = new Texture("normalBar4P2.png");
+		bar5Img1 = new Texture("normalBar5P1.png");
+		bar5Img2 = new Texture("normalBar5P2.png");
+		bar6Img1 = new Texture("normalBar6P1.png");
+		bar6Img2 = new Texture("normalBar6P2.png");
+		bar7Img1 = new Texture("normalBar7P1.png");
+		bar7Img2 = new Texture("normalBar7P2.png");
+		
+		barImg1 = bar2Img1;
+		barImg2 = bar2Img2;
 		ballImg = new Texture("normalBall_2.png");
+		fireballImg = new Texture("fireBall.png");
 		fireballAbilityImg = new Texture("fireballAbility.png");
+		abilityImg = fireballAbilityImg;
 		
 		bar1Score_bitmap = new BitmapFont();
 		bar2Score_bitmap = new BitmapFont();
 		ending_bitmap = new BitmapFont();
-		player2BarXInit = 20;
-		player1BarXInit = width -player2BarXInit -barImg1.getWidth();
 		
-		bar1 = new Bar(barImg1,player1BarXInit,Keys.UP,Keys.DOWN);
-		bar2 = new Bar(barImg2,player2BarXInit,Keys.W,Keys.S);
-		ball = new Ball();
-		ability = new Ability();
+		world = new World();
 		
-		bar1Score = new GlyphLayout(bar1Score_bitmap, Integer.toString(GameScreen.bar1.score));
-		bar2Score = new GlyphLayout(bar2Score_bitmap, Integer.toString(GameScreen.bar2.score));
+		bar1Score = new GlyphLayout(bar1Score_bitmap, Integer.toString(World.bar1.score));
+		bar2Score = new GlyphLayout(bar2Score_bitmap, Integer.toString(World.bar2.score));
 		ending = new GlyphLayout(ending_bitmap, "Player1 WIN");
+		
 		bar1Score_bitmap.getData().setScale(fontsize, fontsize);
 		bar2Score_bitmap.getData().setScale(fontsize, fontsize);
 		ending_bitmap.getData().setScale(endingfontsize, endingfontsize);
