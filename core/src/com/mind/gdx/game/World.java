@@ -17,10 +17,10 @@ public class World {
 	public World() {
 	
 		player2BarXInit = 20;
-		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.barImg1.getWidth();
+		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.bar2Img1.getWidth();
 		
-		bar1 = new Bar(GameScreen.barImg1,player1BarXInit,Keys.UP,Keys.DOWN);
-		bar2 = new Bar(GameScreen.barImg2,player2BarXInit,Keys.W,Keys.S);
+		bar1 = new Bar(GameScreen.bar2Img1,player1BarXInit,Keys.UP,Keys.DOWN);
+		bar2 = new Bar(GameScreen.bar2Img2,player2BarXInit,Keys.W,Keys.S);
 		
 		ball = new Ball();
 		
@@ -71,7 +71,15 @@ public class World {
 	
 	private static void reset(){
 		resetBall();
+		resetBats();
 		resetAbility();
+	}
+	
+	private static void resetBats() {
+		World.bar1.size = 2;
+		World.bar2.size = 2;
+		Bar.updateBarImg(1);
+		Bar.updateBarImg(2);
 	}
 	
 	private static void resetBall() {

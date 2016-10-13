@@ -12,6 +12,7 @@ public class Bar {
 	public static float width ;
 	public float y;
 	public Texture barImg;
+	public int size = 2;
 	private int pressUp;
 	private int pressDown;
 	private float speed = 20;
@@ -48,5 +49,36 @@ public class Bar {
 			position.y = 0;
 		if(position.y > GameScreen.height - width)
 			position.y = GameScreen.height - width;
+	}
+	
+	public static void updateBarImg(int player) {
+		if(player == 1 && World.bar1.size == 1)
+			World.bar1.barImg = GameScreen.bar1Img1;
+		if(player == 1 && World.bar1.size == 2)
+			World.bar1.barImg = GameScreen.bar2Img1;
+		if(player == 1 && World.bar1.size == 3)
+			World.bar1.barImg = GameScreen.bar3Img1;
+		if(player == 1 && World.bar1.size == 4)
+			World.bar1.barImg = GameScreen.bar4Img1;
+		if(player == 1 && World.bar1.size == 5)
+			World.bar1.barImg = GameScreen.bar5Img1;
+		if(player == 1 && World.bar1.size == 6)
+			World.bar1.barImg = GameScreen.bar6Img1;
+		if(player == 1 && World.bar1.size == 7)
+			World.bar1.barImg = GameScreen.bar7Img1;
+		if(player == 2 && World.bar1.size == 1)
+			World.bar2.barImg = GameScreen.bar1Img2;
+		if(player == 2 && World.bar1.size == 2)
+			World.bar2.barImg = GameScreen.bar2Img2;
+		if(player == 2 && World.bar1.size == 3)
+			World.bar2.barImg = GameScreen.bar3Img2;
+		if(player == 2 && World.bar1.size == 4)
+			World.bar2.barImg = GameScreen.bar4Img2;
+		if(player == 2 && World.bar1.size == 5)
+			World.bar2.barImg = GameScreen.bar5Img2;
+		if(player == 2 && World.bar1.size == 6)
+			World.bar2.barImg = GameScreen.bar6Img2;
+		if(player == 2 && World.bar1.size == 7)
+			World.bar2.barImg = GameScreen.bar7Img2;
 	}
 }

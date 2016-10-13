@@ -12,12 +12,14 @@ public class GameScreen extends ScreenAdapter {
 	public static World world;
 	public static WorldRenderer worldRenderer;
 	
-	public static Texture barImg1;
-	public static Texture barImg2;
+	//public static Texture barImg1;
+	//public static Texture barImg2;
 	public static Texture ballImg;
 	public static Texture fireballImg;
 	public static Texture abilityImg;
 	public static Texture fireballAbilityImg;
+	public static Texture biggerbatAbilityImg;
+	public static Texture smallerbatAbilityImg;
 	public static Texture bar1Img1;
 	public static Texture bar1Img2;
 	public static Texture bar2Img1;
@@ -64,10 +66,12 @@ public class GameScreen extends ScreenAdapter {
 		bar7Img1 = new Texture("normalBar7P1.png");
 		bar7Img2 = new Texture("normalBar7P2.png");
 		
-		barImg1 = bar2Img1;
-		barImg2 = bar2Img2;
+		//barImg1 = bar2Img1;
+		//barImg2 = bar2Img2;
 		ballImg = new Texture("normalBall_2.png");
 		fireballImg = new Texture("fireBall.png");
+		biggerbatAbilityImg = new Texture("biggerbatAbility.png");
+		smallerbatAbilityImg = new Texture("smallerbatAbility.png");
 		fireballAbilityImg = new Texture("fireballAbility.png");
 		abilityImg = fireballAbilityImg;
 		

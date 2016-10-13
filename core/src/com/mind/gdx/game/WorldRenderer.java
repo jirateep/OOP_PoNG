@@ -1,7 +1,6 @@
 package com.mind.gdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Random;
 
 public class WorldRenderer {
 	
@@ -10,7 +9,6 @@ public class WorldRenderer {
 	private static float bar2ScoreXPosition = GameScreen.width/2-200-GameScreen.bar2Score.width;
 	private static float endingXPosition;
 	private static float endingYPosition;
-	private static Random rand = new Random();
 	private static float minimumXRange = 400;
 	private static float minimumYRange = 200;
 	static float abilityXPosition = (GameScreen.width - GameScreen.fireballAbilityImg.getWidth())/2;
@@ -21,7 +19,7 @@ public class WorldRenderer {
 	public static void render() {
 		batch.begin();
 		
-		drawBars();
+		drawBats();
 		drawScores();
 		drawBall();
 		drawAbility();
@@ -34,6 +32,10 @@ public class WorldRenderer {
 		if(Ability.showAbility != Ability.NOTHING) {
 			if(Ability.showAbility == Ability.FIREBALL)
 				GameScreen.abilityImg = GameScreen.fireballAbilityImg;
+			if(Ability.showAbility == Ability.SMALLERBAT)
+				GameScreen.abilityImg = GameScreen.smallerbatAbilityImg;
+			if(Ability.showAbility == Ability.BIGGERBAT)
+				GameScreen.abilityImg = GameScreen.biggerbatAbilityImg;
 			batch.draw(GameScreen.abilityImg, abilityXPosition, abilityYPosition);
 		} else {
 			abilityXPosition = minimumXRange + (int)(Math.random() * (GameScreen.width - 2*minimumXRange)); 
@@ -65,7 +67,7 @@ public class WorldRenderer {
 			batch.draw(GameScreen.fireballImg, World.ball.position.x, World.ball.position.y);
 	}
 	
-	private static void drawBars() {
+	private static void drawBats() {
 		batch.draw(World.bar1.barImg, World.bar1.position.x, World.bar1.position.y);
 		batch.draw(World.bar2.barImg, World.bar2.position.x, World.bar2.position.y);
 	}

@@ -120,14 +120,14 @@ public class Ball {
 	public boolean hitingBar1() {
 		return (position.x > World.bar1.position.x-Ball.width &&
 				position.x < World.bar1.position.x) && 
-			   (position.y > World.bar1.position.y && 
+			   (position.y > World.bar1.position.y-50 && 
 			    position.y < World.bar1.position.y+Bar.width);
 	}
 	
 	public boolean hitingBar2() {
 		return (position.x < World.bar2.position.x+Ball.width &&  
 			    position.x > World.bar2.position.x) && 
-			   (position.y > World.bar2.position.y && 
+			   (position.y > World.bar2.position.y-50 && 
 			    position.y < World.bar2.position.y+Bar.width);
 	}
 }

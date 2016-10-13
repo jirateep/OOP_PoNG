@@ -4,10 +4,14 @@ public class Ability {
 	
 	public static int abilityTimer = 0; 
 	public static boolean startCountAbilityTimer = true;
+	
 	public static final int NOTHING = 0;
 	public static final int FIREBALL = 1;
+	public static final int BIGGERBAT = 2;
+	public static final int SMALLERBAT = 3;
+	
 	public static int showAbility = NOTHING;
-	public static int maxCount = 500;
+	public static int maxCount = 100;
 	public static int maxAbilityTime = 500;
 	public static int ballAbilityTimer = 0;
 	public static boolean startBallAbilityTimer = false;
@@ -19,7 +23,8 @@ public class Ability {
 	
 	public static void updateTimer() {
 		updateAbilityTimer();
-		updateBallAbilityTimer();
+		if(Ball.ballAbilityStatus == Ball.FIREBALL)
+			updateBallAbilityTimer();
 	}
 	
 	public static void updateBallAbilityTimer() {
@@ -40,7 +45,21 @@ public class Ability {
 		if(abilityTimer==maxCount) {
 			startCountAbilityTimer = false;
 			abilityTimer = 0;
-			updateShowAbility(FIREBALL);
+			int random = (int)(Math.random() * 1000);
+			switch (1 + random%3) {
+				case 1:
+					updateShowAbility(FIREBALL);
+					break;
+				case 2:
+					updateShowAbility(BIGGERBAT);
+					break;
+				case 3:
+					updateShowAbility(SMALLERBAT);
+					break;
+				default:
+					break;
+			}
+			
 		}
 		
 	}
@@ -59,6 +78,36 @@ public class Ability {
 		if(showAbility == FIREBALL) {
 			Ball.ballAbilityStatus=Ball.FIREBALL;
 			startBallAbilityTimer = true;
+		}
+		if(showAbility == BIGGERBAT) {
+			if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
+				if(World.bar1.size < 7) {
+					World.bar1.size++;
+					Bar.updateBarImg(1);
+				}
+			}
+			if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
+				if(World.bar2.size < 7) {
+					World.bar2.size++;
+					Bar.updateBarImg(2);
+				}
+				
+			}
+		}
+		if(showAbility == SMALLERBAT) {
+			if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
+				if(World.bar2.size > 1) {
+					World.bar2.size--;
+					Bar.updateBarImg(2);
+				}
+			}
+			if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
+				if(World.bar1.size > 1) {
+					World.bar1.size--;
+					Bar.updateBarImg(1);
+				}
+				
+			}			
 		}
 		showAbility = NOTHING;
 	}
