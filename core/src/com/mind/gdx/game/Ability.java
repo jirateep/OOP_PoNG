@@ -75,40 +75,44 @@ public class Ability {
 	}
 	
 	public static void workAbility() {
-		if(showAbility == FIREBALL) {
-			Ball.ballAbilityStatus=Ball.FIREBALL;
-			startBallAbilityTimer = true;
-		}
-		if(showAbility == BIGGERBAT) {
-			if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
-				if(World.bar1.size < 7) {
-					World.bar1.size++;
-					Bar.updateBarImg(1);
+		if(showAbility != NOTHING)  {
+			if(showAbility == FIREBALL) {
+				Ball.ballAbilityStatus=Ball.FIREBALL;
+				startBallAbilityTimer = true;
+			}
+			if(showAbility == BIGGERBAT) {
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
+					if(World.bar1.size < 7) {
+						World.bar1.size+=Bar.BIGGERBATINCREASE;
+						Bar.updateBarImg();
+						Bar.updateWidthHeight();
+					}
+				}
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
+					if(World.bar2.size < 7) {
+						World.bar2.size+=Bar.BIGGERBATINCREASE;
+						Bar.updateBarImg();
+						Bar.updateWidthHeight();
+					}
 				}
 			}
-			if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
-				if(World.bar2.size < 7) {
-					World.bar2.size++;
-					Bar.updateBarImg(2);
+			if(showAbility == SMALLERBAT) {
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
+					if(World.bar2.size > 1) {
+						World.bar2.size-=Bar.SMALLERBATDECREASE;
+						Bar.updateBarImg();
+						Bar.updateWidthHeight();
+					}
 				}
-				
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
+					if(World.bar1.size > 1) {
+						World.bar1.size-=Bar.SMALLERBATDECREASE;
+						Bar.updateBarImg();
+						Bar.updateWidthHeight();
+					}
+				}
 			}
+			showAbility = NOTHING;
 		}
-		if(showAbility == SMALLERBAT) {
-			if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
-				if(World.bar2.size > 1) {
-					World.bar2.size--;
-					Bar.updateBarImg(2);
-				}
-			}
-			if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
-				if(World.bar1.size > 1) {
-					World.bar1.size--;
-					Bar.updateBarImg(1);
-				}
-				
-			}			
-		}
-		showAbility = NOTHING;
 	}
 }

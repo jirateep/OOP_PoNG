@@ -8,11 +8,13 @@ public class Bar {
 	
 	Vector2 position;
 	public int score = 0;
-	public static float length ;
-	public static float width ;
+	public float length ;
+	public float width ;
 	public float y;
 	public Texture barImg;
 	public int size = 2;
+	public final static int BIGGERBATINCREASE = 2;
+	public final static int SMALLERBATDECREASE = 1;
 	private int pressUp;
 	private int pressDown;
 	private float speed = 20;
@@ -50,35 +52,42 @@ public class Bar {
 		if(position.y > GameScreen.height - width)
 			position.y = GameScreen.height - width;
 	}
-	
-	public static void updateBarImg(int player) {
-		if(player == 1 && World.bar1.size == 1)
+
+	public static void updateBarImg() {
+		if(World.bar1.size == 1)
 			World.bar1.barImg = GameScreen.bar1Img1;
-		if(player == 1 && World.bar1.size == 2)
+		if(World.bar1.size == 2)
 			World.bar1.barImg = GameScreen.bar2Img1;
-		if(player == 1 && World.bar1.size == 3)
+		if(World.bar1.size == 3)
 			World.bar1.barImg = GameScreen.bar3Img1;
-		if(player == 1 && World.bar1.size == 4)
+		if(World.bar1.size == 4)
 			World.bar1.barImg = GameScreen.bar4Img1;
-		if(player == 1 && World.bar1.size == 5)
+		if(World.bar1.size == 5)
 			World.bar1.barImg = GameScreen.bar5Img1;
-		if(player == 1 && World.bar1.size == 6)
+		if(World.bar1.size == 6)
 			World.bar1.barImg = GameScreen.bar6Img1;
-		if(player == 1 && World.bar1.size == 7)
+		if(World.bar1.size == 7)
 			World.bar1.barImg = GameScreen.bar7Img1;
-		if(player == 2 && World.bar1.size == 1)
+		if(World.bar2.size == 1)
 			World.bar2.barImg = GameScreen.bar1Img2;
-		if(player == 2 && World.bar1.size == 2)
+		if(World.bar2.size == 2)
 			World.bar2.barImg = GameScreen.bar2Img2;
-		if(player == 2 && World.bar1.size == 3)
+		if(World.bar2.size == 3)
 			World.bar2.barImg = GameScreen.bar3Img2;
-		if(player == 2 && World.bar1.size == 4)
+		if(World.bar2.size == 4)
 			World.bar2.barImg = GameScreen.bar4Img2;
-		if(player == 2 && World.bar1.size == 5)
+		if(World.bar2.size == 5)
 			World.bar2.barImg = GameScreen.bar5Img2;
-		if(player == 2 && World.bar1.size == 6)
+		if(World.bar2.size == 6)
 			World.bar2.barImg = GameScreen.bar6Img2;
-		if(player == 2 && World.bar1.size == 7)
+		if(World.bar2.size == 7)
 			World.bar2.barImg = GameScreen.bar7Img2;
+	}	
+	public static void updateWidthHeight() {
+		World.bar1.length = World.bar1.barImg.getWidth();
+		World.bar1.width = World.bar1.barImg.getHeight();
+		World.bar2.length = World.bar2.barImg.getWidth();
+		World.bar2.width = World.bar2.barImg.getHeight();	
 	}
+
 }

@@ -10,7 +10,6 @@ public class Ball {
 	
 	public static float dilimiter = GameScreen.ballImg.getHeight();
 	public static float radius = dilimiter/2;
-	public static float width = GameScreen.ballImg.getWidth();
 
 	public static final int FIREBALL = 1;
 	public static final int NOTHING = 0;
@@ -66,7 +65,7 @@ public class Ball {
 	}
 
 	static void updateSpeed() {
-		speed *= 1.000001;
+		speed *= 1.00001;
 		getSpeed();
 	}
 	
@@ -82,11 +81,11 @@ public class Ball {
 	
 	static void updateStartingPosition() {
 		if(hitStatusLeftRight == hitPlayer2) {
-			startingX = World.bar2.position.x+Bar.length;
-			startingY = World.bar2.position.y+Bar.width/2-radius;
+			startingX = World.bar2.position.x+Ball.dilimiter;
+			startingY = World.bar2.position.y+World.bar2.width/2-radius;
 		}else if (hitStatusLeftRight == hitPlayer1) {
-			startingX = World.bar1.position.x-Ball.width;
-			startingY = World.bar1.position.y+Bar.width/2-radius;
+			startingX = World.bar1.position.x-Ball.dilimiter;
+			startingY = World.bar1.position.y+World.bar1.width/2-radius;
 		}
 	}
 	
@@ -118,16 +117,16 @@ public class Ball {
 	}
 	
 	public boolean hitingBar1() {
-		return (position.x > World.bar1.position.x-Ball.width &&
+		return (position.x > World.bar1.position.x-Ball.dilimiter &&
 				position.x < World.bar1.position.x) && 
-			   (position.y > World.bar1.position.y-50 && 
-			    position.y < World.bar1.position.y+Bar.width);
+			   (position.y > World.bar1.position.y-Ball.dilimiter && 
+			    position.y < World.bar1.position.y+World.bar1.width);
 	}
 	
 	public boolean hitingBar2() {
-		return (position.x < World.bar2.position.x+Ball.width &&  
+		return (position.x < World.bar2.position.x+Ball.dilimiter &&  
 			    position.x > World.bar2.position.x) && 
-			   (position.y > World.bar2.position.y-50 && 
-			    position.y < World.bar2.position.y+Bar.width);
+			   (position.y > World.bar2.position.y-Ball.dilimiter && 
+			    position.y < World.bar2.position.y+World.bar2.width);
 	}
 }

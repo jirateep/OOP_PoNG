@@ -78,8 +78,8 @@ public class World {
 	private static void resetBats() {
 		World.bar1.size = 2;
 		World.bar2.size = 2;
-		Bar.updateBarImg(1);
-		Bar.updateBarImg(2);
+		Bar.updateBarImg();
+		Bar.updateWidthHeight();
 	}
 	
 	private static void resetBall() {
