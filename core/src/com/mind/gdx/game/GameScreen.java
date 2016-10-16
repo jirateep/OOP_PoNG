@@ -12,6 +12,8 @@ public class GameScreen extends ScreenAdapter {
 	public static World world;
 	public static WorldRenderer worldRenderer;
 	
+	public static Texture forzenBulletImg1;
+	public static Texture forzenBulletImg2;
 	public static Texture ballImg;
 	public static Texture fireballImg;
 	public static Texture abilityImg;
@@ -34,6 +36,20 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture bar6Img2;
 	public static Texture bar7Img1;
 	public static Texture bar7Img2;
+	public static Texture bar1FImg1;
+	public static Texture bar1FImg2;
+	public static Texture bar2FImg1;
+	public static Texture bar2FImg2;
+	public static Texture bar3FImg1;
+	public static Texture bar3FImg2;
+	public static Texture bar4FImg1;
+	public static Texture bar4FImg2;
+	public static Texture bar5FImg1;
+	public static Texture bar5FImg2;
+	public static Texture bar6FImg1;
+	public static Texture bar6FImg2;
+	public static Texture bar7FImg1;
+	public static Texture bar7FImg2;
 	
 	public static BitmapFont bar1Score_bitmap;
 	public static BitmapFont bar2Score_bitmap;
@@ -65,10 +81,27 @@ public class GameScreen extends ScreenAdapter {
 		bar6Img2 = new Texture("normalBar6P2.png");
 		bar7Img1 = new Texture("normalBar7P1.png");
 		bar7Img2 = new Texture("normalBar7P2.png");
+		bar1FImg1 = new Texture("normalBar1FP1.png");
+		bar1FImg2 = new Texture("normalBar1FP2.png");
+		bar2FImg1 = new Texture("normalBar2FP1.png");
+		bar2FImg2 = new Texture("normalBar2FP2.png");
+		bar3FImg1 = new Texture("normalBar3FP1.png");
+		bar3FImg2 = new Texture("normalBar3FP2.png");
+		bar4FImg1 = new Texture("normalBar4FP1.png");
+		bar4FImg2 = new Texture("normalBar4FP2.png");
+		bar5FImg1 = new Texture("normalBar5FP1.png");
+		bar5FImg2 = new Texture("normalBar5FP2.png");
+		bar6FImg1 = new Texture("normalBar6FP1.png");
+		bar6FImg2 = new Texture("normalBar6FP2.png");
+		bar7FImg1 = new Texture("normalBar7FP1.png");
+		bar7FImg2 = new Texture("normalBar7FP2.png");
 		
 		//ballImg = new Texture("newNormalBall.png");
 		ballImg = new Texture("normalBall.png");
 		fireballImg = new Texture("fireBall.png");
+		
+		forzenBulletImg1 = new Texture("forzenBulletP1.png");
+		forzenBulletImg2 = new Texture("forzenBulletP2.png");
 		
 		forzenbulletAbilityImg = new Texture("forzenAbility.png");
 		biggerbatAbilityImg = new Texture("biggerbatAbility.png");

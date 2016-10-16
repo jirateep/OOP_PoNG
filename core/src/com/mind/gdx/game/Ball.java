@@ -1,7 +1,6 @@
 package com.mind.gdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ball {
@@ -19,7 +18,8 @@ public class Ball {
 	public static float speed = INITSPEED;
 	public static float speedX;
 	public static float speedY;
-	public static float fireballSpeedFactor = 1.6f;
+	public static float fireballSpeedFactor = 1.3f;
+	public static float speedIncreaseFactor = 1.0001f;
 	
 	private static float startingX ;
 	private static float startingY ;
@@ -73,7 +73,7 @@ public class Ball {
 	}
 
 	static void updateSpeed() {
-		speed *= 1.0001;
+		speed *= speedIncreaseFactor;
 		getSpeed();
 	}
 	

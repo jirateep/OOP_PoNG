@@ -23,9 +23,23 @@ public class WorldRenderer {
 		drawScores();
 		drawBall();
 		drawAbility();
+		drawBullet();
 		whenEndGame();
 		
 		batch.end();
+	}
+	
+	private static void drawBullet() {
+		for(int i=0;i<World.bullets.length;i++) {
+			if(World.bullets[i]!=null) {
+				if(World.bullets[i].owner == Bullet.PLAYER1) {
+					batch.draw(GameScreen.forzenBulletImg1, World.bullets[i].xPosition, World.bullets[i].yPosition);
+				}
+				if(World.bullets[i].owner == Bullet.PLAYER2) {
+					batch.draw(GameScreen.forzenBulletImg2, World.bullets[i].xPosition, World.bullets[i].yPosition);
+				}	
+			}
+		}
 	}
 	
 	private static void drawAbility() {

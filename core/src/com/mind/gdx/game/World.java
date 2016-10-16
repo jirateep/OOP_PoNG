@@ -10,6 +10,8 @@ public class World {
 	public static Bar bar2;
 	public static Ball ball;
 	public static Ability ability;
+	public static int maxBullet = 20;
+	public static Bullet [] bullets;
 	
 	public float player2BarXInit;
 	public float player1BarXInit;
@@ -26,19 +28,54 @@ public class World {
 		
 		ability = new Ability();
 		
+		bullets = new Bullet [maxBullet];
+		
+		for(int i = 0;i<bullets.length;i++) {
+			bullets[i] = null;
+		}
+		
 	}
 	
 	public static void update() {	
 		bar1.update();
 		bar2.update();
 		ball.update();
+		Bullet.update();
 		Ability.update();
-		hitAbility();
+		ballHitAbility();
+		bulletHitBar();
 		scoreUpdate();
 		checkEnding();
 	}
 	
-	private static void hitAbility() {
+	private static void bulletHitBar() {
+		for(int i=0;i<bullets.length;i++) {
+			if(bullets[i]!=null) {
+				if(bullets[i].owner == Bullet.PLAYER1) {
+					if(bullets[i].xPosition < bar2.position.x+bar2.length) {
+						if(bullets[i].yPosition >= bar2.position.y && bullets[i].yPosition <= bar2.position.y+bar2.width) {
+							bar2.forzenStatus = true;
+							Bar.updateBarImg();
+							Bar.updateWidthHeight();
+						}
+						bullets[i] = null;
+					}
+				}else if(bullets[i].owner == Bullet.PLAYER2) {
+					if(bullets[i].xPosition > bar1.position.x-GameScreen.forzenBulletImg2.getWidth()) {
+						if(bullets[i].yPosition >= bar1.position.y && bullets[i].yPosition <= bar1.position.y+bar1.width) {
+							bar1.forzenStatus = true;
+							Bar.updateBarImg();
+							Bar.updateWidthHeight();
+						}
+						bullets[i] = null;
+					}
+				}
+				
+			}
+		}
+	}
+	
+	private static void ballHitAbility() {
 		if(checkhitAbility()) {
 			Ability.workAbility();			
 		}
@@ -49,7 +86,7 @@ public class World {
 		float ballYCenter = ball.position.y + Ball.radius;
 		float abilityXCenter = WorldRenderer.abilityXPosition+(GameScreen.abilityImg.getWidth()/2);
 		float abilityYCenter = WorldRenderer.abilityYPosition+(GameScreen.abilityImg.getHeight()/2);
-		float checkingRadius = Ball.radius+(GameScreen.abilityImg.getWidth()/2)+10;
+		float checkingRadius = Ball.radius+(GameScreen.abilityImg.getWidth()/2)+20;
 		float abilityXLowerBand = abilityXCenter-checkingRadius;
 		float abilityXUpperBand = abilityXCenter+checkingRadius;
 		if(ballXCenter > abilityXLowerBand &&
@@ -87,6 +124,10 @@ public class World {
 		World.bar2.size = 2;
 		World.bar1.forzenBullet = 0;
 		World.bar2.forzenBullet = 0;
+		World.bar1.forzenStatus = false;
+		World.bar2.forzenStatus = false;
+		World.bar1.barAbilityStatus = Bar.NOTHING;
+		World.bar2.barAbilityStatus = Bar.NOTHING;
 		Bar.updateBarImg();
 		Bar.updateWidthHeight();
 	}

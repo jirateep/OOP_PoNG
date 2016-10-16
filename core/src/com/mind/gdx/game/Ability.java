@@ -13,7 +13,7 @@ public class Ability {
 	public static int numberOfAbility = 4;
 	
 	public static int showAbility = NOTHING;
-	public static int maxCount = 100;
+	public static int maxCount = 200;
 	public static int maxAbilityTime = 500;
 	public static int ballAbilityTimer = 0;
 	public static boolean startBallAbilityTimer = false;
@@ -125,9 +125,11 @@ public class Ability {
 			if(showAbility == FORZENBULLET) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
 						World.bar1.forzenBullet = Bar.maxForzenBullet;
+						World.bar1.barAbilityStatus = Bar.FORZENBULLET;
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
 						World.bar2.forzenBullet = Bar.maxForzenBullet;
+						World.bar2.barAbilityStatus = Bar.FORZENBULLET;
 				}
 			}
 			showAbility = NOTHING;
