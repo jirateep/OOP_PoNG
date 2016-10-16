@@ -9,6 +9,8 @@ public class Ability {
 	public static final int FIREBALL = 1;
 	public static final int BIGGERBAT = 2;
 	public static final int SMALLERBAT = 3;
+	public static final int FORZENBULLET = 4;
+	public static int numberOfAbility = 4;
 	
 	public static int showAbility = NOTHING;
 	public static int maxCount = 100;
@@ -46,7 +48,7 @@ public class Ability {
 			startCountAbilityTimer = false;
 			abilityTimer = 0;
 			int random = (int)(Math.random() * 1000);
-			switch (1 + random%3) {
+			switch (1 + random%numberOfAbility) {
 				case 1:
 					updateShowAbility(FIREBALL);
 					break;
@@ -55,6 +57,9 @@ public class Ability {
 					break;
 				case 3:
 					updateShowAbility(SMALLERBAT);
+					break;
+				case 4:
+					updateShowAbility(FORZENBULLET);
 					break;
 				default:
 					break;
@@ -79,37 +84,50 @@ public class Ability {
 			if(showAbility == FIREBALL) {
 				Ball.ballAbilityStatus=Ball.FIREBALL;
 				startBallAbilityTimer = true;
+				ballAbilityTimer = 0;	
 			}
 			if(showAbility == BIGGERBAT) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
-					if(World.bar1.size < 7) {
-						World.bar1.size+=Bar.BIGGERBATINCREASE;
-						Bar.updateBarImg();
-						Bar.updateWidthHeight();
+					World.bar1.size+=Bar.BIGGERBATINCREASE;
+					Bar.updateBarImg();
+					Bar.updateWidthHeight();
+					if(World.bar1.size > Bar.maxSize) {
+						World.bar1.size = Bar.maxSize;
 					}
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
-					if(World.bar2.size < 7) {
-						World.bar2.size+=Bar.BIGGERBATINCREASE;
-						Bar.updateBarImg();
-						Bar.updateWidthHeight();
+					World.bar2.size+=Bar.BIGGERBATINCREASE;
+					Bar.updateBarImg();
+					Bar.updateWidthHeight();
+					if(World.bar2.size > Bar.maxSize) {
+						World.bar2.size = Bar.maxSize;
 					}
 				}
 			}
 			if(showAbility == SMALLERBAT) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
-					if(World.bar2.size > 1) {
-						World.bar2.size-=Bar.SMALLERBATDECREASE;
-						Bar.updateBarImg();
-						Bar.updateWidthHeight();
+					World.bar2.size-=Bar.SMALLERBATDECREASE;
+					Bar.updateBarImg();
+					Bar.updateWidthHeight();
+					if(World.bar2.size < Bar.minSize) {
+						World.bar2.size = Bar.minSize;
 					}
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
-					if(World.bar1.size > 1) {
-						World.bar1.size-=Bar.SMALLERBATDECREASE;
-						Bar.updateBarImg();
-						Bar.updateWidthHeight();
+					World.bar1.size-=Bar.SMALLERBATDECREASE;
+					Bar.updateBarImg();
+					Bar.updateWidthHeight();
+					if(World.bar1.size > Bar.minSize) {
+						World.bar1.size = Bar.minSize;
 					}
+				}
+			}
+			if(showAbility == FORZENBULLET) {
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
+						World.bar1.forzenBullet = Bar.maxForzenBullet;
+				}
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
+						World.bar2.forzenBullet = Bar.maxForzenBullet;
 				}
 			}
 			showAbility = NOTHING;

@@ -19,8 +19,8 @@ public class World {
 		player2BarXInit = 20;
 		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.bar2Img1.getWidth();
 		
-		bar1 = new Bar(GameScreen.bar2Img1,player1BarXInit,Keys.UP,Keys.DOWN);
-		bar2 = new Bar(GameScreen.bar2Img2,player2BarXInit,Keys.W,Keys.S);
+		bar1 = new Bar(GameScreen.bar2Img1,player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER);
+		bar2 = new Bar(GameScreen.bar2Img2,player2BarXInit,Keys.W,Keys.S,Keys.SPACE);
 		
 		ball = new Ball();
 		
@@ -33,12 +33,18 @@ public class World {
 		bar2.update();
 		ball.update();
 		Ability.update();
-		checkhitAbility();
+		hitAbility();
 		scoreUpdate();
 		checkEnding();
 	}
 	
-	private static void checkhitAbility() {
+	private static void hitAbility() {
+		if(checkhitAbility()) {
+			Ability.workAbility();			
+		}
+	}
+	
+	private static boolean checkhitAbility() {
 		float ballXCenter = ball.position.x + Ball.radius;
 		float ballYCenter = ball.position.y + Ball.radius;
 		float abilityXCenter = WorldRenderer.abilityXPosition+(GameScreen.abilityImg.getWidth()/2);
@@ -50,26 +56,27 @@ public class World {
 		   ballXCenter < abilityXUpperBand &&
 		   ballYCenter < Math.sqrt(Math.pow(checkingRadius,2)-Math.pow(ball.position.x-abilityXCenter,2))+abilityYCenter &&
 		   ballYCenter > -Math.sqrt(Math.pow(checkingRadius,2)-Math.pow(ball.position.x-abilityXCenter,2))+abilityYCenter) {
-			Ability.workAbility();
+			return true;
 		}
+		return false;
 	}
 	private static void scoreUpdate(){
 		if(ball.position.x < 0) {
-			bar1.score+=1;
+			bar1.score += 1;
 			//System.out.println("bar1 score = "+GameScreen.bar1.score);
 			Ball.hitStatusLeftRight = Ball.hitPlayer2;
 			reset();
 			
 		}
 		else if(ball.position.x > GameScreen.width) {
-			bar2.score+=1;
+			bar2.score += 1;
 			//System.out.println("bar2 score = "+GameScreen.bar2.score);
 			Ball.hitStatusLeftRight = Ball.hitPlayer1;
 			reset();
 		}
 	}
 	
-	private static void reset(){
+	private static void reset() {
 		resetBall();
 		resetBats();
 		resetAbility();
@@ -78,6 +85,8 @@ public class World {
 	private static void resetBats() {
 		World.bar1.size = 2;
 		World.bar2.size = 2;
+		World.bar1.forzenBullet = 0;
+		World.bar2.forzenBullet = 0;
 		Bar.updateBarImg();
 		Bar.updateWidthHeight();
 	}
@@ -97,8 +106,8 @@ public class World {
 		Ability.showAbility = Ability.NOTHING;
 	}
 	
-	private static void checkEnding(){
-		if(bar1.score==maxScore || bar2.score==maxScore){
+	private static void checkEnding() {
+		if(bar1.score == maxScore || bar2.score == maxScore){
 			endGame = true;
 			Ball.moveStatus = false;
 		}

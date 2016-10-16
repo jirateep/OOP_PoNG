@@ -19,7 +19,7 @@ public class Ball {
 	public static float speed = INITSPEED;
 	public static float speedX;
 	public static float speedY;
-	public static float fireballSpeedFactor = 1.5f;
+	public static float fireballSpeedFactor = 1.6f;
 	
 	private static float startingX ;
 	private static float startingY ;
@@ -39,6 +39,7 @@ public class Ball {
 		position = new Vector2(startingX,startingY);
 		getSpeed();
 	}
+	
 	public void update() {
 		if(!moveStatus&&!World.endGame) {
 			checkStartMove();
@@ -47,8 +48,15 @@ public class Ball {
 	}
 	
 	public void checkStartMove() {
-		if(Gdx.input.isKeyPressed(Keys.SPACE)) {
-			moveStatus = true;
+		if(hitStatusLeftRight == hitPlayer1) {
+			if(Gdx.input.isKeyPressed(World.bar1.pressActive)) {
+				moveStatus = true;
+			}
+		}
+		if(hitStatusLeftRight == hitPlayer2) {
+			if(Gdx.input.isKeyPressed(World.bar2.pressActive)) {
+				moveStatus = true;
+			}
 		}
 	}
 	
@@ -65,7 +73,7 @@ public class Ball {
 	}
 
 	static void updateSpeed() {
-		speed *= 1.00001;
+		speed *= 1.0001;
 		getSpeed();
 	}
 	
@@ -81,7 +89,7 @@ public class Ball {
 	
 	static void updateStartingPosition() {
 		if(hitStatusLeftRight == hitPlayer2) {
-			startingX = World.bar2.position.x+Ball.dilimiter;
+			startingX = World.bar2.position.x+World.bar2.length;
 			startingY = World.bar2.position.y+World.bar2.width/2-radius;
 		}else if (hitStatusLeftRight == hitPlayer1) {
 			startingX = World.bar1.position.x-Ball.dilimiter;
@@ -124,7 +132,7 @@ public class Ball {
 	}
 	
 	public boolean hitingBar2() {
-		return (position.x < World.bar2.position.x+Ball.dilimiter &&  
+		return (position.x < World.bar2.position.x+World.bar2.length &&  
 			    position.x > World.bar2.position.x) && 
 			   (position.y > World.bar2.position.y-Ball.dilimiter && 
 			    position.y < World.bar2.position.y+World.bar2.width);

@@ -12,13 +12,28 @@ public class Bar {
 	public float width ;
 	public float y;
 	public Texture barImg;
+	
+	public static int maxSize = 7;
+	public static int minSize = 1;
 	public int size = 2;
-	public final static int BIGGERBATINCREASE = 2;
-	public final static int SMALLERBATDECREASE = 1;
+	public static final int BIGGERBATINCREASE = 2;
+	public static final int SMALLERBATDECREASE = 1;
+	
+	int pressActive;
 	private int pressUp;
 	private int pressDown;
 	private float speed = 20;
-	public Bar(Texture barImg,float x,int up,int down) {
+	
+	public static final int FORZENBULLET = 1;
+	public static final int NOTHING = 0;
+	public int barAbilityStatus = NOTHING;
+	
+	public int forzenBullet = 0;
+	public boolean forzenStatus = false;
+	public int forzenSpeedFactor = 2;
+	public static int maxForzenBullet = 3;
+	
+	public Bar(Texture barImg,float x,int up,int down,int active) {
 		this.barImg = barImg;
 		length = barImg.getWidth();
 		width = barImg.getHeight();
@@ -26,6 +41,8 @@ public class Bar {
 		position = new Vector2(x,y);
 		pressUp = up;
 		pressDown = down;
+		pressActive = active;
+		
 	}
 	
 	public Vector2 getPosition() {
@@ -33,19 +50,48 @@ public class Bar {
 	}
 	
 	public void update() {
-		if(!World.endGame)
+		if(!World.endGame) {
 			move();
+			shoot();
+		}
+	}
+	
+	public void shoot() {
+		if(Ball.moveStatus) {
+			if(Gdx.input.isKeyJustPressed(pressActive)) {
+				forzenBullet--;
+				/////////////////////////////////////////
+			}
+		}
 	}
 	
 	private void move() {
-		if(Gdx.input.isKeyPressed(pressUp)){
-			position.y+=speed;
-		}
-		if(Gdx.input.isKeyPressed(pressDown)){
-			position.y-=speed;
+		if(!forzenStatus) {
+			normalMove();
+		}else if(forzenStatus) {
+			forzenMove();
 		}
 		moveScope();
 	}
+	
+	private void normalMove() {
+		if(Gdx.input.isKeyPressed(pressUp)) {
+			position.y += speed;
+		}
+		if(Gdx.input.isKeyPressed(pressDown)) {
+			position.y -= speed;
+		}
+	}
+	
+	private void forzenMove() {
+		if(Gdx.input.isKeyPressed(pressUp)) {
+			position.y += speed/forzenSpeedFactor;
+		}
+		if(Gdx.input.isKeyPressed(pressDown)) {
+			position.y -= speed/forzenSpeedFactor;
+		}
+	}
+	
 	private void moveScope() {
 		if(position.y < 0)
 			position.y = 0;
@@ -80,9 +126,11 @@ public class Bar {
 			World.bar2.barImg = GameScreen.bar5Img2;
 		if(World.bar2.size == 6)
 			World.bar2.barImg = GameScreen.bar6Img2;
-		if(World.bar2.size == 7)
+		if(World.bar2.size == 7) {
 			World.bar2.barImg = GameScreen.bar7Img2;
+		}
 	}	
+	
 	public static void updateWidthHeight() {
 		World.bar1.length = World.bar1.barImg.getWidth();
 		World.bar1.width = World.bar1.barImg.getHeight();

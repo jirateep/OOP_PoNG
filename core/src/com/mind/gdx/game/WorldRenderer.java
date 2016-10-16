@@ -30,12 +30,18 @@ public class WorldRenderer {
 	
 	private static void drawAbility() {
 		if(Ability.showAbility != Ability.NOTHING) {
-			if(Ability.showAbility == Ability.FIREBALL)
+			if(Ability.showAbility == Ability.FIREBALL) {
 				GameScreen.abilityImg = GameScreen.fireballAbilityImg;
-			if(Ability.showAbility == Ability.SMALLERBAT)
+			}
+			if(Ability.showAbility == Ability.SMALLERBAT) {
 				GameScreen.abilityImg = GameScreen.smallerbatAbilityImg;
-			if(Ability.showAbility == Ability.BIGGERBAT)
+			}
+			if(Ability.showAbility == Ability.BIGGERBAT) {
 				GameScreen.abilityImg = GameScreen.biggerbatAbilityImg;
+			}
+			if(Ability.showAbility == Ability.FORZENBULLET) {
+				GameScreen.abilityImg = GameScreen.forzenbulletAbilityImg;
+			}
 			batch.draw(GameScreen.abilityImg, abilityXPosition, abilityYPosition);
 		} else {
 			abilityXPosition = minimumXRange + (int)(Math.random() * (GameScreen.width - 2*minimumXRange)); 
@@ -61,15 +67,40 @@ public class WorldRenderer {
 	}
 	
 	private static void drawBall() {
-		if(Ball.ballAbilityStatus==Ball.NOTHING)
+		if(Ball.ballAbilityStatus==Ball.NOTHING) {
 				batch.draw(GameScreen.ballImg, World.ball.position.x, World.ball.position.y);
-		else if(Ball.ballAbilityStatus==Ball.FIREBALL)
+		}
+		else if(Ball.ballAbilityStatus==Ball.FIREBALL) {
 			batch.draw(GameScreen.fireballImg, World.ball.position.x, World.ball.position.y);
+		}
 	}
 	
 	private static void drawBats() {
 		batch.draw(World.bar1.barImg, World.bar1.position.x, World.bar1.position.y);
 		batch.draw(World.bar2.barImg, World.bar2.position.x, World.bar2.position.y);
+		drawForzenBullet();
+	}
+	
+	private static void drawForzenBullet() {
+		drawingForzenBullet(World.bar1);
+		drawingForzenBullet(World.bar2);
+	}
+	
+	private static void drawingForzenBullet(Bar bar) {
+		float showForzenBulletDilimiter = GameScreen.showForzenBulletImg.getWidth();
+		float showForzenBulletRadius = showForzenBulletDilimiter/2;
+		float distanceBetween = 4;
+		float xPosition = bar.position.x + bar.length/2 - showForzenBulletRadius;
+		if(bar.forzenBullet == 1) {
+			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-showForzenBulletRadius);
+		}else if(bar.forzenBullet == 2) {
+			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2+distanceBetween/2);
+			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-distanceBetween/2-showForzenBulletDilimiter);
+		}else if(bar.forzenBullet == 3) {
+			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2+showForzenBulletRadius+distanceBetween);
+			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-showForzenBulletRadius);
+			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-3*showForzenBulletRadius-distanceBetween);
+		}
 	}
 	
 	private static void drawScores() {

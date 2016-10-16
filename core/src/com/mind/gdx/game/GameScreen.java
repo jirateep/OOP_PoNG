@@ -12,14 +12,14 @@ public class GameScreen extends ScreenAdapter {
 	public static World world;
 	public static WorldRenderer worldRenderer;
 	
-	//public static Texture barImg1;
-	//public static Texture barImg2;
 	public static Texture ballImg;
 	public static Texture fireballImg;
 	public static Texture abilityImg;
 	public static Texture fireballAbilityImg;
 	public static Texture biggerbatAbilityImg;
 	public static Texture smallerbatAbilityImg;
+	public static Texture forzenbulletAbilityImg;
+	public static Texture showForzenBulletImg;
 	public static Texture bar1Img1;
 	public static Texture bar1Img2;
 	public static Texture bar2Img1;
@@ -66,15 +66,17 @@ public class GameScreen extends ScreenAdapter {
 		bar7Img1 = new Texture("normalBar7P1.png");
 		bar7Img2 = new Texture("normalBar7P2.png");
 		
-		//barImg1 = bar2Img1;
-		//barImg2 = bar2Img2;
-		ballImg = new Texture("normalBall_2.png");
+		//ballImg = new Texture("newNormalBall.png");
+		ballImg = new Texture("normalBall.png");
 		fireballImg = new Texture("fireBall.png");
+		
+		forzenbulletAbilityImg = new Texture("forzenAbility.png");
 		biggerbatAbilityImg = new Texture("biggerbatAbility.png");
 		smallerbatAbilityImg = new Texture("smallerbatAbility.png");
 		fireballAbilityImg = new Texture("fireballAbility.png");
 		abilityImg = fireballAbilityImg;
 		
+		showForzenBulletImg = new Texture("showForzenBullet.png");
 		bar1Score_bitmap = new BitmapFont();
 		bar2Score_bitmap = new BitmapFont();
 		ending_bitmap = new BitmapFont();
@@ -91,7 +93,7 @@ public class GameScreen extends ScreenAdapter {
 	}
 	
 	@Override
-	public void render(float delta){
+	public void render(float delta) {
 		//System.out.println("Hello" + delta);
 		World.update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
