@@ -55,8 +55,8 @@ public class World {
 					if(bullets[i].xPosition < bar2.position.x+bar2.length) {
 						if(bullets[i].yPosition >= bar2.position.y && bullets[i].yPosition <= bar2.position.y+bar2.width) {
 							bar2.forzenStatus = true;
-							Bar.updateBarImg();
-							Bar.updateWidthHeight();
+							//Bar.updateBarImg();
+							//Bar.updateWidthHeight();
 						}
 						bullets[i] = null;
 					}
@@ -64,8 +64,8 @@ public class World {
 					if(bullets[i].xPosition > bar1.position.x-GameScreen.forzenBulletImg2.getWidth()) {
 						if(bullets[i].yPosition >= bar1.position.y && bullets[i].yPosition <= bar1.position.y+bar1.width) {
 							bar1.forzenStatus = true;
-							Bar.updateBarImg();
-							Bar.updateWidthHeight();
+							//Bar.updateBarImg();
+							//Bar.updateWidthHeight();
 						}
 						bullets[i] = null;
 					}

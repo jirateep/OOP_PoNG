@@ -89,16 +89,16 @@ public class Ability {
 			if(showAbility == BIGGERBAT) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
 					World.bar1.size+=Bar.BIGGERBATINCREASE;
-					Bar.updateBarImg();
-					Bar.updateWidthHeight();
+					//Bar.updateBarImg();
+					//Bar.updateWidthHeight();
 					if(World.bar1.size > Bar.maxSize) {
 						World.bar1.size = Bar.maxSize;
 					}
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
 					World.bar2.size+=Bar.BIGGERBATINCREASE;
-					Bar.updateBarImg();
-					Bar.updateWidthHeight();
+					//Bar.updateBarImg();
+					//Bar.updateWidthHeight();
 					if(World.bar2.size > Bar.maxSize) {
 						World.bar2.size = Bar.maxSize;
 					}
@@ -107,16 +107,16 @@ public class Ability {
 			if(showAbility == SMALLERBAT) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
 					World.bar2.size-=Bar.SMALLERBATDECREASE;
-					Bar.updateBarImg();
-					Bar.updateWidthHeight();
+					//Bar.updateBarImg();
+					//Bar.updateWidthHeight();
 					if(World.bar2.size < Bar.minSize) {
 						World.bar2.size = Bar.minSize;
 					}
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
 					World.bar1.size-=Bar.SMALLERBATDECREASE;
-					Bar.updateBarImg();
-					Bar.updateWidthHeight();
+					//Bar.updateBarImg();
+					//Bar.updateWidthHeight();
 					if(World.bar1.size > Bar.minSize) {
 						World.bar1.size = Bar.minSize;
 					}

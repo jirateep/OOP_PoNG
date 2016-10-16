@@ -28,8 +28,10 @@ public class Bar {
 	public static final int NOTHING = 0;
 	public int barAbilityStatus = NOTHING;
 	
-	public int forzenBullet = 0;
+	public int forzenBullet = 3;
 	public boolean forzenStatus = false;
+	private int forzenCount = 0;
+	private int maxForzenCount = 300; 
 	public int forzenSpeedFactor = 5;
 	public static int maxForzenBullet = 3;
 	
@@ -53,6 +55,19 @@ public class Bar {
 		if(!World.endGame) {
 			move();
 			shoot();
+			forzenTimer();
+			updateBarImg();
+			updateWidthHeight();
+		}
+	}
+	
+	public void forzenTimer() {
+		if(forzenStatus) {
+			forzenCount++;
+			if(forzenCount == maxForzenCount) {
+				forzenStatus = false;
+				forzenCount = 0;
+			}
 		}
 	}
 	
@@ -178,7 +193,7 @@ public class Bar {
 				World.bar1.barImg = GameScreen.bar7FImg1;
 			}
 		}
-		if(!World.bar1.forzenStatus) {
+		if(!World.bar2.forzenStatus) {
 			if(World.bar2.size == 1) {
 				World.bar2.barImg = GameScreen.bar1Img2;
 			}
