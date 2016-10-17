@@ -114,7 +114,7 @@ public class GameScreen extends ScreenAdapter {
 		biggerbatAbilityImg = new Texture("biggerbatAbility.png");
 		smallerbatAbilityImg = new Texture("smallerbatAbility.png");
 		fireballAbilityImg = new Texture("fireballAbility.png");
-		shieldAbilityImg = new Texture("shieldAbiity.png");
+		shieldAbilityImg = new Texture("shieldAbility.png");
 		abilityImg = fireballAbilityImg;
 		
 		showForzenBulletImg = new Texture("showForzenBullet.png");
