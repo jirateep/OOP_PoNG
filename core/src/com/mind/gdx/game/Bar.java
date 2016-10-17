@@ -69,7 +69,7 @@ public class Bar {
 	public void shieldTimer() {
 		if(shieldStatus) {
 			shieldCount++;
-			if(shieldCount == maxForzenCount) {
+			if(shieldCount == maxShieldCount) {
 				shieldStatus = false;
 				shieldCount = 0;
 			}
