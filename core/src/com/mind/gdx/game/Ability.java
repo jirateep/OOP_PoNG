@@ -10,10 +10,11 @@ public class Ability {
 	public static final int BIGGERBAT = 2;
 	public static final int SMALLERBAT = 3;
 	public static final int FORZENBULLET = 4;
-	public static int numberOfAbility = 4;
+	public static final int SHIELD = 5;
+	public static int numberOfAbility = 5;
 	
 	public static int showAbility = NOTHING;
-	public static int maxCount = 200;
+	public static int maxCount = 150;
 	public static int maxAbilityTime = 500;
 	public static int ballAbilityTimer = 0;
 	public static boolean startBallAbilityTimer = false;
@@ -61,6 +62,9 @@ public class Ability {
 				case 4:
 					updateShowAbility(FORZENBULLET);
 					break;
+				case 5:
+					updateShowAbility(SHIELD);
+					break;
 				default:
 					break;
 			}
@@ -89,16 +93,12 @@ public class Ability {
 			if(showAbility == BIGGERBAT) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
 					World.bar1.size+=Bar.BIGGERBATINCREASE;
-					//Bar.updateBarImg();
-					//Bar.updateWidthHeight();
 					if(World.bar1.size > Bar.maxSize) {
 						World.bar1.size = Bar.maxSize;
 					}
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
 					World.bar2.size+=Bar.BIGGERBATINCREASE;
-					//Bar.updateBarImg();
-					//Bar.updateWidthHeight();
 					if(World.bar2.size > Bar.maxSize) {
 						World.bar2.size = Bar.maxSize;
 					}
@@ -107,16 +107,12 @@ public class Ability {
 			if(showAbility == SMALLERBAT) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
 					World.bar2.size-=Bar.SMALLERBATDECREASE;
-					//Bar.updateBarImg();
-					//Bar.updateWidthHeight();
 					if(World.bar2.size < Bar.minSize) {
 						World.bar2.size = Bar.minSize;
 					}
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
 					World.bar1.size-=Bar.SMALLERBATDECREASE;
-					//Bar.updateBarImg();
-					//Bar.updateWidthHeight();
 					if(World.bar1.size > Bar.minSize) {
 						World.bar1.size = Bar.minSize;
 					}
@@ -130,6 +126,14 @@ public class Ability {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
 						World.bar2.forzenBullet = Bar.maxForzenBullet;
 						World.bar2.barAbilityStatus = Bar.FORZENBULLET;
+				}
+			}
+			if(showAbility == SHIELD) {
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
+					World.bar1.shieldStatus = true;
+				}
+				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
+					World.bar2.shieldStatus = true;
 				}
 			}
 			showAbility = NOTHING;

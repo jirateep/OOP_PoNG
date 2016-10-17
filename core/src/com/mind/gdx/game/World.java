@@ -126,8 +126,8 @@ public class World {
 		World.bar2.forzenBullet = 0;
 		World.bar1.forzenStatus = false;
 		World.bar2.forzenStatus = false;
-		World.bar1.barAbilityStatus = Bar.NOTHING;
-		World.bar2.barAbilityStatus = Bar.NOTHING;
+		World.bar1.shieldStatus = false;
+		World.bar2.shieldStatus = false;
 		Bar.updateBarImg();
 		Bar.updateWidthHeight();
 	}

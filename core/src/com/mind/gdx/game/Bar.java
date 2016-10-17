@@ -19,16 +19,20 @@ public class Bar {
 	public static final int BIGGERBATINCREASE = 2;
 	public static final int SMALLERBATDECREASE = 1;
 	
+	public static final int FORZENBULLET = 1;
+	public static final int NOTHING = 0;
+	public int barAbilityStatus = NOTHING;
+	
 	int pressActive;
 	private int pressUp;
 	private int pressDown;
 	private float speed = 20;
 	
-	public static final int FORZENBULLET = 1;
-	public static final int NOTHING = 0;
-	public int barAbilityStatus = NOTHING;
+	public boolean shieldStatus = false;
+	private int shieldCount = 0;
+	private int maxShieldCount = 300;
 	
-	public int forzenBullet = 3;
+	public int forzenBullet = 0;
 	public boolean forzenStatus = false;
 	private int forzenCount = 0;
 	private int maxForzenCount = 300; 
@@ -56,8 +60,19 @@ public class Bar {
 			move();
 			shoot();
 			forzenTimer();
+			shieldTimer();
 			updateBarImg();
 			updateWidthHeight();
+		}
+	}
+	
+	public void shieldTimer() {
+		if(shieldStatus) {
+			shieldCount++;
+			if(shieldCount == maxForzenCount) {
+				shieldStatus = false;
+				shieldCount = 0;
+			}
 		}
 	}
 	

@@ -21,6 +21,7 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture biggerbatAbilityImg;
 	public static Texture smallerbatAbilityImg;
 	public static Texture forzenbulletAbilityImg;
+	public static Texture shieldAbilityImg;
 	public static Texture showForzenBulletImg;
 	public static Texture bar1Img1;
 	public static Texture bar1Img2;
@@ -50,6 +51,9 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture bar6FImg2;
 	public static Texture bar7FImg1;
 	public static Texture bar7FImg2;
+	
+	public static Texture shieldImg1;
+	public static Texture shieldImg2;
 	
 	public static BitmapFont bar1Score_bitmap;
 	public static BitmapFont bar2Score_bitmap;
@@ -100,6 +104,9 @@ public class GameScreen extends ScreenAdapter {
 		ballImg = new Texture("normalBall.png");
 		fireballImg = new Texture("fireBall.png");
 		
+		shieldImg1 = new Texture("shieldP1.png");
+		shieldImg2 = new Texture("shieldP2.png");
+		
 		forzenBulletImg1 = new Texture("forzenBulletP1.png");
 		forzenBulletImg2 = new Texture("forzenBulletP2.png");
 		
@@ -107,6 +114,7 @@ public class GameScreen extends ScreenAdapter {
 		biggerbatAbilityImg = new Texture("biggerbatAbility.png");
 		smallerbatAbilityImg = new Texture("smallerbatAbility.png");
 		fireballAbilityImg = new Texture("fireballAbility.png");
+		shieldAbilityImg = new Texture("shieldAbiity.png");
 		abilityImg = fireballAbilityImg;
 		
 		showForzenBulletImg = new Texture("showForzenBullet.png");

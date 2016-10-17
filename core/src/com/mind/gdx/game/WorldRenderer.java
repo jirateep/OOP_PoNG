@@ -13,6 +13,11 @@ public class WorldRenderer {
 	private static float minimumYRange = 200;
 	static float abilityXPosition = (GameScreen.width - GameScreen.fireballAbilityImg.getWidth())/2;
 	static float abilityYPosition = (GameScreen.height - GameScreen.fireballAbilityImg.getHeight())/2;
+	static float shield1XPosition = GameScreen.width-GameScreen.shieldImg1.getWidth();
+	static float shield2XPosition = 0;
+	static float shieldYPosition = 0;
+
+	
 	
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
 	
@@ -24,9 +29,17 @@ public class WorldRenderer {
 		drawBall();
 		drawAbility();
 		drawBullet();
+		drawShield();
 		whenEndGame();
 		
 		batch.end();
+	}
+	
+	private static void drawShield() {
+		if(World.bar1.shieldStatus)
+			batch.draw(GameScreen.shieldImg1, shield1XPosition, shieldYPosition);
+		if(World.bar2.shieldStatus)
+			batch.draw(GameScreen.shieldImg2, shield2XPosition, shieldYPosition);
 	}
 	
 	private static void drawBullet() {
@@ -55,6 +68,9 @@ public class WorldRenderer {
 			}
 			if(Ability.showAbility == Ability.FORZENBULLET) {
 				GameScreen.abilityImg = GameScreen.forzenbulletAbilityImg;
+			}
+			if(Ability.showAbility == Ability.SHIELD) {
+				GameScreen.abilityImg = GameScreen.shieldAbilityImg;
 			}
 			batch.draw(GameScreen.abilityImg, abilityXPosition, abilityYPosition);
 		} else {

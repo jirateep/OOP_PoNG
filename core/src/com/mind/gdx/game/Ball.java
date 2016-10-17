@@ -63,6 +63,7 @@ public class Ball {
 	public void move() {
 		if(moveStatus) {
 			updateDirection();
+			//whileShield();
 			moving();
 			updateSpeed();
 		} else {
@@ -72,6 +73,10 @@ public class Ball {
 		}
 	}
 
+	//public void whileShield() {
+		
+	//}
+	
 	static void updateSpeed() {
 		speed *= speedIncreaseFactor;
 		getSpeed();
@@ -125,16 +130,26 @@ public class Ball {
 	}
 	
 	public boolean hitingBar1() {
-		return (position.x > World.bar1.position.x-Ball.dilimiter &&
-				position.x < World.bar1.position.x) && 
-			   (position.y > World.bar1.position.y-Ball.dilimiter && 
-			    position.y < World.bar1.position.y+World.bar1.width);
+		if(World.bar1.shieldStatus) {
+			return position.x > World.bar1.position.x-Ball.dilimiter &&
+				   position.x < World.bar1.position.x;
+		} else {
+			return (position.x > World.bar1.position.x-Ball.dilimiter &&
+					position.x < World.bar1.position.x) && 
+				   (position.y > World.bar1.position.y-Ball.dilimiter &&	 
+					position.y < World.bar1.position.y+World.bar1.width);	
+		}
 	}
 	
 	public boolean hitingBar2() {
-		return (position.x < World.bar2.position.x+World.bar2.length &&  
-			    position.x > World.bar2.position.x) && 
-			   (position.y > World.bar2.position.y-Ball.dilimiter && 
-			    position.y < World.bar2.position.y+World.bar2.width);
+		if(World.bar2.shieldStatus) {
+			return position.x < World.bar2.position.x+World.bar2.length &&  
+				   position.x > World.bar2.position.x;
+		} else {
+			return (position.x < World.bar2.position.x+World.bar2.length &&  
+					position.x > World.bar2.position.x) && 
+				   (position.y > World.bar2.position.y-Ball.dilimiter && 	
+					position.y < World.bar2.position.y+World.bar2.width);
+		}
 	}
 }
