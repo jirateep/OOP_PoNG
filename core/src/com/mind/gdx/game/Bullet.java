@@ -7,7 +7,7 @@ public class Bullet {
 	public int owner;
 	public float xPosition;
 	public float yPosition;
-	public static float speed = 30;
+	public static float speed = 50;
 	public Bullet(float x, float y, int player) {
 		xPosition = x;
 		yPosition =y;

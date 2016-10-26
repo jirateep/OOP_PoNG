@@ -19,10 +19,10 @@ public class World {
 	public World() {
 	
 		player2BarXInit = 20;
-		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.bar2Img1.getWidth();
+		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.barImg[0][1].getWidth();
 		
-		bar1 = new Bar(GameScreen.bar2Img1,player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER);
-		bar2 = new Bar(GameScreen.bar2Img2,player2BarXInit,Keys.W,Keys.S,Keys.SPACE);
+		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER);
+		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.SPACE);
 		
 		ball = new Ball();
 		
@@ -117,17 +117,24 @@ public class World {
 		resetBall();
 		resetBats();
 		resetAbility();
+		resetBullet();
+	}
+	
+	private static void resetBullet() {
+		for(int i = 0;i<bullets.length;i++) {
+			bullets[i]=null;
+		}
 	}
 	
 	private static void resetBats() {
-		World.bar1.size = 2;
-		World.bar2.size = 2;
-		World.bar1.forzenBullet = 0;
-		World.bar2.forzenBullet = 0;
-		World.bar1.forzenStatus = false;
-		World.bar2.forzenStatus = false;
-		World.bar1.shieldStatus = false;
-		World.bar2.shieldStatus = false;
+		bar1.size = 2;
+		bar2.size = 2;
+		bar1.forzenBullet = 0;
+		bar2.forzenBullet = 0;
+		bar1.forzenStatus = false;
+		bar2.forzenStatus = false;
+		bar1.shieldStatus = false;
+		bar2.shieldStatus = false;
 		Bar.updateBarImg();
 		Bar.updateWidthHeight();
 	}

@@ -14,7 +14,7 @@ public class Ability {
 	public static int numberOfAbility = 5;
 	
 	public static int showAbility = NOTHING;
-	public static int maxCount = 150;
+	public static int maxCount = 50;
 	public static int maxAbilityTime = 500;
 	public static int ballAbilityTimer = 0;
 	public static boolean startBallAbilityTimer = false;

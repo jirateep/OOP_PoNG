@@ -35,7 +35,7 @@ public class Bar {
 	public int forzenBullet = 0;
 	public boolean forzenStatus = false;
 	private int forzenCount = 0;
-	private int maxForzenCount = 300; 
+	private int maxForzenCount = 500; 
 	public int forzenSpeedFactor = 5;
 	public static int maxForzenBullet = 3;
 	
@@ -48,7 +48,6 @@ public class Bar {
 		pressUp = up;
 		pressDown = down;
 		pressActive = active;
-		
 	}
 	
 	public Vector2 getPosition() {
@@ -163,95 +162,16 @@ public class Bar {
 	}
 
 	public static void updateBarImg() {
-		if(!World.bar1.forzenStatus) {
-			if(World.bar1.size == 1) {
-				World.bar1.barImg = GameScreen.bar1Img1;
-			}
-			if(World.bar1.size == 2) {
-				World.bar1.barImg = GameScreen.bar2Img1;
-			}
-			if(World.bar1.size == 3) {
-				World.bar1.barImg = GameScreen.bar3Img1;
-			}
-			if(World.bar1.size == 4) {
-				World.bar1.barImg = GameScreen.bar4Img1;
-			}
-			if(World.bar1.size == 5) {
-				World.bar1.barImg = GameScreen.bar5Img1;
-			}
-			if(World.bar1.size == 6) {
-				World.bar1.barImg = GameScreen.bar6Img1;
-			}
-			if(World.bar1.size == 7) {
-				World.bar1.barImg = GameScreen.bar7Img1;
-			}
+		if(World.bar1.forzenStatus) {
+			World.bar1.barImg = GameScreen.barFImg[0][World.bar1.size-1];
 		}else{
-			if(World.bar1.size == 1) {
-				World.bar1.barImg = GameScreen.bar1FImg1;
-			}
-			if(World.bar1.size == 2) {
-				World.bar1.barImg = GameScreen.bar2FImg1;
-			}
-			if(World.bar1.size == 3) {
-				World.bar1.barImg = GameScreen.bar3FImg1;
-			}
-			if(World.bar1.size == 4) {
-				World.bar1.barImg = GameScreen.bar4FImg1;
-			}
-			if(World.bar1.size == 5) {
-				World.bar1.barImg = GameScreen.bar5FImg1;
-			}
-			if(World.bar1.size == 6) {
-				World.bar1.barImg = GameScreen.bar6FImg1;
-			}
-			if(World.bar1.size == 7) {
-				World.bar1.barImg = GameScreen.bar7FImg1;
-			}
+			World.bar1.barImg = GameScreen.barImg[0][World.bar1.size-1];
 		}
-		if(!World.bar2.forzenStatus) {
-			if(World.bar2.size == 1) {
-				World.bar2.barImg = GameScreen.bar1Img2;
-			}
-			if(World.bar2.size == 2) {
-				World.bar2.barImg = GameScreen.bar2Img2;
-			}
-			if(World.bar2.size == 3) {
-				World.bar2.barImg = GameScreen.bar3Img2;
-			}
-			if(World.bar2.size == 4) {
-				World.bar2.barImg = GameScreen.bar4Img2;
-			}
-			if(World.bar2.size == 5) {
-				World.bar2.barImg = GameScreen.bar5Img2;
-			}
-			if(World.bar2.size == 6) {
-				World.bar2.barImg = GameScreen.bar6Img2;
-			}
-			if(World.bar2.size == 7) {
-				World.bar2.barImg = GameScreen.bar7Img2;
-			}
-		}else {
-			if(World.bar2.size == 1) {
-				World.bar2.barImg = GameScreen.bar1FImg2;
-			}
-			if(World.bar2.size == 2) {
-				World.bar2.barImg = GameScreen.bar2FImg2;
-			}
-			if(World.bar2.size == 3) {
-				World.bar2.barImg = GameScreen.bar3FImg2;
-			}
-			if(World.bar2.size == 4) {
-				World.bar2.barImg = GameScreen.bar4FImg2;
-			}
-			if(World.bar2.size == 5) {
-				World.bar2.barImg = GameScreen.bar5FImg2;
-			}
-			if(World.bar2.size == 6) {
-				World.bar2.barImg = GameScreen.bar6FImg2;
-			}
-			if(World.bar2.size == 7) {
-				World.bar2.barImg = GameScreen.bar7FImg2;
-			}			
+		
+		if(World.bar2.forzenStatus) {
+			World.bar2.barImg = GameScreen.barFImg[1][World.bar2.size-1];
+		}else{
+			World.bar2.barImg = GameScreen.barImg[1][World.bar2.size-1];
 		}
 	}	
 	
