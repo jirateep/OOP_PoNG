@@ -76,8 +76,8 @@ public class GameScreen extends ScreenAdapter {
 		barFImg[0][6] = new Texture("normalBar7FP1.png");
 		barFImg[1][6] = new Texture("normalBar7FP2.png");
 		
-		//ballImg = new Texture("newNormalBall.png");
-		ballImg = new Texture("normalBall.png");
+		ballImg = new Texture("StrokeNormalBall.png");
+		//ballImg = new Texture("normalBall.png");
 		fireballImg = new Texture("fireBall.png");
 		
 		shieldImg1 = new Texture("shieldP1.png");

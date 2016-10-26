@@ -21,8 +21,8 @@ public class World {
 		player2BarXInit = 20;
 		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.barImg[0][1].getWidth();
 		
-		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER);
-		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.SPACE);
+		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER,1);
+		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.SPACE,2);
 		
 		ball = new Ball();
 		
@@ -86,16 +86,15 @@ public class World {
 		float ballYCenter = ball.position.y + Ball.radius;
 		float abilityXCenter = WorldRenderer.abilityXPosition+(GameScreen.abilityImg.getWidth()/2);
 		float abilityYCenter = WorldRenderer.abilityYPosition+(GameScreen.abilityImg.getHeight()/2);
-		float checkingRadius = Ball.radius+(GameScreen.abilityImg.getWidth()/2)+20;
-		float abilityXLowerBand = abilityXCenter-checkingRadius;
-		float abilityXUpperBand = abilityXCenter+checkingRadius;
-		if(ballXCenter > abilityXLowerBand &&
-		   ballXCenter < abilityXUpperBand &&
-		   ballYCenter < Math.sqrt(Math.pow(checkingRadius,2)-Math.pow(ball.position.x-abilityXCenter,2))+abilityYCenter &&
-		   ballYCenter > -Math.sqrt(Math.pow(checkingRadius,2)-Math.pow(ball.position.x-abilityXCenter,2))+abilityYCenter) {
+		float xDifferent = ballXCenter - abilityXCenter;
+		float yDifferent = ballYCenter - abilityYCenter;
+		float distance = (float) Math.sqrt(Math.pow(xDifferent,2)+Math.pow(yDifferent,2));
+		float checkDistance = Ball.radius+GameScreen.abilityImg.getHeight()/2;
+		if(distance <= checkDistance) {
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 	private static void scoreUpdate(){
 		if(ball.position.x < 0) {

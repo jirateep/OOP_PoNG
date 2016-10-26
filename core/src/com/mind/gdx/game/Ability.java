@@ -18,6 +18,8 @@ public class Ability {
 	public static int maxAbilityTime = 500;
 	public static int ballAbilityTimer = 0;
 	public static boolean startBallAbilityTimer = false;
+	public static int wait = 0;
+	public static int maxWait = 600;
 	
 	public static void update() {
 		updateTimer();
@@ -25,9 +27,23 @@ public class Ability {
 	}
 	
 	public static void updateTimer() {
+		updateWaitTimer();
 		updateAbilityTimer();
-		if(Ball.ballAbilityStatus == Ball.FIREBALL)
+		if(Ball.ballAbilityStatus == Ball.FIREBALL) {
 			updateBallAbilityTimer();
+		}
+	}
+	
+	public static void updateWaitTimer() {
+		if(showAbility != NOTHING) {
+			wait++;
+			if(maxWait == wait) {
+				showAbility = NOTHING;
+				//abilityTimer=maxCount;
+				wait = 0;
+			}
+		}
+			
 	}
 	
 	public static void updateBallAbilityTimer() {
@@ -136,6 +152,7 @@ public class Ability {
 					World.bar2.shieldStatus = true;
 				}
 			}
+			wait = 0;
 			showAbility = NOTHING;
 		}
 	}

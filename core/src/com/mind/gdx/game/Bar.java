@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Bar {
 	
 	Vector2 position;
+	public int player;
 	public int score = 0;
 	public float length ;
 	public float width ;
@@ -39,7 +40,7 @@ public class Bar {
 	public int forzenSpeedFactor = 5;
 	public static int maxForzenBullet = 3;
 	
-	public Bar(Texture barImg,float x,int up,int down,int active) {
+	public Bar(Texture barImg,float x,int up,int down,int active, int p) {
 		this.barImg = barImg;
 		length = barImg.getWidth();
 		width = barImg.getHeight();
@@ -48,6 +49,7 @@ public class Bar {
 		pressUp = up;
 		pressDown = down;
 		pressActive = active;
+		player = p;
 	}
 	
 	public Vector2 getPosition() {
@@ -91,7 +93,7 @@ public class Bar {
 				if(Gdx.input.isKeyJustPressed(pressActive)) {
 					forzenBullet--;
 					int reserved = Bullet.findAvailable();
-					World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),findOwner());
+					World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),player);
 				}
 			} else {
 				barAbilityStatus = NOTHING;
@@ -101,7 +103,7 @@ public class Bar {
 	
 	private float getBulletXPosition() {
 		float bulletWidth = GameScreen.forzenBulletImg1.getWidth();
-		int player = findOwner();
+		//int player = findOwner();
 		if(player == Bullet.PLAYER1) {
 			return World.bar1.position.x - bulletWidth;
 		} else {
@@ -111,7 +113,7 @@ public class Bar {
 	
 	private float getBulletYPosition() {
 		float bulletHeight = GameScreen.forzenBulletImg1.getHeight();
-		int player = findOwner();
+		//int player = findOwner();
 		if(player == Bullet.PLAYER1) {
 			return position.y + World.bar1.width/2 - bulletHeight/2;
 		} else {
@@ -119,13 +121,13 @@ public class Bar {
 		}
 	}
 	
-	private int findOwner() {
+	/*private int findOwner() {
 		if(pressActive == World.bar1.pressActive) {
 			return Bullet.PLAYER1;
 		} else {
 			return Bullet.PLAYER2;
 		}
-	}
+	}*/
 	
 	private void move() {
 		if(!forzenStatus) {
