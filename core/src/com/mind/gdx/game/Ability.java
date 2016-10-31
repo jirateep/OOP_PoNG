@@ -129,19 +129,26 @@ public class Ability {
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
 					World.bar1.size-=Bar.SMALLERBATDECREASE;
-					if(World.bar1.size > Bar.minSize) {
+					if(World.bar1.size < Bar.minSize) {
 						World.bar1.size = Bar.minSize;
 					}
 				}
 			}
 			if(showAbility == FORZENBULLET) {
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer1) {
-						World.bar1.forzenBullet = Bar.maxForzenBullet;
+						World.bar1.forzenBullet += Bar.increaseBullet;
 						World.bar1.barAbilityStatus = Bar.FORZENBULLET;
+						if(World.bar1.forzenBullet > Bar.maxForzenBullet) {
+							World.bar1.forzenBullet = Bar.maxForzenBullet;
+						}
+							
 				}
 				if(Ball.hitStatusLeftRight==Ball.hitPlayer2) {
-						World.bar2.forzenBullet = Bar.maxForzenBullet;
+						World.bar2.forzenBullet += Bar.increaseBullet;
 						World.bar2.barAbilityStatus = Bar.FORZENBULLET;
+						if(World.bar2.forzenBullet > Bar.maxForzenBullet) {
+							World.bar2.forzenBullet = Bar.maxForzenBullet;
+						}			
 				}
 			}
 			if(showAbility == SHIELD) {

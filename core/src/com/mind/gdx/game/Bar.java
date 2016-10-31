@@ -38,7 +38,8 @@ public class Bar {
 	private int forzenCount = 0;
 	private int maxForzenCount = 500; 
 	public int forzenSpeedFactor = 5;
-	public static int maxForzenBullet = 3;
+	public static int maxForzenBullet = 10;
+	public static int increaseBullet = 3;
 	
 	public Bar(Texture barImg,float x,int up,int down,int active, int p) {
 		this.barImg = barImg;

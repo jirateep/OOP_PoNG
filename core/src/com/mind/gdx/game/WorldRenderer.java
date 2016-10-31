@@ -120,16 +120,22 @@ public class WorldRenderer {
 		float showForzenBulletDilimiter = GameScreen.showForzenBulletImg.getWidth();
 		float showForzenBulletRadius = showForzenBulletDilimiter/2;
 		float distanceBetween = 4;
+		float distanceIncrease = distanceBetween + showForzenBulletDilimiter;
 		float xPosition = bar.position.x + bar.length/2 - showForzenBulletRadius;
-		if(bar.forzenBullet == 1) {
-			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-showForzenBulletRadius);
-		}else if(bar.forzenBullet == 2) {
-			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2+distanceBetween/2);
-			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-distanceBetween/2-showForzenBulletDilimiter);
-		}else if(bar.forzenBullet == 3) {
-			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2+showForzenBulletRadius+distanceBetween);
-			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-showForzenBulletRadius);
-			batch.draw(GameScreen.showForzenBulletImg, xPosition, bar.position.y+bar.width/2-3*showForzenBulletRadius-distanceBetween);
+		float center = bar.position.y+bar.width/2-showForzenBulletRadius;
+		float centerUp = bar.position.y+bar.width/2+distanceBetween/2;
+		float centerDown = bar.position.y+bar.width/2-distanceBetween/2-showForzenBulletDilimiter;
+		if(bar.forzenBullet % 2 == 1) {
+			int n = (bar.forzenBullet-1)/2;
+			for(int i = -1*n ;i<=n;i++)	{
+				batch.draw(GameScreen.showForzenBulletImg, xPosition, center + i * distanceIncrease);
+			}
+		} else if(bar.forzenBullet % 2 == 0 && bar.forzenBullet != 0) {
+			int n = bar.forzenBullet/2;
+			for(int i = 0;i<=n;i++) {
+				batch.draw(GameScreen.showForzenBulletImg, xPosition, centerUp + i * distanceIncrease);
+				batch.draw(GameScreen.showForzenBulletImg, xPosition, centerDown - i * distanceIncrease);
+			}
 		}
 	}
 	
