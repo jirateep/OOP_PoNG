@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class WorldRenderer {
 	
-	private static float distanceBetweenScore = 200;
+	private static float distanceBetweenScore = 500;
 	private static float bar1ScoreXPosition = (GameScreen.width / 2) + (distanceBetweenScore / 2);
 	private static float ScoreYPosition = GameScreen.height - 25;
 	private static float bar2ScoreXPosition = (GameScreen.width / 2) - (distanceBetweenScore / 2) - GameScreen.bar2Score.width;

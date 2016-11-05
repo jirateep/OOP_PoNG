@@ -14,7 +14,7 @@ public class Ball {
 	public static final int NOTHING = 0;
 	public int ballAbilityStatus = NOTHING;
 	
-	public static final float INITSPEED = 15;
+	public static final float INITSPEED = 20;
 	public float speed = INITSPEED;
 	public float speedX;
 	public float speedY;
