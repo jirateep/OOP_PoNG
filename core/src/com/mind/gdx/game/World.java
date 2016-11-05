@@ -17,9 +17,8 @@ public class World {
 	public float player1BarXInit;
 	
 	public World() {
-	
 		player2BarXInit = 20;
-		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.barImg[0][1].getWidth() - 20;
+		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[0][1].getWidth();
 		
 		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER,1);
 		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.SPACE,2);
@@ -30,7 +29,7 @@ public class World {
 		
 		bullets = new Bullet [maxBullet];
 		
-		for(int i = 0;i<bullets.length;i++) {
+		for(int i = 0 ; i < bullets.length ; i++) {
 			bullets[i] = null;
 		}
 		
@@ -49,23 +48,19 @@ public class World {
 	}
 	
 	private static void bulletHitBar() {
-		for(int i=0;i<bullets.length;i++) {
-			if(bullets[i]!=null) {
+		for(int i = 0 ; i < bullets.length ; i++) {
+			if(bullets[i] != null) {
 				if(bullets[i].owner == Bullet.PLAYER1) {
-					if(bullets[i].xPosition < bar2.position.x+bar2.length) {
-						if(bullets[i].yPosition >= bar2.position.y && bullets[i].yPosition <= bar2.position.y+bar2.width) {
+					if(bullets[i].xPosition < bar2.position.x + bar2.length) {
+						if(bullets[i].yPosition >= bar2.position.y && bullets[i].yPosition <= bar2.position.y + bar2.width) {
 							bar2.forzenStatus = true;
-							//Bar.updateBarImg();
-							//Bar.updateWidthHeight();
 						}
 						bullets[i] = null;
 					}
 				}else if(bullets[i].owner == Bullet.PLAYER2) {
-					if(bullets[i].xPosition > bar1.position.x-GameScreen.forzenBulletImg2.getWidth()) {
-						if(bullets[i].yPosition >= bar1.position.y && bullets[i].yPosition <= bar1.position.y+bar1.width) {
+					if(bullets[i].xPosition > bar1.position.x - GameScreen.forzenBulletImg2.getWidth()) {
+						if(bullets[i].yPosition >= bar1.position.y && bullets[i].yPosition <= bar1.position.y + bar1.width) {
 							bar1.forzenStatus = true;
-							//Bar.updateBarImg();
-							//Bar.updateWidthHeight();
 						}
 						bullets[i] = null;
 					}
@@ -84,32 +79,25 @@ public class World {
 	private static boolean checkhitAbility() {
 		float ballXCenter = ball.position.x + Ball.radius;
 		float ballYCenter = ball.position.y + Ball.radius;
-		float abilityXCenter = WorldRenderer.abilityXPosition+(GameScreen.abilityImg.getWidth()/2);
-		float abilityYCenter = WorldRenderer.abilityYPosition+(GameScreen.abilityImg.getHeight()/2);
+		float abilityXCenter = WorldRenderer.abilityXPosition + (GameScreen.abilityImg.getWidth() / 2);
+		float abilityYCenter = WorldRenderer.abilityYPosition + (GameScreen.abilityImg.getHeight() / 2);
 		float xDifferent = ballXCenter - abilityXCenter;
 		float yDifferent = ballYCenter - abilityYCenter;
-		float distance = (float) Math.sqrt(Math.pow(xDifferent,2)+Math.pow(yDifferent,2));
-		float checkDistance = Ball.radius+GameScreen.abilityImg.getHeight()/2;
-		if(distance <= checkDistance) {
-			return true;
-		} else {
-			return false;
-		}
+		float distance = (float) Math.sqrt(Math.pow(xDifferent,2) + Math.pow(yDifferent,2));
+		float checkDistance = Ball.radius + GameScreen.abilityImg.getHeight() / 2;
+		return distance <= checkDistance;
 	}
 	private static void scoreUpdate(){
 		if(ball.position.x < 0) {
 			bar1.score += 1;
 			//System.out.println("bar1 score = "+GameScreen.bar1.score);
-			//Ball.owner = Ball.PLAYER2;
-			Ball.hitStatusLeftRight = Ball.hitPlayer2;
+			ball.hitStatusLeftRight = Ball.hitPlayer2;
 			reset();
-			
 		}
 		else if(ball.position.x > GameScreen.width) {
 			bar2.score += 1;
 			//System.out.println("bar2 score = "+GameScreen.bar2.score);
-			//Ball.owner = Ball.PLAYER1;
-			Ball.hitStatusLeftRight = Ball.hitPlayer1;
+			ball.hitStatusLeftRight = Ball.hitPlayer1;
 			reset();
 		}
 	}
@@ -122,7 +110,7 @@ public class World {
 	}
 	
 	private static void resetBullet() {
-		for(int i = 0;i<bullets.length;i++) {
+		for(int i = 0 ; i < bullets.length ; i++) {
 			bullets[i]=null;
 		}
 	}
@@ -141,13 +129,15 @@ public class World {
 	}
 	
 	private static void resetBall() {
-		Ball.moveStatus = false;
-		Ball.updateStartingPosition();
-		Ball.speed = Ball.INITSPEED;
-		Ball.speedXFactor = Ball.initSpeedXFactor;
-		Ball.speedYFactor = Ball.initSpeedYFactor;
-		
-		Ball.ballAbilityStatus = Ball.NOTHING;
+		ball.moveStatus = false;
+		ball.updateStartingPosition();
+		ball.speed = Ball.INITSPEED;
+		ball.speedXFactor = ball.initSpeedXFactor;
+		ball.speedYFactor = ball.initSpeedYFactor;
+		ball.randomDirectionUpDown();
+		//System.out.println("speedYFactor" + ball.speedYFactor);
+		ball.oldHitStatusLeftRight = ball.hitStatusLeftRight;
+		ball.ballAbilityStatus = Ball.NOTHING;
 		Ability.ballAbilityTimer = 0;
 	}
 	
@@ -159,9 +149,9 @@ public class World {
 	}
 	
 	private static void checkEnding() {
-		if(bar1.score == maxScore || bar2.score == maxScore){
+		if((bar1.score == maxScore) || (bar2.score == maxScore)){
 			endGame = true;
-			Ball.moveStatus = false;
+			ball.moveStatus = false;
 		}
 	}
 	

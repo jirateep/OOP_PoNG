@@ -10,13 +10,13 @@ public class Bullet {
 	public static float speed = 80;
 	public Bullet(float x, float y, int player) {
 		xPosition = x;
-		yPosition =y;
+		yPosition = y;
 		owner = player;
 	}
 	
 	public static void update() {
-		for(int i=0;i<World.bullets.length;i++) {
-			if(World.bullets[i]!=null) {
+		for(int i = 0 ; i < World.bullets.length ; i++) {
+			if(World.bullets[i] != null) {
 				if(World.bullets[i].owner == PLAYER1) {
 					World.bullets[i].xPosition -= speed;
 				}
@@ -29,8 +29,8 @@ public class Bullet {
 	}
 	
 	public static int findAvailable() {
-		for(int i=0;i<World.bullets.length;i++) {
-			if(World.bullets[i]==null) {
+		for(int i = 0 ; i < World.bullets.length ; i++) {
+			if(World.bullets[i] == null) {
 				return i;
 			}
 		}

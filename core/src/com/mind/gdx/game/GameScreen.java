@@ -41,10 +41,10 @@ public class GameScreen extends ScreenAdapter {
 	static GlyphLayout bar2Score;
 	static GlyphLayout ending;
 	
-	public static int width = 1920;
-	public static int height = 1000;
-	static float fontsize = 7;
-	static float endingfontsize = 10;
+	public static int width = 960;//1920
+	public static int height = 500;//1000
+	static float fontsize = 4;
+	static float endingfontsize = 7;
 	
 	public GameScreen(PongGame pongGame) {
 		GameScreen.pongGame = pongGame;
@@ -79,8 +79,7 @@ public class GameScreen extends ScreenAdapter {
 		barFImg[0][6] = new Texture("normalBar7FP1.png");
 		barFImg[1][6] = new Texture("normalBar7FP2.png");
 		
-		ballImg = new Texture("StrokeNormalBall.png");
-		//ballImg = new Texture("normalBall.png");
+		ballImg = new Texture("normalBall.png");
 		fireballImg = new Texture("fireBall.png");
 		
 		shieldImg1 = new Texture("shieldP1.png");

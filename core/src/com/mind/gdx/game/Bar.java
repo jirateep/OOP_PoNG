@@ -45,7 +45,7 @@ public class Bar {
 		this.barImg = barImg;
 		length = barImg.getWidth();
 		width = barImg.getHeight();
-		y = (GameScreen.height-width)/2;
+		y = (GameScreen.height - width)/2;
 		position = new Vector2(x,y);
 		pressUp = up;
 		pressDown = down;
@@ -89,7 +89,7 @@ public class Bar {
 	}
 	
 	public void shoot() {
-		if(Ball.moveStatus) {
+		if(World.ball.moveStatus) {
 			if(forzenBullet > 0) {
 				if(Gdx.input.isKeyJustPressed(pressActive)) {
 					forzenBullet--;
@@ -104,7 +104,6 @@ public class Bar {
 	
 	private float getBulletXPosition() {
 		float bulletWidth = GameScreen.forzenBulletImg1.getWidth();
-		//int player = findOwner();
 		if(player == Bullet.PLAYER1) {
 			return World.bar1.position.x - bulletWidth;
 		} else {
@@ -114,21 +113,12 @@ public class Bar {
 	
 	private float getBulletYPosition() {
 		float bulletHeight = GameScreen.forzenBulletImg1.getHeight();
-		//int player = findOwner();
 		if(player == Bullet.PLAYER1) {
-			return position.y + World.bar1.width/2 - bulletHeight/2;
+			return position.y + World.bar1.width / 2 - bulletHeight / 2;
 		} else {
-			return position.y + World.bar2.width/2 - bulletHeight/2;
+			return position.y + World.bar2.width / 2 - bulletHeight / 2;
 		}
 	}
-	
-	/*private int findOwner() {
-		if(pressActive == World.bar1.pressActive) {
-			return Bullet.PLAYER1;
-		} else {
-			return Bullet.PLAYER2;
-		}
-	}*/
 	
 	private void move() {
 		if(!forzenStatus) {
@@ -166,15 +156,15 @@ public class Bar {
 
 	public static void updateBarImg() {
 		if(World.bar1.forzenStatus) {
-			World.bar1.barImg = GameScreen.barFImg[0][World.bar1.size-1];
+			World.bar1.barImg = GameScreen.barFImg[0][World.bar1.size - 1];
 		}else{
-			World.bar1.barImg = GameScreen.barImg[0][World.bar1.size-1];
+			World.bar1.barImg = GameScreen.barImg[0][World.bar1.size - 1];
 		}
 		
 		if(World.bar2.forzenStatus) {
-			World.bar2.barImg = GameScreen.barFImg[1][World.bar2.size-1];
+			World.bar2.barImg = GameScreen.barFImg[1][World.bar2.size - 1];
 		}else{
-			World.bar2.barImg = GameScreen.barImg[1][World.bar2.size-1];
+			World.bar2.barImg = GameScreen.barImg[1][World.bar2.size - 1];
 		}
 	}	
 	
@@ -184,5 +174,4 @@ public class Bar {
 		World.bar2.length = World.bar2.barImg.getWidth();
 		World.bar2.width = World.bar2.barImg.getHeight();	
 	}
-
 }

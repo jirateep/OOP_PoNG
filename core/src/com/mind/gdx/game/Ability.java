@@ -29,7 +29,7 @@ public class Ability {
 	public static void updateTimer() {
 		updateWaitTimer();
 		updateAbilityTimer();
-		if(Ball.ballAbilityStatus == Ball.FIREBALL) {
+		if(World.ball.ballAbilityStatus == Ball.FIREBALL) {
 			updateBallAbilityTimer();
 		}
 	}
@@ -53,12 +53,12 @@ public class Ability {
 		if(ballAbilityTimer==maxAbilityTime) {
 			startBallAbilityTimer = false;
 			ballAbilityTimer = 0;
-			Ball.ballAbilityStatus = Ball.NOTHING;
+			World.ball.ballAbilityStatus = Ball.NOTHING;
 		}
 	}
 	
 	public static void updateAbilityTimer() {
-		if(startCountAbilityTimer && Ball.moveStatus){
+		if(startCountAbilityTimer && World.ball.moveStatus){
 			abilityTimer++;
 		}
 		if(abilityTimer==maxCount) {
@@ -102,18 +102,18 @@ public class Ability {
 	public static void workAbility() {
 		if(showAbility != NOTHING)  {
 			if(showAbility == FIREBALL) {
-				Ball.ballAbilityStatus = Ball.FIREBALL;
+				World.ball.ballAbilityStatus = Ball.FIREBALL;
 				startBallAbilityTimer = true;
 				ballAbilityTimer = 0;	
 			}
 			if(showAbility == BIGGERBAT) {
-				if(Ball.hitStatusLeftRight == Ball.hitPlayer1) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
 					World.bar1.size += Bar.BIGGERBATINCREASE;
 					if(World.bar1.size > Bar.maxSize) {
 						World.bar1.size = Bar.maxSize;
 					}
 				}
-				if(Ball.hitStatusLeftRight == Ball.hitPlayer2) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
 					World.bar2.size += Bar.BIGGERBATINCREASE;
 					if(World.bar2.size > Bar.maxSize) {
 						World.bar2.size = Bar.maxSize;
@@ -121,13 +121,13 @@ public class Ability {
 				}
 			}	
 			if(showAbility == SMALLERBAT) {
-				if(Ball.hitStatusLeftRight == Ball.hitPlayer1) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
 					World.bar2.size -= Bar.SMALLERBATDECREASE;
 					if(World.bar2.size < Bar.minSize) {
 						World.bar2.size = Bar.minSize;
 					}
 				}
-				if(Ball.hitStatusLeftRight == Ball.hitPlayer2) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
 					World.bar1.size -= Bar.SMALLERBATDECREASE;
 					if(World.bar1.size < Bar.minSize) {
 						World.bar1.size = Bar.minSize;
@@ -135,7 +135,7 @@ public class Ability {
 				}
 			}
 			if(showAbility == FORZENBULLET) {
-				if(Ball.hitStatusLeftRight ==  Ball.hitPlayer1) {
+				if(World.ball.hitStatusLeftRight ==  Ball.hitPlayer1) {
 						World.bar1.forzenBullet += Bar.increaseBullet;
 						World.bar1.barAbilityStatus = Bar.FORZENBULLET;
 						if(World.bar1.forzenBullet > Bar.maxForzenBullet) {
@@ -143,7 +143,7 @@ public class Ability {
 						}
 							
 				}
-				if(Ball.hitStatusLeftRight == Ball.hitPlayer2) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
 						World.bar2.forzenBullet += Bar.increaseBullet;
 						World.bar2.barAbilityStatus = Bar.FORZENBULLET;
 						if(World.bar2.forzenBullet > Bar.maxForzenBullet) {
@@ -152,10 +152,10 @@ public class Ability {
 				}
 			}
 			if(showAbility == SHIELD) {
-				if(Ball.hitStatusLeftRight == Ball.hitPlayer1) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
 					World.bar1.shieldStatus = true;
 				}
-				if(Ball.hitStatusLeftRight == Ball.hitPlayer2) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
 					World.bar2.shieldStatus = true;
 				}
 			}
