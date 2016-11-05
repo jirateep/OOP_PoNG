@@ -1,11 +1,13 @@
 package com.mind.gdx.game;
 
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+
 public class GameScreen extends ScreenAdapter {
 	
 	public static PongGame pongGame;
@@ -30,6 +32,7 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture shieldImg1;
 	public static Texture shieldImg2;
 	
+	//public static FreeTypeFontGenerator ttf_font;
 	public static BitmapFont bar1Score_bitmap;
 	public static BitmapFont bar2Score_bitmap;
 	public static BitmapFont ending_bitmap;
@@ -94,6 +97,8 @@ public class GameScreen extends ScreenAdapter {
 		abilityImg = fireballAbilityImg;
 		
 		showForzenBulletImg = new Texture("showForzenBullet.png");
+		//ttf_font = new FreeTypeFontGenerator("NESCyrillic.ttf");
+		//FreeTypeFontGenerator generator = new FreeTypeFontGenerator("NESCyrillic.ttf");
 		bar1Score_bitmap = new BitmapFont();
 		bar2Score_bitmap = new BitmapFont();
 		ending_bitmap = new BitmapFont();

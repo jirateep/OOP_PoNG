@@ -19,7 +19,7 @@ public class World {
 	public World() {
 	
 		player2BarXInit = 20;
-		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.barImg[0][1].getWidth();
+		player1BarXInit = GameScreen.width -player2BarXInit - GameScreen.barImg[0][1].getWidth() - 20;
 		
 		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER,1);
 		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.SPACE,2);
@@ -100,6 +100,7 @@ public class World {
 		if(ball.position.x < 0) {
 			bar1.score += 1;
 			//System.out.println("bar1 score = "+GameScreen.bar1.score);
+			//Ball.owner = Ball.PLAYER2;
 			Ball.hitStatusLeftRight = Ball.hitPlayer2;
 			reset();
 			
@@ -107,6 +108,7 @@ public class World {
 		else if(ball.position.x > GameScreen.width) {
 			bar2.score += 1;
 			//System.out.println("bar2 score = "+GameScreen.bar2.score);
+			//Ball.owner = Ball.PLAYER1;
 			Ball.hitStatusLeftRight = Ball.hitPlayer1;
 			reset();
 		}
@@ -142,6 +144,9 @@ public class World {
 		Ball.moveStatus = false;
 		Ball.updateStartingPosition();
 		Ball.speed = Ball.INITSPEED;
+		Ball.speedXFactor = Ball.initSpeedXFactor;
+		Ball.speedYFactor = Ball.initSpeedYFactor;
+		
 		Ball.ballAbilityStatus = Ball.NOTHING;
 		Ability.ballAbilityTimer = 0;
 	}

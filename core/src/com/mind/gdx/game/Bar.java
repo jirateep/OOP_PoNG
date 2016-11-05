@@ -31,7 +31,7 @@ public class Bar {
 	
 	public boolean shieldStatus = false;
 	private int shieldCount = 0;
-	private int maxShieldCount = 300;
+	private int maxShieldCount = 500;
 	
 	public int forzenBullet = 0;
 	public boolean forzenStatus = false;
