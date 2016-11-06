@@ -17,7 +17,7 @@ public class World {
 	public float player1BarXInit;
 	
 	public World() {
-		player2BarXInit = 20;
+		player2BarXInit = 40;
 		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[0][1].getWidth();
 		
 		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER,1);

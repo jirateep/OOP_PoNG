@@ -26,6 +26,8 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture shieldAbilityImg;
 	public static Texture showForzenBulletImg;
 	
+	public static Texture [] score = new Texture [10];
+	
 	public static Texture [][] barImg = new Texture [2][7];
 	public static Texture [][] barFImg = new Texture [2][7];
 
@@ -49,7 +51,17 @@ public class GameScreen extends ScreenAdapter {
 	public GameScreen(PongGame pongGame) {
 		GameScreen.pongGame = pongGame;
 		
-
+		score[0] = new Texture("0White.png");
+		score[1] = new Texture("1White.png");
+		score[2] = new Texture("2White.png");
+		score[3] = new Texture("3White.png");
+		score[4] = new Texture("4White.png");
+		score[5] = new Texture("5White.png");
+		score[6] = new Texture("6White.png");
+		score[7] = new Texture("7White.png");
+		score[8] = new Texture("8White.png");
+		score[9] = new Texture("9White.png");
+		
 		barImg[0][0] = new Texture("normalBar1P1.png");
 		barImg[1][0] = new Texture("normalBar1P2.png");
 		barImg[0][1] = new Texture("normalBar2P1.png");

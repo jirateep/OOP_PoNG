@@ -36,6 +36,7 @@ public class Ball {
 	public int hitStatusUpDown = hitFloor;
 	public int hitStatusLeftRight = hitPlayer1; 
 	public int oldHitStatusLeftRight = hitPlayer1;
+	public boolean hitShield;
 
 	public boolean moveStatus = false;
 	
@@ -148,11 +149,15 @@ public class Ball {
 			//System.out.println(position.y);
 		}
 		if(hitStatusLeftRight == hitPlayer1) {
-			mkNewSpeed();
+			if(!hitShield) {
+			 mkNewSpeed();
+			}
 			position.x -= speedX;
 		}
 		if(hitStatusLeftRight == hitPlayer2) {
-			mkNewSpeed();
+			if(!hitShield) {
+				mkNewSpeed();
+			}
 			position.x += speedX;
 		}
 		oldHitStatusLeftRight = hitStatusLeftRight;
@@ -193,7 +198,7 @@ public class Ball {
 	}
 	
 	public boolean checkReflectRange(Bar bar) {
-		float reflectSpace = 3;
+		float reflectSpace = 1;
 		float notReflectSpace = 1;
 		float nbSpace = reflectSpace * 2 + notReflectSpace;
 		float topSpace = (reflectSpace + notReflectSpace) / nbSpace;
@@ -201,28 +206,51 @@ public class Ball {
 		return !((position.y < bar.position.y + bar.width * topSpace) && (position.y > bar.position.y + bar.width * bottomSpace));
 	}
 	public boolean hitingBar1() {
-		if(World.bar1.shieldStatus) {
-			//return position.x > World.bar1.position.x+World.bar1.length;
-			return position.x > World.bar1.position.x - Ball.dilimiter &&
-				   position.x < World.bar1.position.x;
-		} else {
-			return (position.x > World.bar1.position.x - Ball.dilimiter &&
-					position.x < World.bar1.position.x) && 
-				   (position.y > World.bar1.position.y - Ball.dilimiter &&	 
-					position.y < World.bar1.position.y + World.bar1.width);	
+		if(hitStatusLeftRight == hitPlayer2) {
+			if(checkHitBar1XPosition()) {
+				if(checkHitBarYPosition(World.bar1)) {
+					hitShield = false;
+					return true;
+				}else if(World.bar1.shieldStatus) {
+					hitShield = true;
+					return true;
+				}
+				return false;
+			}
+			return false;
 		}
+		return false;
+	}
+	
+	public boolean checkHitBarYPosition(Bar bar) {
+		return position.y > bar.position.y - Ball.dilimiter &&	 
+			   position.y < bar.position.y + bar.width;
+	}
+	
+	public boolean checkHitBar1XPosition() {
+		return position.x > World.bar1.position.x - Ball.dilimiter &&
+				position.x < World.bar1.position.x;
+	}
+	
+	public boolean checkHitBar2XPosition() {
+		return position.x < World.bar2.position.x + World.bar2.length &&  
+			   position.x > World.bar2.position.x;
 	}
 	
 	public boolean hitingBar2() {
-		if(World.bar2.shieldStatus) {
-			//return position.x < World.bar2.position.x;
-			return position.x < World.bar2.position.x + World.bar2.length &&  
-				   position.x > World.bar2.position.x;
-		} else {
-			return (position.x < World.bar2.position.x + World.bar2.length &&  
-					position.x > World.bar2.position.x) && 
-				   (position.y > World.bar2.position.y - Ball.dilimiter && 	
-					position.y < World.bar2.position.y + World.bar2.width);
+		if(hitStatusLeftRight == hitPlayer1) {
+			if(checkHitBar2XPosition()) {
+				if(checkHitBarYPosition(World.bar2)) {
+					hitShield = false;
+					return true;
+				}else if(World.bar2.shieldStatus) {
+					hitShield = true;
+					return true;
+				}
+				return false;
+			}
+			return false;
 		}
+		return false;
 	}
 }

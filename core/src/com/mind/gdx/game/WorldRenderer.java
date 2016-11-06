@@ -4,18 +4,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class WorldRenderer {
 	
-	private static float distanceBetweenScore = 500;
-	private static float bar1ScoreXPosition = (GameScreen.width / 2) + (distanceBetweenScore / 2);
-	private static float ScoreYPosition = GameScreen.height - 25;
-	private static float bar2ScoreXPosition = (GameScreen.width / 2) - (distanceBetweenScore / 2) - GameScreen.bar2Score.width;
+	/*
+	 * private static float distanceBetweenScore = 200;
+	 * private static float bar2ScoreXPosition = (GameScreen.width - (GameScreen.score[0].getWidth()) * 2 - distanceBetweenScore)/2;
+	 * private static float bar1ScoreXPosition = (GameScreen.width + distanceBetweenScore) / 2;
+	 */
+	//private static float distanceBetweenTopAndScore = 20;
+	//private static float ScoreYPosition = GameScreen.height - distanceBetweenTopAndScore - GameScreen.score[0].getHeight();
+	private static float ScoreYPosition = (GameScreen.height - GameScreen.score[0].getHeight()) / 2;
+	
+	private static float oneHalfFour = (GameScreen.width - (GameScreen.score[0].getWidth()) * 2) / 4;
+	private static float bar2ScoreXPosition = oneHalfFour;
+	private static float bar1ScoreXPosition = GameScreen.width / 2 + oneHalfFour;
+	
+	//private static float ScoreYPosition = GameScreen.height - 25;
+	//private static float bar2ScoreXPosition = (GameScreen.width / 2) - (distanceBetweenScore / 2) - GameScreen.bar2Score.width;
 	private static float endingXPosition;
 	private static float endingYPosition;
 	private static float minimumXRange = 400;
 	private static float minimumYRange = 200;
 	static float abilityXPosition = (GameScreen.width - GameScreen.fireballAbilityImg.getWidth()) / 2;
 	static float abilityYPosition = (GameScreen.height - GameScreen.fireballAbilityImg.getHeight()) / 2;
-	static float shield1XPosition = GameScreen.width - GameScreen.shieldImg1.getWidth();
-	static float shield2XPosition = 0;
+	static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg1.getWidth(); //GameScreen.width - GameScreen.shieldImg1.getWidth();
+	static float shield2XPosition = World.bar2.position.x + World.bar2.length;//0;
 	static float shieldYPosition = 0;
 	
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
@@ -139,10 +150,13 @@ public class WorldRenderer {
 	}
 	
 	private static void drawScores() {
-		GameScreen.bar1Score.setText(GameScreen.bar1Score_bitmap,Integer.toString(World.bar1.score));
-		GameScreen.bar1Score_bitmap.draw(batch, GameScreen.bar1Score, bar1ScoreXPosition, ScoreYPosition);
+		batch.draw(GameScreen.score[World.bar1.score],bar1ScoreXPosition, ScoreYPosition);
+		batch.draw(GameScreen.score[World.bar2.score],bar2ScoreXPosition, ScoreYPosition);
+		/* GameScreen.bar1Score.setText(GameScreen.bar1Score_bitmap,Integer.toString(World.bar1.score));
+		* GameScreen.bar1Score_bitmap.draw(batch, GameScreen.bar1Score, bar1ScoreXPosition, ScoreYPosition);
 		
-		GameScreen.bar2Score.setText(GameScreen.bar2Score_bitmap,Integer.toString(World.bar2.score));
-		GameScreen.bar2Score_bitmap.draw(batch, GameScreen.bar2Score, bar2ScoreXPosition, ScoreYPosition);
+		* GameScreen.bar2Score.setText(GameScreen.bar2Score_bitmap,Integer.toString(World.bar2.score));
+		* GameScreen.bar2Score_bitmap.draw(batch, GameScreen.bar2Score, bar2ScoreXPosition, ScoreYPosition);
+		*/
 	}
 }
