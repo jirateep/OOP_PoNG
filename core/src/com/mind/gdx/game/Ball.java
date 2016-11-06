@@ -163,7 +163,7 @@ public class Ball {
 		oldHitStatusLeftRight = hitStatusLeftRight;
 	}
 	public void mkNewSpeed() {
-		int reflectionRadius = 150;
+		int reflectionRadius = 100;
 		if(oldHitStatusLeftRight == hitPlayer2 && hitStatusLeftRight == hitPlayer1 && checkReflectRange(World.bar1)) {
 			float xHitPosition = position.x + dilimiter;
 			float yHitPosition = position.y + radius;

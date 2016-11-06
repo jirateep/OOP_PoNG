@@ -29,7 +29,7 @@ public class Bar {
 	private int pressDown;
 	private float speed = 20;
 	
-	public boolean shieldStatus = true;
+	public boolean shieldStatus = false;
 	private int shieldCount = 0;
 	private int maxShieldCount = 500;
 	

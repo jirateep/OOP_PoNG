@@ -34,6 +34,12 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture shieldImg1;
 	public static Texture shieldImg2;
 	
+	public static Texture pauseImg;
+	public static Texture resumeImg;
+	public static Texture restartImg;
+	public static Texture selectedResumeImg;
+	public static Texture selectedRestartImg;
+	
 	//public static FreeTypeFontGenerator ttf_font;
 	public static BitmapFont bar1Score_bitmap;
 	public static BitmapFont bar2Score_bitmap;
@@ -108,6 +114,13 @@ public class GameScreen extends ScreenAdapter {
 		abilityImg = fireballAbilityImg;
 		
 		showForzenBulletImg = new Texture("showForzenBullet.png");
+		
+		pauseImg = new Texture("pause.png");
+		resumeImg = new Texture("resume.png");
+		selectedResumeImg = new Texture("resumeSelected.png");
+		restartImg = new Texture("restart.png");
+		selectedRestartImg = new Texture("restartSelected.png");
+		
 		//ttf_font = new FreeTypeFontGenerator("NESCyrillic.ttf");
 		//FreeTypeFontGenerator generator = new FreeTypeFontGenerator("NESCyrillic.ttf");
 		bar1Score_bitmap = new BitmapFont();

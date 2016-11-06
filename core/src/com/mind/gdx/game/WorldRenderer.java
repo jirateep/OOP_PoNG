@@ -1,5 +1,6 @@
 package com.mind.gdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class WorldRenderer {
@@ -11,9 +12,12 @@ public class WorldRenderer {
 	 */
 	//private static float distanceBetweenTopAndScore = 20;
 	//private static float ScoreYPosition = GameScreen.height - distanceBetweenTopAndScore - GameScreen.score[0].getHeight();
-	private static float ScoreYPosition = (GameScreen.height - GameScreen.score[0].getHeight()) / 2;
+	private static float centerX = GameScreen.width / 2;
+	private static float centerY = GameScreen.height / 2;
 	
-	private static float oneHalfFour = (GameScreen.width - (GameScreen.score[0].getWidth()) * 2) / 4;
+	private static float ScoreYPosition = centerY - GameScreen.score[0].getHeight() / 2;
+	
+	private static float oneHalfFour = (centerX - GameScreen.score[0].getWidth()) / 2;
 	private static float bar2ScoreXPosition = oneHalfFour;
 	private static float bar1ScoreXPosition = GameScreen.width / 2 + oneHalfFour;
 	
@@ -25,9 +29,18 @@ public class WorldRenderer {
 	private static float minimumYRange = 200;
 	static float abilityXPosition = (GameScreen.width - GameScreen.fireballAbilityImg.getWidth()) / 2;
 	static float abilityYPosition = (GameScreen.height - GameScreen.fireballAbilityImg.getHeight()) / 2;
-	static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg1.getWidth(); //GameScreen.width - GameScreen.shieldImg1.getWidth();
-	static float shield2XPosition = World.bar2.position.x + World.bar2.length;//0;
-	static float shieldYPosition = 0;
+	private static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg1.getWidth(); //GameScreen.width - GameScreen.shieldImg1.getWidth();
+	private static float shield2XPosition = World.bar2.position.x + World.bar2.length;//0;
+	private static float shieldYPosition = 0;
+	
+	private static float pauseXPosition = mkImgXCenter(GameScreen.pauseImg);
+	private static float pauseYPosition = centerY + 90;
+	
+	private static float resumeXPosition = mkImgXCenter(GameScreen.resumeImg);
+	private static float resumeYPosition = centerY - GameScreen.resumeImg.getHeight() + 30;
+	
+	private static float restartXPosition = mkImgXCenter(GameScreen.restartImg);
+	private static float restartYPosition = resumeYPosition - GameScreen.restartImg.getHeight() - 50;
 	
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
 	
@@ -36,13 +49,39 @@ public class WorldRenderer {
 		
 		drawBats();
 		drawScores();
-		drawBall();
-		drawAbility();
-		drawBullet();
-		drawShield();
+		if(!World.pauseStatus) {
+			drawBall();
+			drawAbility();
+			drawBullet();
+			drawShield();
+		} else {
+			drawWhenPause();
+		}
 		whenEndGame();
 		
 		batch.end();
+	}
+	
+	private static void drawWhenPause() {
+				
+		batch.draw(GameScreen.pauseImg,pauseXPosition,pauseYPosition);
+		batch.draw(GameScreen.resumeImg,resumeXPosition,resumeYPosition);		
+		batch.draw(GameScreen.restartImg,restartXPosition,restartYPosition);
+		
+		drawSelectedPause();
+	}
+	
+	private static void drawSelectedPause() {
+		if(World.selectedPause == 1) {
+			batch.draw(GameScreen.selectedResumeImg,resumeXPosition,resumeYPosition);	
+		} else if(World.selectedPause == 2){
+			batch.draw(GameScreen.selectedRestartImg,restartXPosition,restartYPosition);
+		}
+			
+	}
+	
+	private static float mkImgXCenter(Texture img) {
+		return centerX - img.getWidth() / 2;
 	}
 	
 	private static void drawShield() {

@@ -1,5 +1,6 @@
 package com.mind.gdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 public class World {
@@ -13,14 +14,18 @@ public class World {
 	public static int maxBullet = 20;
 	public static Bullet [] bullets;
 	
+	public static boolean pauseStatus = false;
+	private static int pressPause = Keys.P;
+	public static int selectedPause = 1;
+	
 	public float player2BarXInit;
 	public float player1BarXInit;
 	
 	public World() {
-		player2BarXInit = 40;
+		player2BarXInit = 20;
 		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[0][1].getWidth();
 		
-		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.ENTER,1);
+		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.L,1);
 		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.SPACE,2);
 		
 		ball = new Ball();
@@ -36,15 +41,68 @@ public class World {
 	}
 	
 	public static void update() {	
-		bar1.update();
-		bar2.update();
-		ball.update();
-		Bullet.update();
-		Ability.update();
-		ballHitAbility();
-		bulletHitBar();
-		scoreUpdate();
-		checkEnding();
+		if(!pauseStatus) {
+			bar1.update();
+			bar2.update();
+			ball.update();
+			Bullet.update();
+			Ability.update();
+			ballHitAbility();
+			bulletHitBar();
+			scoreUpdate();
+			checkEnding();
+		} else {
+			selectedPause = updateSelected(selectedPause,2);
+			selectedPauseEnd();
+		}
+		pauseGame();
+	}
+	
+	public static void selectedPauseEnd() {
+		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			if(selectedPause == 1) {
+				resume();
+			} else if(selectedPause == 2){
+				restart();
+			}
+		}
+	}
+	
+	public static void resume() {
+		pauseStatus = false;
+		selectedPause = 1;
+	}
+	
+	public static void restart() {
+		bar1.score = 0;
+		bar2.score = 0;
+		reset();
+		ball.hitStatusLeftRight = Ball.hitPlayer1;
+		pauseStatus = false;
+		selectedPause = 1;
+	}
+	
+	public static int updateSelected(int selected, int max) {
+		if(Gdx.input.isKeyJustPressed(Keys.UP)) {
+			selected--;
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+			selected++;
+		}
+		if(selected > max) {
+			selected = max;
+		}
+		if(selected < 1) {
+			selected = 1;
+		}
+		return selected;
+	}
+	
+	private static void pauseGame() {
+		if(Gdx.input.isKeyJustPressed(pressPause)) {
+			pauseStatus = !pauseStatus;
+		}
+		
 	}
 	
 	private static void bulletHitBar() {
