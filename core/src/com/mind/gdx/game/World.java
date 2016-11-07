@@ -26,7 +26,7 @@ public class World {
 		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[0][1].getWidth();
 		
 		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.L,1);
-		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.SPACE,2);
+		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.G,2);
 		
 		ball = new Ball();
 		
@@ -55,7 +55,9 @@ public class World {
 			selectedPause = updateSelected(selectedPause,2);
 			selectedPauseEnd();
 		}
-		pauseGame();
+		if(!endGame) {
+			pauseGame();
+		}
 	}
 	
 	public static void selectedPauseEnd() {
@@ -80,6 +82,7 @@ public class World {
 		ball.hitStatusLeftRight = Ball.hitPlayer1;
 		pauseStatus = false;
 		selectedPause = 1;
+		endGame = false;
 	}
 	
 	public static int updateSelected(int selected, int max) {
@@ -145,6 +148,7 @@ public class World {
 		float checkDistance = Ball.radius + GameScreen.abilityImg.getHeight() / 2;
 		return distance <= checkDistance;
 	}
+	
 	private static void scoreUpdate(){
 		if(ball.position.x < 0) {
 			bar1.score += 1;
@@ -174,16 +178,22 @@ public class World {
 	}
 	
 	private static void resetBats() {
-		bar1.size = 2;
-		bar2.size = 2;
-		bar1.forzenBullet = 0;
-		bar2.forzenBullet = 0;
-		bar1.forzenStatus = false;
-		bar2.forzenStatus = false;
-		bar1.shieldStatus = false;
-		bar2.shieldStatus = false;
+		resetBat(bar1);
+		resetBat(bar2);
 		Bar.updateBarImg();
 		Bar.updateWidthHeight();
+	}
+	
+	private static void resetBat(Bar bar) {
+		bar.size = 2;
+		bar.forzenBullet = 0;
+		bar.forzenStatus = false;
+		bar.forzenCount = 0;
+		bar.shieldStatus = false;
+		bar.shieldStatus = false;
+		bar.stickybatStatus = false;
+		bar.stickybatCount = 0;
+		bar.ballStayAtSamePosition = false;
 	}
 	
 	private static void resetBall() {

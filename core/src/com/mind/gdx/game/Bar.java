@@ -30,16 +30,21 @@ public class Bar {
 	private float speed = 20;
 	
 	public boolean shieldStatus = false;
-	private int shieldCount = 0;
+	public int shieldCount = 0;
 	private int maxShieldCount = 500;
 	
 	public int forzenBullet = 0;
 	public boolean forzenStatus = false;
-	private int forzenCount = 0;
+	public int forzenCount = 0;
 	private int maxForzenCount = 500; 
 	public int forzenSpeedFactor = 5;
 	public static int maxForzenBullet = 10;
 	public static int increaseBullet = 3;
+	
+	public boolean stickybatStatus = false;
+	public int stickybatCount = 0;
+	private int maxStickybatCount = 500;
+	public boolean ballStayAtSamePosition = false;
 	
 	public Bar(Texture barImg,float x,int up,int down,int active, int p) {
 		this.barImg = barImg;
@@ -63,6 +68,7 @@ public class Bar {
 			shoot();
 			forzenTimer();
 			shieldTimer();
+			stickybatTimer();
 			updateBarImg();
 			updateWidthHeight();
 		}
@@ -84,6 +90,16 @@ public class Bar {
 			if(forzenCount == maxForzenCount) {
 				forzenStatus = false;
 				forzenCount = 0;
+			}
+		}
+	}
+	
+	public void stickybatTimer() {
+		if(stickybatStatus) {
+			stickybatCount++;
+			if(stickybatCount == maxStickybatCount) {
+				stickybatStatus = false;
+				stickybatCount = 0;
 			}
 		}
 	}

@@ -11,7 +11,8 @@ public class Ability {
 	public static final int SMALLERBAT = 3;
 	public static final int FORZENBULLET = 4;
 	public static final int SHIELD = 5;
-	public static int numberOfAbility = 5;
+	public static final int STICKYBAT = 6;
+	public static int numberOfAbility = 6;
 	
 	public static int showAbility = NOTHING;
 	public static int maxCount = 50;
@@ -80,6 +81,9 @@ public class Ability {
 					break;
 				case 5:
 					updateShowAbility(SHIELD);
+					break;
+				case 6:
+					updateShowAbility(STICKYBAT);
 					break;
 				default:
 					break;
@@ -159,6 +163,18 @@ public class Ability {
 					World.bar2.shieldStatus = true;
 				}
 			}
+			if(showAbility == STICKYBAT) {
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
+					World.bar1.stickybatStatus = true;
+					World.bar1.ballStayAtSamePosition = true;
+				}
+				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
+					World.bar2.stickybatStatus = true;
+					World.bar2.ballStayAtSamePosition = true;
+				}
+				
+			}
+			
 			wait = 0;
 			showAbility = NOTHING;
 		}

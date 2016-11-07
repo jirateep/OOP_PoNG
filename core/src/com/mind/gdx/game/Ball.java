@@ -26,8 +26,9 @@ public class Ball {
 	public static float fireballSpeedFactor = 1.3f;
 	public static float speedIncreaseFactor = 1.0001f;
 	
-	private float startingX ;
-	private float startingY ;
+	private float startingX;
+	private float startingY;
+	private float diffYDistance;
 	
 	public static final int hitCeilling = 1;
 	public static final int hitFloor = 2;
@@ -61,7 +62,9 @@ public class Ball {
 		if(!moveStatus && !World.endGame) {
 			checkStartMove();
 		}
-			move();
+		move();
+		System.out.println("bar1: " + World.bar1.ballStayAtSamePosition);
+		System.out.println("bar2: " + World.bar2.ballStayAtSamePosition);
 	}
 	
 	public void checkStartMove() {
@@ -69,11 +72,13 @@ public class Ball {
 		if(hitStatusLeftRight == hitPlayer1) {
 			if(Gdx.input.isKeyPressed(World.bar1.pressActive)) {
 				moveStatus = true;
+				World.bar1.ballStayAtSamePosition = false;
 			}
 		}
 		if(hitStatusLeftRight == hitPlayer2) {
 			if(Gdx.input.isKeyPressed(World.bar2.pressActive)) {
 				moveStatus = true;
+				World.bar2.ballStayAtSamePosition = false;
 			}
 		}
 	
@@ -113,9 +118,15 @@ public class Ball {
 		if(hitStatusLeftRight == hitPlayer2) {
 			startingX = World.bar2.position.x + World.bar2.length;
 			startingY = World.bar2.position.y + World.bar2.width / 2 - radius;
-		}else if (hitStatusLeftRight == hitPlayer1) {
+			if(World.bar2.stickybatStatus || World.bar2.ballStayAtSamePosition) {
+				startingY -= diffYDistance;
+			}
+		} else if (hitStatusLeftRight == hitPlayer1) {
 			startingX = World.bar1.position.x - Ball.dilimiter;
 			startingY = World.bar1.position.y + World.bar1.width / 2 - radius;
+			if(World.bar1.stickybatStatus || World.bar1.ballStayAtSamePosition) {
+				startingY -= diffYDistance;
+			}
 		}
 	}
 	
@@ -129,9 +140,29 @@ public class Ball {
 		}
 		if(hitingBar1()) {
 			hitStatusLeftRight = hitPlayer1;
+			if(World.bar1.stickybatStatus || World.bar1.ballStayAtSamePosition) {
+				moveStatus = false;
+				diffYDistance = World.bar1.position.y + World.bar1.barImg.getHeight() / 2 - position.y;
+				/*if(Gdx.input.isKeyJustPressed(World.bar1.pressActive))
+				{
+					System.out.println("hi1");
+					moveStatus = true;
+					World.bar1.ballStayAtSamePosition = false;
+				}*/
+			}
 		}
 		if(hitingBar2()) {
 			hitStatusLeftRight = hitPlayer2;
+			if(World.bar2.stickybatStatus || World.bar2.ballStayAtSamePosition) {
+				moveStatus = false;
+				diffYDistance = World.bar2.position.y + World.bar2.barImg.getHeight() / 2 - position.y;
+				/*if(Gdx.input.isKeyJustPressed(World.bar2.pressActive))
+				{
+					System.out.println("hi2");
+					moveStatus = true;
+					World.bar2.ballStayAtSamePosition = false;
+				}*/
+			}
 		}
 	}
 	

@@ -24,12 +24,14 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture smallerbatAbilityImg;
 	public static Texture forzenbulletAbilityImg;
 	public static Texture shieldAbilityImg;
+	public static Texture stickybatAbilityImg;
 	public static Texture showForzenBulletImg;
 	
 	public static Texture [] score = new Texture [10];
 	
-	public static Texture [][] barImg = new Texture [2][7];
-	public static Texture [][] barFImg = new Texture [2][7];
+	public static Texture [][] barImg = new Texture [2][Bar.maxSize];
+	public static Texture [][] barFImg = new Texture [2][Bar.maxSize];
+	public static Texture [] sticky = new Texture [Bar.maxSize];
 
 	public static Texture shieldImg1;
 	public static Texture shieldImg2;
@@ -97,6 +99,14 @@ public class GameScreen extends ScreenAdapter {
 		barFImg[0][6] = new Texture("normalBar7FP1.png");
 		barFImg[1][6] = new Texture("normalBar7FP2.png");
 		
+		sticky[0] = new Texture("sticky1.png");
+		sticky[1] = new Texture("sticky2.png");
+		sticky[2] = new Texture("sticky3.png");
+		sticky[3] = new Texture("sticky4.png");
+		sticky[4] = new Texture("sticky5.png");
+		sticky[5] = new Texture("sticky6.png");
+		sticky[6] = new Texture("sticky7.png");
+		
 		ballImg = new Texture("normalBall.png");
 		fireballImg = new Texture("fireBall.png");
 		
@@ -110,7 +120,9 @@ public class GameScreen extends ScreenAdapter {
 		biggerbatAbilityImg = new Texture("biggerbatAbility.png");
 		smallerbatAbilityImg = new Texture("smallerbatAbility.png");
 		fireballAbilityImg = new Texture("fireballAbility.png");
+		//fireballAbilityImg = new Texture("newFireballAbility.png");
 		shieldAbilityImg = new Texture("shieldAbility.png");
+		stickybatAbilityImg = new Texture("stickybatAbility.png");
 		abilityImg = fireballAbilityImg;
 		
 		showForzenBulletImg = new Texture("showForzenBullet.png");

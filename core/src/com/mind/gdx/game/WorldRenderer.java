@@ -54,12 +54,26 @@ public class WorldRenderer {
 			drawAbility();
 			drawBullet();
 			drawShield();
+			drawSticky();
 		} else {
 			drawWhenPause();
 		}
 		whenEndGame();
 		
 		batch.end();
+	}
+	
+	private static void drawSticky() {
+		if(World.bar1.stickybatStatus) {
+			float stickyXPosition = World.bar1.position.x;
+			float stickyYPosition = World.bar1.position.y;
+			batch.draw(GameScreen.sticky[World.bar1.size - 1],stickyXPosition,stickyYPosition);
+		}
+		if(World.bar2.stickybatStatus) {
+			float stickyXPosition = World.bar2.position.x + World.bar2.barImg.getWidth() - GameScreen.sticky[0].getWidth();
+			float stickyYPosition = World.bar2.position.y;
+			batch.draw(GameScreen.sticky[World.bar2.size - 1],stickyXPosition,stickyYPosition);
+		}
 	}
 	
 	private static void drawWhenPause() {
@@ -85,10 +99,12 @@ public class WorldRenderer {
 	}
 	
 	private static void drawShield() {
-		if(World.bar1.shieldStatus)
+		if(World.bar1.shieldStatus) {
 			batch.draw(GameScreen.shieldImg1,shield1XPosition,shieldYPosition);
-		if(World.bar2.shieldStatus)
+		}
+		if(World.bar2.shieldStatus) {
 			batch.draw(GameScreen.shieldImg2,shield2XPosition,shieldYPosition);
+		}
 	}
 	
 	private static void drawBullet() {
@@ -120,6 +136,9 @@ public class WorldRenderer {
 			}
 			if(Ability.showAbility == Ability.SHIELD) {
 				GameScreen.abilityImg = GameScreen.shieldAbilityImg;
+			}
+			if(Ability.showAbility == Ability.STICKYBAT) {
+				GameScreen.abilityImg = GameScreen.stickybatAbilityImg;
 			}
 			batch.draw(GameScreen.abilityImg,abilityXPosition,abilityYPosition);
 		} else {
