@@ -67,10 +67,8 @@ public class World {
 			} else {
 				selectedPause = updateSelected(selectedPause,2);
 				selectedPauseEnd();
-			}/*
-			if(!endGame) {
-				pauseGame();
-			}*/
+			}
+			pauseGame();
 		}
 	}
 	
@@ -222,6 +220,9 @@ public class World {
 		resetBats();
 		resetAbility();
 		resetBullet();
+		if(World.bar2.pressUp == Bar.BOT && ball.hitStatusLeftRight == Ball.hitPlayer2) {
+			ball.moveStatus = true;
+		}
 	}
 	
 	private static void resetBullet() {

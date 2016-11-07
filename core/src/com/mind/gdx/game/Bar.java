@@ -25,7 +25,7 @@ public class Bar {
 	public int barAbilityStatus = NOTHING;
 	
 	int pressActive;
-	private int pressUp;
+	int pressUp;
 	private int pressDown;
 	private float speed = 20;
 	public static final int BOT = -1;
@@ -47,6 +47,16 @@ public class Bar {
 	private int maxStickybatCount = 500;
 	public boolean ballStayAtSamePosition = false;
 	
+	public int countRandom = 500;
+	public int countNextRandom = 0;
+	public int maxCountNextRandom = 200;
+	
+	private boolean botWinStatus = true;
+	private boolean moveUpDownStatus = true;
+	
+	private int countMovement = 0;
+	private int maxCountMovement = 1;
+	
 	public Bar(Texture barImg,float x,int up,int down,int active, int p) {
 		this.barImg = barImg;
 		length = barImg.getWidth();
@@ -65,14 +75,95 @@ public class Bar {
 	
 	public void update() {
 		if(!World.endGame) {
-			move();
-			shoot();
-			forzenTimer();
-			shieldTimer();
-			stickybatTimer();
-			updateBarImg();
-			updateWidthHeight();
+			if(this.pressUp == Bar.BOT && this.pressDown == Bar.BOT && this.pressActive == Bar.BOT) {
+				botMove();
+				botShoot();
+			} else {
+				move();
+				shoot();
+			}
+				forzenTimer();
+				shieldTimer();
+				stickybatTimer();
+				updateBarImg();
+				updateWidthHeight();
 		}
+	}
+	
+	private void botShoot() {
+		if(forzenBullet > 0) {
+			int random = (int)(Math.random()*2);
+			if(random % 2 == 0) {
+				forzenBullet--;
+				int reserved = Bullet.findAvailable();
+				World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),player);
+			}
+		}
+	}
+	
+	private void botMove() {
+		if(countNextRandom == maxCountNextRandom) {
+			countNextRandom = 0;
+			int random = (int)(Math.random()*countRandom);
+			if(random % 25 == 0) {
+				botWinStatus = false;
+			} else {
+				botWinStatus = true;
+			}
+			countRandom -= 25;
+		}
+		if(World.ball.moveStatus) {
+			countNextRandom++;
+		}
+		botMoving();
+		//World.ball.moveStatus = true;
+	}
+	
+	private void botMoving() {
+		if(botWinStatus) {
+			if(position.y <= World.ball.position.y)
+				moveUpDownStatus = true;
+			else
+				moveUpDownStatus = false;
+		} else {
+			if(position.y >= GameScreen.height - barImg.getHeight()) {
+				moveUpDownStatus = false;
+			} else if(position.y <= 0) {
+				moveUpDownStatus = true;
+			}
+		}
+		if(Math.abs(position.y - World.ball.position.y) > 40) {
+			if(countMovement == maxCountMovement) {
+				botMovement();
+				countMovement = 0;
+			}
+			countMovement++;
+		}
+		if(position.y >= GameScreen.height - barImg.getHeight()) {
+			position.y = GameScreen.height - barImg.getHeight();
+		} else if(position.y <= 0) {
+			position.y = 0;
+		}
+		
+		if(World.ball.moveStatus == false && World.bar2.stickybatStatus && World.ball.hitStatusLeftRight == Ball.hitPlayer2)
+			World.ball.moveStatus = true;
+	}
+	
+	private void botMovement() {
+		if(forzenStatus){
+			if(moveUpDownStatus) {
+				position.y += (speed / forzenSpeedFactor) * 5 / 6;
+			} else {
+				position.y -= (speed / forzenSpeedFactor) * 5 / 6;
+			}
+		} else {
+			if(moveUpDownStatus) {
+				position.y += speed * 5 / 6;
+			} else {
+				position.y -= speed * 5 / 6;
+			}
+		}
+
 	}
 	
 	public void shieldTimer() {
