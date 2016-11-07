@@ -28,6 +28,7 @@ public class Bar {
 	private int pressUp;
 	private int pressDown;
 	private float speed = 20;
+	public static final int BOT = -1;
 	
 	public boolean shieldStatus = false;
 	public int shieldCount = 0;

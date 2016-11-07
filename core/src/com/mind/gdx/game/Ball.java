@@ -63,8 +63,6 @@ public class Ball {
 			checkStartMove();
 		}
 		move();
-		System.out.println("bar1: " + World.bar1.ballStayAtSamePosition);
-		System.out.println("bar2: " + World.bar2.ballStayAtSamePosition);
 	}
 	
 	public void checkStartMove() {
@@ -143,12 +141,6 @@ public class Ball {
 			if(World.bar1.stickybatStatus || World.bar1.ballStayAtSamePosition) {
 				moveStatus = false;
 				diffYDistance = World.bar1.position.y + World.bar1.barImg.getHeight() / 2 - position.y;
-				/*if(Gdx.input.isKeyJustPressed(World.bar1.pressActive))
-				{
-					System.out.println("hi1");
-					moveStatus = true;
-					World.bar1.ballStayAtSamePosition = false;
-				}*/
 			}
 		}
 		if(hitingBar2()) {
@@ -156,12 +148,6 @@ public class Ball {
 			if(World.bar2.stickybatStatus || World.bar2.ballStayAtSamePosition) {
 				moveStatus = false;
 				diffYDistance = World.bar2.position.y + World.bar2.barImg.getHeight() / 2 - position.y;
-				/*if(Gdx.input.isKeyJustPressed(World.bar2.pressActive))
-				{
-					System.out.println("hi2");
-					moveStatus = true;
-					World.bar2.ballStayAtSamePosition = false;
-				}*/
 			}
 		}
 	}

@@ -42,25 +42,66 @@ public class WorldRenderer {
 	private static float restartXPosition = mkImgXCenter(GameScreen.restartImg);
 	private static float restartYPosition = resumeYPosition - GameScreen.restartImg.getHeight() - 50;
 	
+	private static float pongHomeXPosition = mkImgXCenter(GameScreen.pongHomeImg);
+	private static float pongHomeYPosition = centerY + 150;
+	
+	private static float onePlayerXPosition = mkImgXCenter(GameScreen.onePlayerImg);
+	private static float onePlayerYPosition = centerY;
+	
+	private static float twoPlayersXPosition = mkImgXCenter(GameScreen.twoPlayersImg);
+	private static float twoPlayersYPosition = centerY - 100;
+	
+	private static float settingXPosition = mkImgXCenter(GameScreen.restartImg);
+	private static float settingYPosition = twoPlayersYPosition - 100;
+	
+	private static float helpXPosition = mkImgXCenter(GameScreen.helpImg);
+	private static float helpYPosition = settingYPosition - 100;
+	
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
 	
 	public static void render() {
 		batch.begin();
 		
-		drawBats();
-		drawScores();
-		if(!World.pauseStatus) {
-			drawBall();
-			drawAbility();
-			drawBullet();
-			drawShield();
-			drawSticky();
+		if(World.menuStatus) {
+			drawMenu();
 		} else {
-			drawWhenPause();
+			drawBats();
+			drawScores();
+			if(!World.pauseStatus) {
+					drawBall();
+					drawAbility();
+					drawBullet();
+					drawShield();
+					drawSticky();
+			} else {
+				drawWhenPause();
+			}
 		}
 		whenEndGame();
 		
 		batch.end();
+	}
+	
+	private static void drawMenu() {
+		batch.draw(GameScreen.pongHomeImg,pongHomeXPosition,pongHomeYPosition);
+		batch.draw(GameScreen.onePlayerImg,onePlayerXPosition,onePlayerYPosition);
+		batch.draw(GameScreen.twoPlayersImg,twoPlayersXPosition,twoPlayersYPosition);		
+		batch.draw(GameScreen.settingImg,settingXPosition,settingYPosition);
+		batch.draw(GameScreen.helpImg,helpXPosition,helpYPosition);
+		
+		drawSelectedMenu();
+	}
+	
+	private static void drawSelectedMenu() {
+		if(World.selectedMenu == 1) {
+			batch.draw(GameScreen.selectedOnePlayerImg,onePlayerXPosition,onePlayerYPosition);	
+		} else if(World.selectedMenu == 2){
+			batch.draw(GameScreen.selectedTwoPlayersImg,twoPlayersXPosition,twoPlayersYPosition);
+		} else if(World.selectedMenu == 3){
+			batch.draw(GameScreen.selectedSettingImg,settingXPosition,settingYPosition);
+		} else if(World.selectedMenu == 4){
+			batch.draw(GameScreen.selectedHelpImg,helpXPosition,helpYPosition);
+		}
 	}
 	
 	private static void drawSticky() {
@@ -76,8 +117,7 @@ public class WorldRenderer {
 		}
 	}
 	
-	private static void drawWhenPause() {
-				
+	private static void drawWhenPause() {	
 		batch.draw(GameScreen.pauseImg,pauseXPosition,pauseYPosition);
 		batch.draw(GameScreen.resumeImg,resumeXPosition,resumeYPosition);		
 		batch.draw(GameScreen.restartImg,restartXPosition,restartYPosition);
@@ -90,8 +130,7 @@ public class WorldRenderer {
 			batch.draw(GameScreen.selectedResumeImg,resumeXPosition,resumeYPosition);	
 		} else if(World.selectedPause == 2){
 			batch.draw(GameScreen.selectedRestartImg,restartXPosition,restartYPosition);
-		}
-			
+		}	
 	}
 	
 	private static float mkImgXCenter(Texture img) {

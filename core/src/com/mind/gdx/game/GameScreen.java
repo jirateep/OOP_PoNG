@@ -42,6 +42,16 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture selectedResumeImg;
 	public static Texture selectedRestartImg;
 	
+	public static Texture pongHomeImg;
+	public static Texture onePlayerImg;
+	public static Texture twoPlayersImg;
+	public static Texture settingImg;
+	public static Texture helpImg;
+	public static Texture selectedOnePlayerImg;
+	public static Texture selectedTwoPlayersImg;
+	public static Texture selectedSettingImg;
+	public static Texture selectedHelpImg;
+	
 	//public static FreeTypeFontGenerator ttf_font;
 	public static BitmapFont bar1Score_bitmap;
 	public static BitmapFont bar2Score_bitmap;
@@ -132,6 +142,15 @@ public class GameScreen extends ScreenAdapter {
 		selectedResumeImg = new Texture("resumeSelected.png");
 		restartImg = new Texture("restart.png");
 		selectedRestartImg = new Texture("restartSelected.png");
+		pongHomeImg = new Texture("PoNG.png");
+		onePlayerImg = new Texture("1player.png");
+		twoPlayersImg = new Texture("2players.png");
+		settingImg = new Texture("setting.png");
+		helpImg = new Texture("help.png");
+		selectedOnePlayerImg = new Texture("1playerSelected.png");
+		selectedTwoPlayersImg = new Texture("2playersSelected.png");
+		selectedSettingImg = new Texture("settingSelected.png");
+		selectedHelpImg = new Texture("helpSelected.png");
 		
 		//ttf_font = new FreeTypeFontGenerator("NESCyrillic.ttf");
 		//FreeTypeFontGenerator generator = new FreeTypeFontGenerator("NESCyrillic.ttf");

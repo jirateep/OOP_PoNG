@@ -11,15 +11,25 @@ public class World {
 	public static Bar bar2;
 	public static Ball ball;
 	public static Ability ability;
-	public static int maxBullet = 20;
+	public static int maxBullet = 40;
 	public static Bullet [] bullets;
 	
 	public static boolean pauseStatus = false;
 	private static int pressPause = Keys.P;
 	public static int selectedPause = 1;
 	
-	public float player2BarXInit;
-	public float player1BarXInit;
+	static boolean menuStatus = true;
+	static int selectedMenu = 1;
+	
+	public static float player2BarXInit;
+	public static float player1BarXInit;
+	
+	private static int bar1Up = Keys.UP;
+	private static int bar1Down = Keys.DOWN;
+	private static int bar1Active = Keys.L;
+	private static int bar2Up = Keys.W;
+	private static int bar2Down = Keys.S;
+	private static int bar2Active = Keys.G;
 	
 	public World() {
 		player2BarXInit = 20;
@@ -40,23 +50,27 @@ public class World {
 		
 	}
 	
-	public static void update() {	
-		if(!pauseStatus) {
-			bar1.update();
-			bar2.update();
-			ball.update();
-			Bullet.update();
-			Ability.update();
-			ballHitAbility();
-			bulletHitBar();
-			scoreUpdate();
-			checkEnding();
+	public static void update() {
+		if(menuStatus) {
+			homeMenu();
 		} else {
-			selectedPause = updateSelected(selectedPause,2);
-			selectedPauseEnd();
-		}
-		if(!endGame) {
-			pauseGame();
+			if(!pauseStatus) {
+				bar1.update();
+				bar2.update();
+				ball.update();
+				Bullet.update();
+				Ability.update();
+				ballHitAbility();
+				bulletHitBar();
+				scoreUpdate();
+				checkEnding();
+			} else {
+				selectedPause = updateSelected(selectedPause,2);
+				selectedPauseEnd();
+			}/*
+			if(!endGame) {
+				pauseGame();
+			}*/
 		}
 	}
 	
@@ -83,6 +97,45 @@ public class World {
 		pauseStatus = false;
 		selectedPause = 1;
 		endGame = false;
+	}
+	
+	public static void homeMenu() {
+			selectedMenu = updateSelected(selectedMenu,4);
+			selectedMenuEnd();
+	}
+	
+	public static void selectedMenuEnd() {
+		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			if(selectedMenu == 1) {
+				startingWithOnePlayer();
+			} else if(selectedMenu == 2){
+				startingWithTwoPlayerSetting();
+			} else if(selectedMenu == 3){
+				setting();
+			} else if(selectedMenu == 4){
+				help();
+			}
+		}
+	}
+	
+	public static void startingWithOnePlayer() {
+		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,bar1Up,bar1Down,bar1Active,1);
+		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,2);
+		menuStatus = false;
+	}
+	
+	public static void startingWithTwoPlayerSetting() {
+		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,bar1Up,bar1Down,bar1Active,1);
+		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,bar2Up,bar2Down,bar2Active,2);
+		menuStatus = false;
+	}
+	
+	public static void help() {
+		/////////////////////////////
+	}
+	
+	public static void setting() {
+		/////////////////////////////
 	}
 	
 	public static int updateSelected(int selected, int max) {
