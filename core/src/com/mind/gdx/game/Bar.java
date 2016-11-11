@@ -7,7 +7,13 @@ import com.badlogic.gdx.math.Vector2;
 public class Bar {
 	
 	Vector2 position;
+	public static final int PLAYER1 = 0;
+	public static final int PLAYER2 = 1;
 	public int player;
+	
+	public static final int NOTFROZEN = 0;
+	public static final int FROZEN = 1;
+	
 	public int score = 0;
 	public float length ;
 	public float width ;
@@ -210,8 +216,8 @@ public class Bar {
 	}
 	
 	private float getBulletXPosition() {
-		float bulletWidth = GameScreen.frozenBulletImg1.getWidth();
-		if(player == Bullet.PLAYER1) {
+		float bulletWidth = GameScreen.frozenBulletImg[Bar.PLAYER1].getWidth();
+		if(player == Bar.PLAYER1) {
 			return World.bar1.position.x - bulletWidth;
 		} else {
 			return World.bar2.position.x + World.bar2.width;
@@ -219,8 +225,8 @@ public class Bar {
 	}
 	
 	private float getBulletYPosition() {
-		float bulletHeight = GameScreen.frozenBulletImg1.getHeight();
-		if(player == Bullet.PLAYER1) {
+		float bulletHeight = GameScreen.frozenBulletImg[Bar.PLAYER1].getHeight();
+		if(player == Bar.PLAYER1) {
 			return position.y + World.bar1.width / 2 - bulletHeight / 2;
 		} else {
 			return position.y + World.bar2.width / 2 - bulletHeight / 2;
@@ -263,15 +269,15 @@ public class Bar {
 
 	public static void updateBarImg() {
 		if(World.bar1.frozenStatus) {
-			World.bar1.barImg = GameScreen.barFImg[0][World.bar1.size - 1];
+			World.bar1.barImg = GameScreen.barImg[Bar.PLAYER1][Bar.FROZEN][World.bar1.size - 1];
 		}else{
-			World.bar1.barImg = GameScreen.barImg[0][World.bar1.size - 1];
+			World.bar1.barImg = GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][World.bar1.size - 1];
 		}
 		
 		if(World.bar2.frozenStatus) {
-			World.bar2.barImg = GameScreen.barFImg[1][World.bar2.size - 1];
+			World.bar2.barImg = GameScreen.barImg[Bar.PLAYER2][Bar.FROZEN][World.bar2.size - 1];
 		}else{
-			World.bar2.barImg = GameScreen.barImg[1][World.bar2.size - 1];
+			World.bar2.barImg = GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][World.bar2.size - 1];
 		}
 	}	
 	

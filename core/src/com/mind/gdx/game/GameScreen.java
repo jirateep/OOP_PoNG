@@ -14,23 +14,21 @@ public class GameScreen extends ScreenAdapter {
 	public static World world;
 	public static WorldRenderer worldRenderer;
 	
-	public static Texture frozenBulletImg1;
-	public static Texture frozenBulletImg2;
+	public static Texture [] frozenBulletImg = new Texture [2];
+
 	public static Texture ballImg;
 	public static Texture fireballImg;
 	public static Texture abilityImg;
-	public static Texture fireballAbilityImg;
-	public static Texture biggerbatAbilityImg;
-	public static Texture smallerbatAbilityImg;
-	public static Texture frozenbulletAbilityImg;
-	public static Texture shieldAbilityImg;
-	public static Texture stickybatAbilityImg;
+	
+	public static Texture [] abilityListImg;
 	public static Texture showFrozenBulletImg;
 	
 	public static Texture [] score = new Texture [10];
+
+	public static final int NBOFPLAYERS = 2;
+	public static final int NBOFFROZENSTATUS = 2;
 	
-	public static Texture [][] barImg = new Texture [2][Bar.maxSize];
-	public static Texture [][] barFImg = new Texture [2][Bar.maxSize];
+	public static Texture [][][] barImg = new Texture [NBOFPLAYERS][NBOFFROZENSTATUS][Bar.maxSize];
 	public static Texture [] sticky = new Texture [Bar.maxSize];
 
 	public static Texture shieldImg1;
@@ -57,8 +55,6 @@ public class GameScreen extends ScreenAdapter {
 	public static BitmapFont bar2Score_bitmap;
 	public static BitmapFont ending_bitmap;
 	
-	static GlyphLayout bar1Score;
-	static GlyphLayout bar2Score;
 	static GlyphLayout ending;
 	
 	public static int width = 1536;//1920
@@ -80,34 +76,34 @@ public class GameScreen extends ScreenAdapter {
 		score[8] = new Texture("8White.png");
 		score[9] = new Texture("9White.png");
 		
-		barImg[0][0] = new Texture("normalBar1P1.png");
-		barImg[1][0] = new Texture("normalBar1P2.png");
-		barImg[0][1] = new Texture("normalBar2P1.png");
-		barImg[1][1] = new Texture("normalBar2P2.png");
-		barImg[0][2] = new Texture("normalBar3P1.png");
-		barImg[1][2] = new Texture("normalBar3P2.png");
-		barImg[0][3] = new Texture("normalBar4P1.png");
-		barImg[1][3] = new Texture("normalBar4P2.png");
-		barImg[0][4] = new Texture("normalBar5P1.png");
-		barImg[1][4] = new Texture("normalBar5P2.png");
-		barImg[0][5] = new Texture("normalBar6P1.png");
-		barImg[1][5] = new Texture("normalBar6P2.png");
-		barImg[0][6] = new Texture("normalBar7P1.png");
-		barImg[1][6] = new Texture("normalBar7P2.png");
-		barFImg[0][0] = new Texture("normalBar1FP1.png");
-		barFImg[1][0] = new Texture("normalBar1FP2.png");
-		barFImg[0][1] = new Texture("normalBar2FP1.png");
-		barFImg[1][1] = new Texture("normalBar2FP2.png");
-		barFImg[0][2] = new Texture("normalBar3FP1.png");
-		barFImg[1][2] = new Texture("normalBar3FP2.png");
-		barFImg[0][3] = new Texture("normalBar4FP1.png");
-		barFImg[1][3] = new Texture("normalBar4FP2.png");
-		barFImg[0][4] = new Texture("normalBar5FP1.png");
-		barFImg[1][4] = new Texture("normalBar5FP2.png");
-		barFImg[0][5] = new Texture("normalBar6FP1.png");
-		barFImg[1][5] = new Texture("normalBar6FP2.png");
-		barFImg[0][6] = new Texture("normalBar7FP1.png");
-		barFImg[1][6] = new Texture("normalBar7FP2.png");
+		barImg[Bar.PLAYER1][Bar.NOTFROZEN][0] = new Texture("normalBar1P1.png");
+		barImg[Bar.PLAYER2][Bar.NOTFROZEN][0] = new Texture("normalBar1P2.png");
+		barImg[Bar.PLAYER1][Bar.NOTFROZEN][1] = new Texture("normalBar2P1.png");
+		barImg[Bar.PLAYER2][Bar.NOTFROZEN][1] = new Texture("normalBar2P2.png");
+		barImg[Bar.PLAYER1][Bar.NOTFROZEN][2] = new Texture("normalBar3P1.png");
+		barImg[Bar.PLAYER2][Bar.NOTFROZEN][2] = new Texture("normalBar3P2.png");
+		barImg[Bar.PLAYER1][Bar.NOTFROZEN][3] = new Texture("normalBar4P1.png");
+		barImg[Bar.PLAYER2][Bar.NOTFROZEN][3] = new Texture("normalBar4P2.png");
+		barImg[Bar.PLAYER1][Bar.NOTFROZEN][4] = new Texture("normalBar5P1.png");
+		barImg[Bar.PLAYER2][Bar.NOTFROZEN][4] = new Texture("normalBar5P2.png");
+		barImg[Bar.PLAYER1][Bar.NOTFROZEN][5] = new Texture("normalBar6P1.png");
+		barImg[Bar.PLAYER2][Bar.NOTFROZEN][5] = new Texture("normalBar6P2.png");
+		barImg[Bar.PLAYER1][Bar.NOTFROZEN][6] = new Texture("normalBar7P1.png");
+		barImg[Bar.PLAYER2][Bar.NOTFROZEN][6] = new Texture("normalBar7P2.png");
+		barImg[Bar.PLAYER1][Bar.FROZEN][0] = new Texture("normalBar1FP1.png");
+		barImg[Bar.PLAYER2][Bar.FROZEN][0] = new Texture("normalBar1FP2.png");
+		barImg[Bar.PLAYER1][Bar.FROZEN][1] = new Texture("normalBar2FP1.png");
+		barImg[Bar.PLAYER2][Bar.FROZEN][1] = new Texture("normalBar2FP2.png");
+		barImg[Bar.PLAYER1][Bar.FROZEN][2] = new Texture("normalBar3FP1.png");
+		barImg[Bar.PLAYER2][Bar.FROZEN][2] = new Texture("normalBar3FP2.png");
+		barImg[Bar.PLAYER1][Bar.FROZEN][3] = new Texture("normalBar4FP1.png");
+		barImg[Bar.PLAYER2][Bar.FROZEN][3] = new Texture("normalBar4FP2.png");
+		barImg[Bar.PLAYER1][Bar.FROZEN][4] = new Texture("normalBar5FP1.png");
+		barImg[Bar.PLAYER2][Bar.FROZEN][4] = new Texture("normalBar5FP2.png");
+		barImg[Bar.PLAYER1][Bar.FROZEN][5] = new Texture("normalBar6FP1.png");
+		barImg[Bar.PLAYER2][Bar.FROZEN][5] = new Texture("normalBar6FP2.png");
+		barImg[Bar.PLAYER1][Bar.FROZEN][6] = new Texture("normalBar7FP1.png");
+		barImg[Bar.PLAYER2][Bar.FROZEN][6] = new Texture("normalBar7FP2.png");
 		
 		sticky[0] = new Texture("sticky1.png");
 		sticky[1] = new Texture("sticky2.png");
@@ -123,17 +119,17 @@ public class GameScreen extends ScreenAdapter {
 		shieldImg1 = new Texture("shieldP1.png");
 		shieldImg2 = new Texture("shieldP2.png");
 		
-		frozenBulletImg1 = new Texture("frozenBulletP1.png");
-		frozenBulletImg2 = new Texture("frozenBulletP2.png");
+		frozenBulletImg[Bar.PLAYER1] = new Texture("frozenBulletP1.png");
+		frozenBulletImg[Bar.PLAYER2] = new Texture("frozenBulletP2.png");
 		
-		frozenbulletAbilityImg = new Texture("frozenAbility.png");
-		biggerbatAbilityImg = new Texture("biggerbatAbility.png");
-		smallerbatAbilityImg = new Texture("smallerbatAbility.png");
-		fireballAbilityImg = new Texture("fireballAbility.png");
-		//fireballAbilityImg = new Texture("newFireballAbility.png");
-		shieldAbilityImg = new Texture("shieldAbility.png");
-		stickybatAbilityImg = new Texture("stickybatAbility.png");
-		abilityImg = fireballAbilityImg;
+		abilityListImg = new Texture [Ability.numberOfAbility+1];
+		abilityListImg[Ability.FROZENBULLET] = new Texture("frozenAbility.png");
+		abilityListImg[Ability.BIGGERBAT] = new Texture("biggerbatAbility.png");
+		abilityListImg[Ability.SMALLERBAT] = new Texture("smallerbatAbility.png");
+		abilityListImg[Ability.FIREBALL] = new Texture("fireballAbility.png");
+		abilityListImg[Ability.SHIELD] = new Texture("shieldAbility.png");
+		abilityListImg[Ability.STICKYBAT] = new Texture("stickybatAbility.png");
+		abilityImg = abilityListImg[Ability.FIREBALL];
 		
 		showFrozenBulletImg = new Texture("showFrozenBullet.png");
 		
@@ -160,12 +156,8 @@ public class GameScreen extends ScreenAdapter {
 		
 		world = new World();
 		
-		bar1Score = new GlyphLayout(bar1Score_bitmap, Integer.toString(World.bar1.score));
-		bar2Score = new GlyphLayout(bar2Score_bitmap, Integer.toString(World.bar2.score));
 		ending = new GlyphLayout(ending_bitmap, "Player1 WIN");
 		
-		bar1Score_bitmap.getData().setScale(fontsize, fontsize);
-		bar2Score_bitmap.getData().setScale(fontsize, fontsize);
 		ending_bitmap.getData().setScale(endingfontsize, endingfontsize);
 	}
 	

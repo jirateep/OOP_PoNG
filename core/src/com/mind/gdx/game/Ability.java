@@ -66,31 +66,8 @@ public class Ability {
 			startCountAbilityTimer = false;
 			abilityTimer = 0;
 			int random = (int)(Math.random() * 1000);
-			switch (1 + random%numberOfAbility) {
-				case 1:
-					updateShowAbility(FIREBALL);
-					break;
-				case 2:
-					updateShowAbility(BIGGERBAT);
-					break;
-				case 3:
-					updateShowAbility(SMALLERBAT);
-					break;
-				case 4:
-					updateShowAbility(FROZENBULLET);
-					break;
-				case 5:
-					updateShowAbility(SHIELD);
-					break;
-				case 6:
-					updateShowAbility(STICKYBAT);
-					break;
-				default:
-					break;
-			}
-			
+			updateShowAbility(random%numberOfAbility);
 		}
-		
 	}
 	
 	public static void updateShowAbility (int selectedAbility) {
@@ -105,25 +82,28 @@ public class Ability {
 	
 	public static void workAbility() {
 		if(showAbility != NOTHING)  {
-			if(showAbility == FIREBALL) {
+			switch(showAbility) {
+			case FIREBALL:
 				workFireball();
-			}
-			if(showAbility == BIGGERBAT) {
+				break;
+			case BIGGERBAT:
 				workBiggerbat();
-			}	
-			if(showAbility == SMALLERBAT) {
+				break;
+			case SMALLERBAT:
 				workSmallerbat();
-			}
-			if(showAbility == FROZENBULLET) {
+				break;
+			case FROZENBULLET:
 				workFrozenbullet();
-			}
-			if(showAbility == SHIELD) {
+				break;
+			case SHIELD:
 				workShield();
-			}
-			if(showAbility == STICKYBAT) {
+				break;
+			case STICKYBAT:
 				workStickybat();
+				break;
+			default:
+				break;
 			}
-			
 			wait = 0;
 			showAbility = NOTHING;
 		}

@@ -33,10 +33,10 @@ public class World {
 	
 	public World() {
 		player2BarXInit = 20;
-		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[0][1].getWidth();
+		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1].getWidth();
 		
-		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.L,1);
-		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Keys.W,Keys.S,Keys.G,2);
+		bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.L,Bar.PLAYER1);
+		bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],player2BarXInit,Keys.W,Keys.S,Keys.G,Bar.PLAYER2);
 		
 		ball = new Ball();
 		
@@ -117,14 +117,14 @@ public class World {
 	}
 	
 	public static void startingWithOnePlayer() {
-		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,bar1Up,bar1Down,bar1Active,1);
-		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,2);
+		bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
+		bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,Bar.PLAYER2);
 		menuStatus = false;
 	}
 	
 	public static void startingWithTwoPlayerSetting() {
-		bar1 = new Bar(GameScreen.barImg[0][1],player1BarXInit,bar1Up,bar1Down,bar1Active,1);
-		bar2 = new Bar(GameScreen.barImg[1][1],player2BarXInit,bar2Up,bar2Down,bar2Active,2);
+		bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
+		bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],player2BarXInit,bar2Up,bar2Down,bar2Active,Bar.PLAYER2);
 		menuStatus = false;
 	}
 	
@@ -162,15 +162,15 @@ public class World {
 	private static void bulletHitBar() {
 		for(int i = 0 ; i < bullets.length ; i++) {
 			if(bullets[i] != null) {
-				if(bullets[i].owner == Bullet.PLAYER1) {
+				if(bullets[i].owner == Bar.PLAYER1) {
 					if(bullets[i].xPosition < bar2.position.x + bar2.length) {
 						if(bullets[i].yPosition >= bar2.position.y && bullets[i].yPosition <= bar2.position.y + bar2.width) {
 							bar2.frozenStatus = true;
 						}
 						bullets[i] = null;
 					}
-				}else if(bullets[i].owner == Bullet.PLAYER2) {
-					if(bullets[i].xPosition > bar1.position.x - GameScreen.frozenBulletImg2.getWidth()) {
+				}else if(bullets[i].owner == Bar.PLAYER2) {
+					if(bullets[i].xPosition > bar1.position.x - GameScreen.frozenBulletImg[Bar.PLAYER1].getWidth()) {
 						if(bullets[i].yPosition >= bar1.position.y && bullets[i].yPosition <= bar1.position.y + bar1.width) {
 							bar1.frozenStatus = true;
 						}

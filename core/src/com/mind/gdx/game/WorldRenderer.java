@@ -18,8 +18,8 @@ public class WorldRenderer {
 	private static float endingYPosition;
 	private static float minimumXRange = 400;
 	private static float minimumYRange = 200;
-	static float abilityXPosition = (GameScreen.width - GameScreen.fireballAbilityImg.getWidth()) / 2;
-	static float abilityYPosition = (GameScreen.height - GameScreen.fireballAbilityImg.getHeight()) / 2;
+	static float abilityXPosition = (GameScreen.width - GameScreen.abilityListImg[Ability.FIREBALL].getWidth()) / 2;
+	static float abilityYPosition = (GameScreen.height - GameScreen.abilityListImg[Ability.FIREBALL].getHeight()) / 2;
 	private static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg1.getWidth();
 	private static float shield2XPosition = World.bar2.position.x + World.bar2.length;
 	private static float shieldYPosition = 0;
@@ -140,36 +140,14 @@ public class WorldRenderer {
 	private static void drawBullet() {
 		for(int i = 0 ; i < World.bullets.length ; i++) {
 			if(World.bullets[i] != null) {
-				if(World.bullets[i].owner == Bullet.PLAYER1) {
-					batch.draw(GameScreen.frozenBulletImg1,World.bullets[i].xPosition,World.bullets[i].yPosition);
-				}
-				if(World.bullets[i].owner == Bullet.PLAYER2) {
-					batch.draw(GameScreen.frozenBulletImg2,World.bullets[i].xPosition,World.bullets[i].yPosition);
-				}	
+				batch.draw(GameScreen.frozenBulletImg[World.bullets[i].owner],World.bullets[i].xPosition,World.bullets[i].yPosition);
 			}
 		}
 	}
 	
 	private static void drawAbility() {
 		if(Ability.showAbility != Ability.NOTHING) {
-			if(Ability.showAbility == Ability.FIREBALL) {
-				GameScreen.abilityImg = GameScreen.fireballAbilityImg;
-			}
-			if(Ability.showAbility == Ability.SMALLERBAT) {
-				GameScreen.abilityImg = GameScreen.smallerbatAbilityImg;
-			}
-			if(Ability.showAbility == Ability.BIGGERBAT) {
-				GameScreen.abilityImg = GameScreen.biggerbatAbilityImg;
-			}
-			if(Ability.showAbility == Ability.FROZENBULLET) {
-				GameScreen.abilityImg = GameScreen.frozenbulletAbilityImg;
-			}
-			if(Ability.showAbility == Ability.SHIELD) {
-				GameScreen.abilityImg = GameScreen.shieldAbilityImg;
-			}
-			if(Ability.showAbility == Ability.STICKYBAT) {
-				GameScreen.abilityImg = GameScreen.stickybatAbilityImg;
-			}
+			GameScreen.abilityImg = GameScreen.abilityListImg[Ability.showAbility];
 			batch.draw(GameScreen.abilityImg,abilityXPosition,abilityYPosition);
 		} else {
 			abilityXPosition = minimumXRange + (int)(Math.random() * (GameScreen.width - 2*minimumXRange)); 
@@ -230,7 +208,7 @@ public class WorldRenderer {
 			}
 		} else if(bar.frozenBullet % 2 == 0 && bar.frozenBullet != 0) {
 			int n = bar.frozenBullet / 2;
-			for(int i = 0;i <= n;i++) {
+			for(int i = 0;i < n;i++) {
 				batch.draw(GameScreen.showFrozenBulletImg,xPosition,centerUp + i * distanceIncrease);
 				batch.draw(GameScreen.showFrozenBulletImg,xPosition,centerDown - i * distanceIncrease);
 			}
