@@ -36,6 +36,7 @@ public class WorldRenderer {
 	private static float pongHomeXPosition = mkImgXCenter(GameScreen.pongHomeImg);
 	private static float pongHomeYPosition = centerY + 150;
 	
+	private static float [][] homeMenuChoices = new float [4][2];/*
 	private static float onePlayerXPosition = mkImgXCenter(GameScreen.onePlayerImg);
 	private static float onePlayerYPosition = centerY;
 	
@@ -47,10 +48,15 @@ public class WorldRenderer {
 	
 	private static float helpXPosition = mkImgXCenter(GameScreen.helpImg);
 	private static float helpYPosition = settingYPosition - 100;
-	
+	*/
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
 	
 	public static void render() {
+		for(int i = 0 ; i < HomeMenu.NBOFMENU ; i++) {
+			homeMenuChoices[i][0] = mkImgXCenter(GameScreen.homeMenuChoicesImg[i][GameScreen.UNSELECTED]);
+			homeMenuChoices[i][1] = centerY - i * 100;
+		}
+		
 		batch.begin();
 		
 		if(World.menuStatus) {
@@ -75,24 +81,30 @@ public class WorldRenderer {
 	
 	private static void drawMenu() {
 		batch.draw(GameScreen.pongHomeImg,pongHomeXPosition,pongHomeYPosition);
+		for(int i=0;i<HomeMenu.NBOFMENU;i++) {
+			batch.draw(GameScreen.homeMenuChoicesImg[i][GameScreen.UNSELECTED],homeMenuChoices[i][0],homeMenuChoices[i][1]);
+		}
+		/*
 		batch.draw(GameScreen.onePlayerImg,onePlayerXPosition,onePlayerYPosition);
 		batch.draw(GameScreen.twoPlayersImg,twoPlayersXPosition,twoPlayersYPosition);		
 		batch.draw(GameScreen.settingImg,settingXPosition,settingYPosition);
 		batch.draw(GameScreen.helpImg,helpXPosition,helpYPosition);
-		
+		*/
 		drawSelectedMenu();
 	}
 	
 	private static void drawSelectedMenu() {
-		if(World.selectedMenu == 1) {
+		/////////////////
+		batch.draw(GameScreen.homeMenuChoicesImg[HomeMenu.selectedHomeMenu][GameScreen.SELECTED],homeMenuChoices[HomeMenu.selectedHomeMenu][0],homeMenuChoices[HomeMenu.selectedHomeMenu][1]);
+		/*if(HomeMenu.selectedHomeMenu == 1) {
 			batch.draw(GameScreen.selectedOnePlayerImg,onePlayerXPosition,onePlayerYPosition);	
-		} else if(World.selectedMenu == 2){
+		} else if(HomeMenu.selectedHomeMenu == 2){
 			batch.draw(GameScreen.selectedTwoPlayersImg,twoPlayersXPosition,twoPlayersYPosition);
-		} else if(World.selectedMenu == 3){
+		} else if(HomeMenu.selectedHomeMenu == 3){
 			batch.draw(GameScreen.selectedSettingImg,settingXPosition,settingYPosition);
-		} else if(World.selectedMenu == 4){
+		} else if(HomeMenu.selectedHomeMenu == 4){
 			batch.draw(GameScreen.selectedHelpImg,helpXPosition,helpYPosition);
-		}
+		}*/
 	}
 	
 	private static void drawSticky() {

@@ -14,22 +14,15 @@ public class World {
 	public static int maxBullet = 40;
 	public static Bullet [] bullets;
 	
+	//public static HomeMenu homeMenu;
 	public static boolean pauseStatus = false;
 	private static int pressPause = Keys.P;
 	public static int selectedPause = 1;
 	
 	static boolean menuStatus = true;
-	static int selectedMenu = 1;
 	
 	public static float player2BarXInit;
 	public static float player1BarXInit;
-	
-	private static int bar1Up = Keys.UP;
-	private static int bar1Down = Keys.DOWN;
-	private static int bar1Active = Keys.L;
-	private static int bar2Up = Keys.W;
-	private static int bar2Down = Keys.S;
-	private static int bar2Active = Keys.G;
 	
 	public World() {
 		player2BarXInit = 20;
@@ -43,16 +36,17 @@ public class World {
 		ability = new Ability();
 		
 		bullets = new Bullet [maxBullet];
-		
 		for(int i = 0 ; i < bullets.length ; i++) {
 			bullets[i] = null;
 		}
+		
+		//homeMenu = new HomeMenu();
 		
 	}
 	
 	public static void update() {
 		if(menuStatus) {
-			homeMenu();
+			HomeMenu.update();
 		} else {
 			if(!pauseStatus) {
 				bar1.update();
@@ -65,7 +59,7 @@ public class World {
 				scoreUpdate();
 				checkEnding();
 			} else {
-				selectedPause = updateSelected(selectedPause,2);
+				selectedPause = Menu.updateSelected(selectedPause,2);
 				selectedPauseEnd();
 			}
 			pauseGame();
@@ -95,61 +89,6 @@ public class World {
 		pauseStatus = false;
 		selectedPause = 1;
 		endGame = false;
-	}
-	
-	public static void homeMenu() {
-			selectedMenu = updateSelected(selectedMenu,4);
-			selectedMenuEnd();
-	}
-	
-	public static void selectedMenuEnd() {
-		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-			if(selectedMenu == 1) {
-				startingWithOnePlayer();
-			} else if(selectedMenu == 2){
-				startingWithTwoPlayerSetting();
-			} else if(selectedMenu == 3){
-				setting();
-			} else if(selectedMenu == 4){
-				help();
-			}
-		}
-	}
-	
-	public static void startingWithOnePlayer() {
-		bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
-		bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,Bar.PLAYER2);
-		menuStatus = false;
-	}
-	
-	public static void startingWithTwoPlayerSetting() {
-		bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
-		bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],player2BarXInit,bar2Up,bar2Down,bar2Active,Bar.PLAYER2);
-		menuStatus = false;
-	}
-	
-	public static void help() {
-		/////////////////////////////
-	}
-	
-	public static void setting() {
-		/////////////////////////////
-	}
-	
-	public static int updateSelected(int selected, int max) {
-		if(Gdx.input.isKeyJustPressed(Keys.UP)) {
-			selected--;
-		}
-		if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-			selected++;
-		}
-		if(selected > max) {
-			selected = max;
-		}
-		if(selected < 1) {
-			selected = 1;
-		}
-		return selected;
 	}
 	
 	private static void pauseGame() {
