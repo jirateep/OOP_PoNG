@@ -9,7 +9,7 @@ public class Ability {
 	public static final int FIREBALL = 1;
 	public static final int BIGGERBAT = 2;
 	public static final int SMALLERBAT = 3;
-	public static final int FORZENBULLET = 4;
+	public static final int FROZENBULLET = 4;
 	public static final int SHIELD = 5;
 	public static final int STICKYBAT = 6;
 	public static int numberOfAbility = 6;
@@ -77,7 +77,7 @@ public class Ability {
 					updateShowAbility(SMALLERBAT);
 					break;
 				case 4:
-					updateShowAbility(FORZENBULLET);
+					updateShowAbility(FROZENBULLET);
 					break;
 				case 5:
 					updateShowAbility(SHIELD);
@@ -106,77 +106,68 @@ public class Ability {
 	public static void workAbility() {
 		if(showAbility != NOTHING)  {
 			if(showAbility == FIREBALL) {
-				World.ball.ballAbilityStatus = Ball.FIREBALL;
-				startBallAbilityTimer = true;
-				ballAbilityTimer = 0;	
+				workFireball();
 			}
 			if(showAbility == BIGGERBAT) {
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
-					World.bar1.size += Bar.BIGGERBATINCREASE;
-					if(World.bar1.size > Bar.maxSize) {
-						World.bar1.size = Bar.maxSize;
-					}
-				}
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
-					World.bar2.size += Bar.BIGGERBATINCREASE;
-					if(World.bar2.size > Bar.maxSize) {
-						World.bar2.size = Bar.maxSize;
-					}
-				}
+				workBiggerbat();
 			}	
 			if(showAbility == SMALLERBAT) {
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
-					World.bar2.size -= Bar.SMALLERBATDECREASE;
-					if(World.bar2.size < Bar.minSize) {
-						World.bar2.size = Bar.minSize;
-					}
-				}
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
-					World.bar1.size -= Bar.SMALLERBATDECREASE;
-					if(World.bar1.size < Bar.minSize) {
-						World.bar1.size = Bar.minSize;
-					}
-				}
+				workSmallerbat();
 			}
-			if(showAbility == FORZENBULLET) {
-				if(World.ball.hitStatusLeftRight ==  Ball.hitPlayer1) {
-						World.bar1.forzenBullet += Bar.increaseBullet;
-						World.bar1.barAbilityStatus = Bar.FORZENBULLET;
-						if(World.bar1.forzenBullet > Bar.maxForzenBullet) {
-							World.bar1.forzenBullet = Bar.maxForzenBullet;
-						}
-							
-				}
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
-						World.bar2.forzenBullet += Bar.increaseBullet;
-						World.bar2.barAbilityStatus = Bar.FORZENBULLET;
-						if(World.bar2.forzenBullet > Bar.maxForzenBullet) {
-							World.bar2.forzenBullet = Bar.maxForzenBullet;
-						}			
-				}
+			if(showAbility == FROZENBULLET) {
+				workFrozenbullet();
 			}
 			if(showAbility == SHIELD) {
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
-					World.bar1.shieldStatus = true;
-				}
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
-					World.bar2.shieldStatus = true;
-				}
+				workShield();
 			}
 			if(showAbility == STICKYBAT) {
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
-					World.bar1.stickybatStatus = true;
-					World.bar1.ballStayAtSamePosition = true;
-				}
-				if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
-					World.bar2.stickybatStatus = true;
-					World.bar2.ballStayAtSamePosition = true;
-				}
-				
+				workStickybat();
 			}
 			
 			wait = 0;
 			showAbility = NOTHING;
 		}
+	}
+	
+	private static void workFireball() {
+		World.ball.ballAbilityStatus = Ball.FIREBALL;
+		startBallAbilityTimer = true;
+		ballAbilityTimer = 0;
+	}
+	
+	private static void workBiggerbat() {
+		Bar bar = Ball.getOwner();
+		bar.size += Bar.BIGGERBATINCREASE;
+		if(bar.size > Bar.maxSize) {
+			bar.size = Bar.maxSize;
+		}
+	}
+	
+	private static void workSmallerbat() {
+		Bar bar = Ball.getOppositeOwner();
+		bar.size -= Bar.SMALLERBATDECREASE;
+		if(bar.size < Bar.minSize) {
+			bar.size = Bar.minSize;
+		}
+	}
+	
+	private static void workFrozenbullet() {
+		Bar bar = Ball.getOwner();
+		bar.frozenBullet += Bar.increaseBullet;
+		bar.barAbilityStatus = Bar.FROZENBULLET;
+		if(bar.frozenBullet > Bar.maxFrozenBullet) {
+			bar.frozenBullet = Bar.maxFrozenBullet;
+		}			
+	}
+	
+	private static void workShield() {
+		Bar bar = Ball.getOwner();
+		bar.shieldStatus = true;
+	}
+	
+	private static void workStickybat() {
+		Bar bar = Ball.getOwner();
+		bar.stickybatStatus = true;
+		bar.ballStayAtSamePosition = true;
 	}
 }

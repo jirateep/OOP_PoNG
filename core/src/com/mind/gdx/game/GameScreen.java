@@ -14,18 +14,18 @@ public class GameScreen extends ScreenAdapter {
 	public static World world;
 	public static WorldRenderer worldRenderer;
 	
-	public static Texture forzenBulletImg1;
-	public static Texture forzenBulletImg2;
+	public static Texture frozenBulletImg1;
+	public static Texture frozenBulletImg2;
 	public static Texture ballImg;
 	public static Texture fireballImg;
 	public static Texture abilityImg;
 	public static Texture fireballAbilityImg;
 	public static Texture biggerbatAbilityImg;
 	public static Texture smallerbatAbilityImg;
-	public static Texture forzenbulletAbilityImg;
+	public static Texture frozenbulletAbilityImg;
 	public static Texture shieldAbilityImg;
 	public static Texture stickybatAbilityImg;
-	public static Texture showForzenBulletImg;
+	public static Texture showFrozenBulletImg;
 	
 	public static Texture [] score = new Texture [10];
 	
@@ -123,10 +123,10 @@ public class GameScreen extends ScreenAdapter {
 		shieldImg1 = new Texture("shieldP1.png");
 		shieldImg2 = new Texture("shieldP2.png");
 		
-		forzenBulletImg1 = new Texture("forzenBulletP1.png");
-		forzenBulletImg2 = new Texture("forzenBulletP2.png");
+		frozenBulletImg1 = new Texture("frozenBulletP1.png");
+		frozenBulletImg2 = new Texture("frozenBulletP2.png");
 		
-		forzenbulletAbilityImg = new Texture("forzenAbility.png");
+		frozenbulletAbilityImg = new Texture("frozenAbility.png");
 		biggerbatAbilityImg = new Texture("biggerbatAbility.png");
 		smallerbatAbilityImg = new Texture("smallerbatAbility.png");
 		fireballAbilityImg = new Texture("fireballAbility.png");
@@ -135,7 +135,7 @@ public class GameScreen extends ScreenAdapter {
 		stickybatAbilityImg = new Texture("stickybatAbility.png");
 		abilityImg = fireballAbilityImg;
 		
-		showForzenBulletImg = new Texture("showForzenBullet.png");
+		showFrozenBulletImg = new Texture("showFrozenBullet.png");
 		
 		pauseImg = new Texture("pause.png");
 		resumeImg = new Texture("resume.png");

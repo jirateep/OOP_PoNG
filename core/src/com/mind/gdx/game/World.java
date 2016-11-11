@@ -165,14 +165,14 @@ public class World {
 				if(bullets[i].owner == Bullet.PLAYER1) {
 					if(bullets[i].xPosition < bar2.position.x + bar2.length) {
 						if(bullets[i].yPosition >= bar2.position.y && bullets[i].yPosition <= bar2.position.y + bar2.width) {
-							bar2.forzenStatus = true;
+							bar2.frozenStatus = true;
 						}
 						bullets[i] = null;
 					}
 				}else if(bullets[i].owner == Bullet.PLAYER2) {
-					if(bullets[i].xPosition > bar1.position.x - GameScreen.forzenBulletImg2.getWidth()) {
+					if(bullets[i].xPosition > bar1.position.x - GameScreen.frozenBulletImg2.getWidth()) {
 						if(bullets[i].yPosition >= bar1.position.y && bullets[i].yPosition <= bar1.position.y + bar1.width) {
-							bar1.forzenStatus = true;
+							bar1.frozenStatus = true;
 						}
 						bullets[i] = null;
 					}
@@ -240,9 +240,9 @@ public class World {
 	
 	private static void resetBat(Bar bar) {
 		bar.size = 2;
-		bar.forzenBullet = 0;
-		bar.forzenStatus = false;
-		bar.forzenCount = 0;
+		bar.frozenBullet = 0;
+		bar.frozenStatus = false;
+		bar.frozenCount = 0;
 		bar.shieldStatus = false;
 		bar.shieldStatus = false;
 		bar.stickybatStatus = false;

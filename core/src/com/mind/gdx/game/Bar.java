@@ -20,7 +20,7 @@ public class Bar {
 	public static final int BIGGERBATINCREASE = 2;
 	public static final int SMALLERBATDECREASE = 1;
 	
-	public static final int FORZENBULLET = 1;
+	public static final int FROZENBULLET = 1;
 	public static final int NOTHING = 0;
 	public int barAbilityStatus = NOTHING;
 	
@@ -34,12 +34,12 @@ public class Bar {
 	public int shieldCount = 0;
 	private int maxShieldCount = 500;
 	
-	public int forzenBullet = 0;
-	public boolean forzenStatus = false;
-	public int forzenCount = 0;
-	private int maxForzenCount = 500; 
-	public int forzenSpeedFactor = 5;
-	public static int maxForzenBullet = 10;
+	public int frozenBullet = 0;
+	public boolean frozenStatus = false;
+	public int frozenCount = 0;
+	private int maxFrozenCount = 500; 
+	public int frozenSpeedFactor = 5;
+	public static int maxFrozenBullet = 10;
 	public static int increaseBullet = 3;
 	
 	public boolean stickybatStatus = false;
@@ -49,7 +49,7 @@ public class Bar {
 	
 	public int countRandom = 500;
 	public int countNextRandom = 0;
-	public int maxCountNextRandom = 200;
+	public int maxCountNextRandom = 100;
 	
 	private boolean botWinStatus = true;
 	private boolean moveUpDownStatus = true;
@@ -82,7 +82,7 @@ public class Bar {
 				move();
 				shoot();
 			}
-				forzenTimer();
+				frozenTimer();
 				shieldTimer();
 				stickybatTimer();
 				updateBarImg();
@@ -91,10 +91,10 @@ public class Bar {
 	}
 	
 	private void botShoot() {
-		if(forzenBullet > 0) {
+		if(frozenBullet > 0) {
 			int random = (int)(Math.random()*2);
 			if(random % 2 == 0) {
-				forzenBullet--;
+				frozenBullet--;
 				int reserved = Bullet.findAvailable();
 				World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),player);
 			}
@@ -105,12 +105,12 @@ public class Bar {
 		if(countNextRandom == maxCountNextRandom) {
 			countNextRandom = 0;
 			int random = (int)(Math.random()*countRandom);
-			if(random % 25 == 0) {
+			if(random % 40 < 10) {
 				botWinStatus = false;
 			} else {
 				botWinStatus = true;
 			}
-			countRandom -= 25;
+			countRandom -= 10;
 		}
 		if(World.ball.moveStatus) {
 			countNextRandom++;
@@ -132,7 +132,7 @@ public class Bar {
 				moveUpDownStatus = true;
 			}
 		}
-		if(Math.abs(position.y - World.ball.position.y) > 40) {
+		if(Math.abs(position.y - World.ball.position.y) > 20) {
 			if(countMovement == maxCountMovement) {
 				botMovement();
 				countMovement = 0;
@@ -150,20 +150,19 @@ public class Bar {
 	}
 	
 	private void botMovement() {
-		if(forzenStatus){
+		if(frozenStatus){
 			if(moveUpDownStatus) {
-				position.y += (speed / forzenSpeedFactor) * 5 / 6;
+				position.y += (speed / frozenSpeedFactor) / 2;
 			} else {
-				position.y -= (speed / forzenSpeedFactor) * 5 / 6;
+				position.y -= (speed / frozenSpeedFactor) / 2;
 			}
 		} else {
 			if(moveUpDownStatus) {
-				position.y += speed * 5 / 6;
+				position.y += speed * 2 / 3;
 			} else {
-				position.y -= speed * 5 / 6;
+				position.y -= speed * 2 / 3;
 			}
 		}
-
 	}
 	
 	public void shieldTimer() {
@@ -176,12 +175,12 @@ public class Bar {
 		}
 	}
 	
-	public void forzenTimer() {
-		if(forzenStatus) {
-			forzenCount++;
-			if(forzenCount == maxForzenCount) {
-				forzenStatus = false;
-				forzenCount = 0;
+	public void frozenTimer() {
+		if(frozenStatus) {
+			frozenCount++;
+			if(frozenCount == maxFrozenCount) {
+				frozenStatus = false;
+				frozenCount = 0;
 			}
 		}
 	}
@@ -198,9 +197,9 @@ public class Bar {
 	
 	public void shoot() {
 		if(World.ball.moveStatus) {
-			if(forzenBullet > 0) {
+			if(frozenBullet > 0) {
 				if(Gdx.input.isKeyJustPressed(pressActive)) {
-					forzenBullet--;
+					frozenBullet--;
 					int reserved = Bullet.findAvailable();
 					World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),player);
 				}
@@ -211,7 +210,7 @@ public class Bar {
 	}
 	
 	private float getBulletXPosition() {
-		float bulletWidth = GameScreen.forzenBulletImg1.getWidth();
+		float bulletWidth = GameScreen.frozenBulletImg1.getWidth();
 		if(player == Bullet.PLAYER1) {
 			return World.bar1.position.x - bulletWidth;
 		} else {
@@ -220,7 +219,7 @@ public class Bar {
 	}
 	
 	private float getBulletYPosition() {
-		float bulletHeight = GameScreen.forzenBulletImg1.getHeight();
+		float bulletHeight = GameScreen.frozenBulletImg1.getHeight();
 		if(player == Bullet.PLAYER1) {
 			return position.y + World.bar1.width / 2 - bulletHeight / 2;
 		} else {
@@ -229,10 +228,10 @@ public class Bar {
 	}
 	
 	private void move() {
-		if(!forzenStatus) {
+		if(!frozenStatus) {
 			normalMove();
-		}else if(forzenStatus) {
-			forzenMove();
+		}else if(frozenStatus) {
+			frozenMove();
 		}
 		moveScope();
 	}
@@ -246,12 +245,12 @@ public class Bar {
 		}
 	}
 	
-	private void forzenMove() {
+	private void frozenMove() {
 		if(Gdx.input.isKeyPressed(pressUp)) {
-			position.y += speed/forzenSpeedFactor;
+			position.y += speed/frozenSpeedFactor;
 		}
 		if(Gdx.input.isKeyPressed(pressDown)) {
-			position.y -= speed/forzenSpeedFactor;
+			position.y -= speed/frozenSpeedFactor;
 		}
 	}
 	
@@ -263,13 +262,13 @@ public class Bar {
 	}
 
 	public static void updateBarImg() {
-		if(World.bar1.forzenStatus) {
+		if(World.bar1.frozenStatus) {
 			World.bar1.barImg = GameScreen.barFImg[0][World.bar1.size - 1];
 		}else{
 			World.bar1.barImg = GameScreen.barImg[0][World.bar1.size - 1];
 		}
 		
-		if(World.bar2.forzenStatus) {
+		if(World.bar2.frozenStatus) {
 			World.bar2.barImg = GameScreen.barFImg[1][World.bar2.size - 1];
 		}else{
 			World.bar2.barImg = GameScreen.barImg[1][World.bar2.size - 1];

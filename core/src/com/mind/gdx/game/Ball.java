@@ -104,11 +104,8 @@ public class Ball {
 			speedX = speed * fireballSpeedFactor * speedXFactor;
 			speedY = speed * fireballSpeedFactor * speedYFactor;
 		} else if(ballAbilityStatus == NOTHING){
-			//System.out.println("speedYFactor:" + speedYFactor);
-			//System.out.println("oldspeedY:" + speedY);
 			speedX = speed * speedXFactor;
 			speedY = speed * speedYFactor;
-			//System.out.println("newspeedY:" + speedY);
 		}
 	}
 	
@@ -154,24 +151,18 @@ public class Ball {
 	
 	public void moving() {
 		if(hitStatusUpDown == hitFloor) {
-			//System.out.print("hitFloor ");
-			//System.out.print(speedYFactor + " "+position.y + " ");
 			position.y += speedY;
-			//System.out.println(position.y);
 		}
 		if(hitStatusUpDown == hitCeilling) {
-			//System.out.print("hitCeilling ");
-			//System.out.print(speedYFactor + " "+position.y + " ");
 			position.y -= speedY;
-			//System.out.println(position.y);
 		}
-		if(hitStatusLeftRight == hitPlayer1) {
+		if(getOwner() == World.bar1) {
 			if(!hitShield) {
-			 mkNewSpeed();
+				mkNewSpeed();
 			}
 			position.x -= speedX;
 		}
-		if(hitStatusLeftRight == hitPlayer2) {
+		if(getOwner() == World.bar2) {
 			if(!hitShield) {
 				mkNewSpeed();
 			}
@@ -181,7 +172,7 @@ public class Ball {
 	}
 	public void mkNewSpeed() {
 		int reflectionRadius = 100;
-		if(oldHitStatusLeftRight == hitPlayer2 && hitStatusLeftRight == hitPlayer1 && checkReflectRange(World.bar1)) {
+		if(oldHitStatusLeftRight == hitPlayer2 && getOwner() == World.bar1 && checkReflectRange(World.bar1)) {
 			float xHitPosition = position.x + dilimiter;
 			float yHitPosition = position.y + radius;
 			float differentYPosition = yHitPosition - World.bar1.position.y - World.bar1.width/2;
@@ -197,7 +188,7 @@ public class Ball {
 			oldHitStatusLeftRight = hitPlayer1;
 			
 		}
-		if(oldHitStatusLeftRight == hitPlayer1 && hitStatusLeftRight == hitPlayer2 && checkReflectRange(World.bar2)) {
+		if(oldHitStatusLeftRight == hitPlayer1 && getOwner() == World.bar2 && checkReflectRange(World.bar2)) {
 			float xHitPosition = position.x;
 			float yHitPosition = position.y + radius;
 			float differentYPosition = yHitPosition - World.bar2.position.y - World.bar1.width / 2;
@@ -216,14 +207,15 @@ public class Ball {
 	
 	public boolean checkReflectRange(Bar bar) {
 		float reflectSpace = 1;
-		float notReflectSpace = 1;
+		float notReflectSpace = 2;
 		float nbSpace = reflectSpace * 2 + notReflectSpace;
 		float topSpace = (reflectSpace + notReflectSpace) / nbSpace;
 		float bottomSpace = reflectSpace / nbSpace;
 		return !((position.y < bar.position.y + bar.width * topSpace) && (position.y > bar.position.y + bar.width * bottomSpace));
 	}
+	
 	public boolean hitingBar1() {
-		if(hitStatusLeftRight == hitPlayer2) {
+		if(getOwner() == World.bar2) {
 			if(checkHitBar1XPosition()) {
 				if(checkHitBarYPosition(World.bar1)) {
 					hitShield = false;
@@ -255,7 +247,7 @@ public class Ball {
 	}
 	
 	public boolean hitingBar2() {
-		if(hitStatusLeftRight == hitPlayer1) {
+		if(getOwner() == World.bar1) {
 			if(checkHitBar2XPosition()) {
 				if(checkHitBarYPosition(World.bar2)) {
 					hitShield = false;
@@ -269,5 +261,25 @@ public class Ball {
 			return false;
 		}
 		return false;
+	}
+	
+	public static Bar getOwner() {
+		if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
+			return World.bar1;
+		}
+		if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
+			return World.bar2;
+		}
+		return null;
+	}
+	
+	public static Bar getOppositeOwner() {
+		if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
+			return World.bar2;
+		}
+		if(World.ball.hitStatusLeftRight == Ball.hitPlayer2) {
+			return World.bar1;
+		}
+		return null;
 	}
 }
