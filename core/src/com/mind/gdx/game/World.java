@@ -24,6 +24,9 @@ public class World {
 	public static float player2BarXInit;
 	public static float player1BarXInit;
 	
+	private static int countReleaseBall = 0;
+	private static int maxCountReleaseBall = 100;
+	
 	public World() {
 		player2BarXInit = 20;
 		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1].getWidth();
@@ -133,8 +136,12 @@ public class World {
 		resetBats();
 		resetAbility();
 		resetBullet();
-		if(World.bar2.pressUp == Bar.BOT && ball.hitStatusLeftRight == Ball.hitPlayer2) {
-			ball.moveStatus = true;
+		if(World.bar2.pressUp == Bar.BOT && ball.hitStatusLeftRight == Ball.hitPlayer2 && !ball.moveStatus) {
+			if(countReleaseBall==maxCountReleaseBall) {
+				ball.moveStatus = true;
+				countReleaseBall = 0;
+			}
+			countReleaseBall++;
 		}
 	}
 	
@@ -161,6 +168,8 @@ public class World {
 		bar.stickybatStatus = false;
 		bar.stickybatCount = 0;
 		bar.ballStayAtSamePosition = false;
+		bar.countNextRandom = 0;
+		bar.countRandom = bar.initCountRandom;
 	}
 	
 	private static void resetBall() {

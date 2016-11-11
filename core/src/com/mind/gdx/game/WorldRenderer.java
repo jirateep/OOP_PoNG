@@ -16,8 +16,6 @@ public class WorldRenderer {
 
 	private static float endingXPosition;
 	private static float endingYPosition;
-	private static float minimumXRange = 400;
-	private static float minimumYRange = 200;
 	static float abilityXPosition = (GameScreen.width - GameScreen.abilityListImg[Ability.FIREBALL].getWidth()) / 2;
 	static float abilityYPosition = (GameScreen.height - GameScreen.abilityListImg[Ability.FIREBALL].getHeight()) / 2;
 	private static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg[0].getWidth();
@@ -133,6 +131,8 @@ public class WorldRenderer {
 			GameScreen.abilityImg = GameScreen.abilityListImg[Ability.showAbility];
 			batch.draw(GameScreen.abilityImg,abilityXPosition,abilityYPosition);
 		} else {
+			float minimumXRange = 400;
+			float minimumYRange = 200;
 			abilityXPosition = minimumXRange + (int)(Math.random() * (GameScreen.width - 2*minimumXRange)); 
 			abilityYPosition = minimumYRange + (int)(Math.random() * (GameScreen.height - 2*minimumYRange)); 
 		}
