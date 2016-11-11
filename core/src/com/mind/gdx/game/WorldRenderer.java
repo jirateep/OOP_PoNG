@@ -20,35 +20,18 @@ public class WorldRenderer {
 	private static float minimumYRange = 200;
 	static float abilityXPosition = (GameScreen.width - GameScreen.abilityListImg[Ability.FIREBALL].getWidth()) / 2;
 	static float abilityYPosition = (GameScreen.height - GameScreen.abilityListImg[Ability.FIREBALL].getHeight()) / 2;
-	private static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg1.getWidth();
+	private static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg[0].getWidth();
 	private static float shield2XPosition = World.bar2.position.x + World.bar2.length;
 	private static float shieldYPosition = 0;
 	
 	private static float pauseXPosition = mkImgXCenter(GameScreen.pauseImg);
-	private static float pauseYPosition = centerY + 90;
-	
-	private static float resumeXPosition = mkImgXCenter(GameScreen.resumeImg);
-	private static float resumeYPosition = centerY - GameScreen.resumeImg.getHeight() + 30;
-	
-	private static float restartXPosition = mkImgXCenter(GameScreen.restartImg);
-	private static float restartYPosition = resumeYPosition - GameScreen.restartImg.getHeight() - 50;
-	
+	private static float pauseYPosition = centerY + 120;
 	private static float pongHomeXPosition = mkImgXCenter(GameScreen.pongHomeImg);
 	private static float pongHomeYPosition = centerY + 150;
 	
-	private static float [][] homeMenuChoices = new float [4][2];/*
-	private static float onePlayerXPosition = mkImgXCenter(GameScreen.onePlayerImg);
-	private static float onePlayerYPosition = centerY;
+	private static float [][] pauseMenuChoices = new float [PauseMenu.NBOFMENU][2];
+	private static float [][] homeMenuChoices = new float [HomeMenu.NBOFMENU][2];
 	
-	private static float twoPlayersXPosition = mkImgXCenter(GameScreen.twoPlayersImg);
-	private static float twoPlayersYPosition = centerY - 100;
-	
-	private static float settingXPosition = mkImgXCenter(GameScreen.restartImg);
-	private static float settingYPosition = twoPlayersYPosition - 100;
-	
-	private static float helpXPosition = mkImgXCenter(GameScreen.helpImg);
-	private static float helpYPosition = settingYPosition - 100;
-	*/
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
 	
 	public static void render() {
@@ -57,10 +40,15 @@ public class WorldRenderer {
 			homeMenuChoices[i][1] = centerY - i * 100;
 		}
 		
+		for(int i = 0 ; i < PauseMenu.NBOFMENU ; i++) {
+			pauseMenuChoices[i][0] = mkImgXCenter(GameScreen.pauseMenuChoicesImg[i][GameScreen.UNSELECTED]);
+			pauseMenuChoices[i][1] = centerY - i * 100;
+		}
+		
 		batch.begin();
 		
 		if(World.menuStatus) {
-			drawMenu();
+			drawHomeMenu();
 		} else {
 			drawBats();
 			drawScores();
@@ -79,32 +67,31 @@ public class WorldRenderer {
 		batch.end();
 	}
 	
-	private static void drawMenu() {
+	private static void drawHomeMenu() {
 		batch.draw(GameScreen.pongHomeImg,pongHomeXPosition,pongHomeYPosition);
-		for(int i=0;i<HomeMenu.NBOFMENU;i++) {
+		for(int i = 0 ; i < HomeMenu.NBOFMENU ; i++) {
 			batch.draw(GameScreen.homeMenuChoicesImg[i][GameScreen.UNSELECTED],homeMenuChoices[i][0],homeMenuChoices[i][1]);
 		}
-		/*
-		batch.draw(GameScreen.onePlayerImg,onePlayerXPosition,onePlayerYPosition);
-		batch.draw(GameScreen.twoPlayersImg,twoPlayersXPosition,twoPlayersYPosition);		
-		batch.draw(GameScreen.settingImg,settingXPosition,settingYPosition);
-		batch.draw(GameScreen.helpImg,helpXPosition,helpYPosition);
-		*/
-		drawSelectedMenu();
+
+		drawSelectedHomeMenu();
 	}
 	
-	private static void drawSelectedMenu() {
-		/////////////////
-		batch.draw(GameScreen.homeMenuChoicesImg[HomeMenu.selectedHomeMenu][GameScreen.SELECTED],homeMenuChoices[HomeMenu.selectedHomeMenu][0],homeMenuChoices[HomeMenu.selectedHomeMenu][1]);
-		/*if(HomeMenu.selectedHomeMenu == 1) {
-			batch.draw(GameScreen.selectedOnePlayerImg,onePlayerXPosition,onePlayerYPosition);	
-		} else if(HomeMenu.selectedHomeMenu == 2){
-			batch.draw(GameScreen.selectedTwoPlayersImg,twoPlayersXPosition,twoPlayersYPosition);
-		} else if(HomeMenu.selectedHomeMenu == 3){
-			batch.draw(GameScreen.selectedSettingImg,settingXPosition,settingYPosition);
-		} else if(HomeMenu.selectedHomeMenu == 4){
-			batch.draw(GameScreen.selectedHelpImg,helpXPosition,helpYPosition);
-		}*/
+	private static void drawSelectedHomeMenu() {
+		batch.draw(GameScreen.homeMenuChoicesImg[HomeMenu.selectedHomeMenu][GameScreen.SELECTED],
+				   homeMenuChoices[HomeMenu.selectedHomeMenu][0],homeMenuChoices[HomeMenu.selectedHomeMenu][1]);
+	}
+	
+	private static void drawWhenPause() {	
+		batch.draw(GameScreen.pauseImg,pauseXPosition,pauseYPosition);
+		for(int i = 0 ; i < PauseMenu.NBOFMENU ; i++) {
+			batch.draw(GameScreen.pauseMenuChoicesImg[i][GameScreen.UNSELECTED],pauseMenuChoices[i][0],pauseMenuChoices[i][1]);
+		}
+		drawSelectedPause();
+	}
+	
+	private static void drawSelectedPause() {
+		batch.draw(GameScreen.pauseMenuChoicesImg[PauseMenu.selectedPauseMenu][GameScreen.SELECTED],
+				   pauseMenuChoices[PauseMenu.selectedPauseMenu][0],pauseMenuChoices[PauseMenu.selectedPauseMenu][1]);
 	}
 	
 	private static void drawSticky() {
@@ -120,32 +107,16 @@ public class WorldRenderer {
 		}
 	}
 	
-	private static void drawWhenPause() {	
-		batch.draw(GameScreen.pauseImg,pauseXPosition,pauseYPosition);
-		batch.draw(GameScreen.resumeImg,resumeXPosition,resumeYPosition);		
-		batch.draw(GameScreen.restartImg,restartXPosition,restartYPosition);
-		
-		drawSelectedPause();
-	}
-	
-	private static void drawSelectedPause() {
-		if(World.selectedPause == 1) {
-			batch.draw(GameScreen.selectedResumeImg,resumeXPosition,resumeYPosition);	
-		} else if(World.selectedPause == 2){
-			batch.draw(GameScreen.selectedRestartImg,restartXPosition,restartYPosition);
-		}	
-	}
-	
 	private static float mkImgXCenter(Texture img) {
 		return centerX - img.getWidth() / 2;
 	}
 	
 	private static void drawShield() {
 		if(World.bar1.shieldStatus) {
-			batch.draw(GameScreen.shieldImg1,shield1XPosition,shieldYPosition);
+			batch.draw(GameScreen.shieldImg[Bar.PLAYER1],shield1XPosition,shieldYPosition);
 		}
 		if(World.bar2.shieldStatus) {
-			batch.draw(GameScreen.shieldImg2,shield2XPosition,shieldYPosition);
+			batch.draw(GameScreen.shieldImg[Bar.PLAYER2],shield2XPosition,shieldYPosition);
 		}
 	}
 	

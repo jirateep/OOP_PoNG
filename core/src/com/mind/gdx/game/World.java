@@ -59,36 +59,10 @@ public class World {
 				scoreUpdate();
 				checkEnding();
 			} else {
-				selectedPause = Menu.updateSelected(selectedPause,2);
-				selectedPauseEnd();
+				PauseMenu.update();
 			}
 			pauseGame();
 		}
-	}
-	
-	public static void selectedPauseEnd() {
-		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-			if(selectedPause == 1) {
-				resume();
-			} else if(selectedPause == 2){
-				restart();
-			}
-		}
-	}
-	
-	public static void resume() {
-		pauseStatus = false;
-		selectedPause = 1;
-	}
-	
-	public static void restart() {
-		bar1.score = 0;
-		bar2.score = 0;
-		reset();
-		ball.hitStatusLeftRight = Ball.hitPlayer1;
-		pauseStatus = false;
-		selectedPause = 1;
-		endGame = false;
 	}
 	
 	private static void pauseGame() {
@@ -154,7 +128,7 @@ public class World {
 		}
 	}
 	
-	private static void reset() {
+	public static void reset() {
 		resetBall();
 		resetBats();
 		resetAbility();

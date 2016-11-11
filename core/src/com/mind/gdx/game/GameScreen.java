@@ -31,18 +31,15 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture [][][] barImg = new Texture [NBOFPLAYERS][NBOFFROZENSTATUS][Bar.maxSize];
 	public static Texture [] sticky = new Texture [Bar.maxSize];
 
-	public static Texture shieldImg1;
-	public static Texture shieldImg2;
+	public static Texture [] shieldImg = new Texture [2];
 	
-	public static Texture pauseImg;
-	public static Texture resumeImg;
-	public static Texture restartImg;
-	public static Texture selectedResumeImg;
-	public static Texture selectedRestartImg;
-	
-	public static Texture pongHomeImg;
 	public static final int UNSELECTED = 0;
 	public static final int SELECTED = 1;
+	
+	public static Texture pauseImg;
+	public static Texture [][] pauseMenuChoicesImg = new Texture [PauseMenu.NBOFMENU][2];
+	
+	public static Texture pongHomeImg;
 	public static Texture [][] homeMenuChoicesImg = new Texture [HomeMenu.NBOFMENU][2];
 
 	//public static FreeTypeFontGenerator ttf_font;
@@ -111,8 +108,8 @@ public class GameScreen extends ScreenAdapter {
 		ballImg = new Texture("normalBall.png");
 		fireballImg = new Texture("fireBall.png");
 		
-		shieldImg1 = new Texture("shieldP1.png");
-		shieldImg2 = new Texture("shieldP2.png");
+		shieldImg[Bar.PLAYER1] = new Texture("shieldP1.png");
+		shieldImg[Bar.PLAYER2] = new Texture("shieldP2.png");
 		
 		frozenBulletImg[Bar.PLAYER1] = new Texture("frozenBulletP1.png");
 		frozenBulletImg[Bar.PLAYER2] = new Texture("frozenBulletP2.png");
@@ -129,12 +126,14 @@ public class GameScreen extends ScreenAdapter {
 		showFrozenBulletImg = new Texture("showFrozenBullet.png");
 		
 		pauseImg = new Texture("pause.png");
-		resumeImg = new Texture("resume.png");
-		selectedResumeImg = new Texture("resumeSelected.png");
-		restartImg = new Texture("restart.png");
-		selectedRestartImg = new Texture("restartSelected.png");
-		pongHomeImg = new Texture("PoNG.png");
+		pauseMenuChoicesImg[PauseMenu.RESUME][UNSELECTED] = new Texture("resume.png");
+		pauseMenuChoicesImg[PauseMenu.RESTART][UNSELECTED] = new Texture("restart.png");
+		pauseMenuChoicesImg[PauseMenu.MENU][UNSELECTED] = new Texture("menu.png");
+		pauseMenuChoicesImg[PauseMenu.RESUME][SELECTED] = new Texture("resumeSelected.png");
+		pauseMenuChoicesImg[PauseMenu.RESTART][SELECTED] = new Texture("restartSelected.png");
+		pauseMenuChoicesImg[PauseMenu.MENU][SELECTED] = new Texture("menuSelected.png");
 		
+		pongHomeImg = new Texture("PoNG.png");
 		homeMenuChoicesImg[HomeMenu.onePlayer][UNSELECTED] = new Texture("1player.png");
 		homeMenuChoicesImg[HomeMenu.twoPlayer][UNSELECTED] = new Texture("2players.png");
 		homeMenuChoicesImg[HomeMenu.setting][UNSELECTED] = new Texture("setting.png");
