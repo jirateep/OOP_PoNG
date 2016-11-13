@@ -26,9 +26,6 @@ public class World {
 	public static float player2BarXInit;
 	public static float player1BarXInit;
 	
-	private static int countReleaseBall = 0;
-	private static int maxCountReleaseBall = 100;
-	
 	public static SoundEffect soundEffect;
 	public static boolean muteStatus = false;
 	
@@ -148,13 +145,6 @@ public class World {
 		resetBats();
 		resetAbility();
 		resetBullet();
-		if(World.bar2.pressUp == Bar.BOT && ball.hitStatusLeftRight == Ball.hitPlayer2 && !ball.moveStatus) {
-			if(countReleaseBall==maxCountReleaseBall) {
-				ball.moveStatus = true;
-				countReleaseBall = 0;
-			}
-			countReleaseBall++;
-		}
 	}
 	
 	private static void resetBullet() {

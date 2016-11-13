@@ -70,13 +70,13 @@ public class Ball {
 	
 	public void checkStartMove() {
 
-		if(hitStatusLeftRight == hitPlayer1) {
+		if(hitStatusLeftRight == hitPlayer1 && World.bar1.pressActive != Bar.BOT) {
 			if(Gdx.input.isKeyPressed(World.bar1.pressActive)) {
 				moveStatus = true;
 				World.bar1.ballStayAtSamePosition = false;
 			}
 		}
-		if(hitStatusLeftRight == hitPlayer2) {
+		if(hitStatusLeftRight == hitPlayer2 && World.bar2.pressActive != Bar.BOT) {
 			if(Gdx.input.isKeyPressed(World.bar2.pressActive)) {
 				moveStatus = true;
 				World.bar2.ballStayAtSamePosition = false;

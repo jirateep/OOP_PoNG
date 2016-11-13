@@ -68,6 +68,11 @@ public class Bar {
 	private int countMovement = 0;
 	private int maxCountMovement = 1;
 	
+	private int countToStart = 0;
+	private int maxCountToStart = 100;
+	private static int countReleaseBall = 0;
+	private static int maxCountReleaseBall = 50;
+	
 	public SoundEffect soundEffect;
 	
 	public Bar(Texture barImg,float x,int up,int down,int active, int p, SoundEffect soundEffect) {
@@ -92,6 +97,7 @@ public class Bar {
 			if(this.pressUp == Bar.BOT && this.pressDown == Bar.BOT && this.pressActive == Bar.BOT) {
 				botMove();
 				botShoot();
+				botReleaseBall();
 			} else {
 				move();
 				shoot();
@@ -270,8 +276,20 @@ public class Bar {
 			}
 			countMovement++;
 		}
-		if(World.ball.moveStatus == false & World.bar2.stickybatStatus & World.ball.hitStatusLeftRight == Ball.hitPlayer2)
-			World.ball.moveStatus = true;
+		if(checkBotHitStickyBat()) {
+			System.out.println("hi1");
+			countToStart ++;
+			if(countToStart == maxCountToStart) {
+				System.out.println("hi2");
+				World.ball.moveStatus = true;
+			}
+		} else {
+			countToStart = 0;
+		}
+	}
+	
+	private boolean checkBotHitStickyBat() {
+		return !World.ball.moveStatus & World.bar2.stickybatStatus & World.ball.hitStatusLeftRight == Ball.hitPlayer2;
 	}
 	
 	private void botMovement() {
@@ -308,6 +326,20 @@ public class Bar {
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void botReleaseBall() {
+		if(World.bar2.pressActive == Bar.BOT && World.ball.hitStatusLeftRight == Ball.hitPlayer2 && !World.ball.moveStatus) {
+			System.out.println("hit1");
+			if(countReleaseBall==maxCountReleaseBall) {
+				System.out.println("hit2");
+				World.ball.moveStatus = true;
+				countReleaseBall = 0;
+			}
+			countReleaseBall++;
+		} else {
+			countReleaseBall = 0;
 		}
 	}
 	
