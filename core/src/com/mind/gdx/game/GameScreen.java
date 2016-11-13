@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 public class GameScreen extends ScreenAdapter {
 	
@@ -15,7 +13,7 @@ public class GameScreen extends ScreenAdapter {
 	public static WorldRenderer worldRenderer;
 	
 	public static Texture [] frozenBulletImg = new Texture [2];
-
+	
 	public static Texture ballImg;
 	public static Texture fireballImg;
 	public static Texture abilityImg;
@@ -42,17 +40,21 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture pongHomeImg;
 	public static Texture [][] homeMenuChoicesImg = new Texture [HomeMenu.NBOFMENU][2];
 
-	//public static FreeTypeFontGenerator ttf_font;
-	public static BitmapFont bar1Score_bitmap;
-	public static BitmapFont bar2Score_bitmap;
-	public static BitmapFont ending_bitmap;
+	public static Texture [] endGameImg = new Texture [NBOFPLAYERS];
+	public static Texture nowEndGameImg;
+	public static Texture [][] endMenuChoicesImg = new Texture [EndMenu.NBOFMENU][2];	
 	
-	static GlyphLayout ending;
+	//public static FreeTypeFontGenerator ttf_font;
+	//public static BitmapFont bar1Score_bitmap;
+	//public static BitmapFont bar2Score_bitmap;
+	//public static BitmapFont ending_bitmap;
+	
+	//static GlyphLayout ending;
 	
 	public static int width = 1536;//1920
 	public static int height = 800;//1000
-	static float fontsize = 6;
-	static float endingfontsize = 8;
+	//static float fontsize = 6;
+	//static float endingfontsize = 8;
 	
 	public GameScreen(PongGame pongGame) {
 		GameScreen.pongGame = pongGame;
@@ -134,26 +136,33 @@ public class GameScreen extends ScreenAdapter {
 		pauseMenuChoicesImg[PauseMenu.MENU][SELECTED] = new Texture("menuSelected.png");
 		
 		pongHomeImg = new Texture("PoNG.png");
-		homeMenuChoicesImg[HomeMenu.onePlayer][UNSELECTED] = new Texture("1player.png");
-		homeMenuChoicesImg[HomeMenu.twoPlayer][UNSELECTED] = new Texture("2players.png");
-		homeMenuChoicesImg[HomeMenu.setting][UNSELECTED] = new Texture("setting.png");
-		homeMenuChoicesImg[HomeMenu.help][UNSELECTED] = new Texture("help.png");
-		homeMenuChoicesImg[HomeMenu.onePlayer][SELECTED] = new Texture("1playerSelected.png");
-		homeMenuChoicesImg[HomeMenu.twoPlayer][SELECTED] = new Texture("2playersSelected.png");
-		homeMenuChoicesImg[HomeMenu.setting][SELECTED] = new Texture("settingSelected.png");
-		homeMenuChoicesImg[HomeMenu.help][SELECTED] = new Texture("helpSelected.png");
+		homeMenuChoicesImg[HomeMenu.ONEPLAYER][UNSELECTED] = new Texture("1player.png");
+		homeMenuChoicesImg[HomeMenu.TWOPLAYERS][UNSELECTED] = new Texture("2players.png");
+		homeMenuChoicesImg[HomeMenu.SETTING][UNSELECTED] = new Texture("setting.png");
+		homeMenuChoicesImg[HomeMenu.HELP][UNSELECTED] = new Texture("help.png");
+		homeMenuChoicesImg[HomeMenu.ONEPLAYER][SELECTED] = new Texture("1playerSelected.png");
+		homeMenuChoicesImg[HomeMenu.TWOPLAYERS][SELECTED] = new Texture("2playersSelected.png");
+		homeMenuChoicesImg[HomeMenu.SETTING][SELECTED] = new Texture("settingSelected.png");
+		homeMenuChoicesImg[HomeMenu.HELP][SELECTED] = new Texture("helpSelected.png");
+		
+		endGameImg[Bar.PLAYER1] = new Texture("rightPlayerWin.png");
+		endGameImg[Bar.PLAYER2] = new Texture("leftPlayerWin.png");
+		endMenuChoicesImg[EndMenu.RESTART][UNSELECTED] = new Texture("restart.png");
+		endMenuChoicesImg[EndMenu.MENU][UNSELECTED] = new Texture("menu.png");
+		endMenuChoicesImg[EndMenu.RESTART][SELECTED] = new Texture("restartSelected.png");
+		endMenuChoicesImg[EndMenu.MENU][SELECTED] = new Texture("menuSelected.png");
 		
 		//ttf_font = new FreeTypeFontGenerator("NESCyrillic.ttf");
 		//FreeTypeFontGenerator generator = new FreeTypeFontGenerator("NESCyrillic.ttf");
-		bar1Score_bitmap = new BitmapFont();
-		bar2Score_bitmap = new BitmapFont();
-		ending_bitmap = new BitmapFont();
+		//bar1Score_bitmap = new BitmapFont();
+		//bar2Score_bitmap = new BitmapFont();
+		//ending_bitmap = new BitmapFont();
 		
 		world = new World();
 		
-		ending = new GlyphLayout(ending_bitmap, "Player1 WIN");
+		//ending = new GlyphLayout(ending_bitmap, "Player1 WIN");
 		
-		ending_bitmap.getData().setScale(endingfontsize, endingfontsize);
+		//ending_bitmap.getData().setScale(endingfontsize, endingfontsize);
 	}
 	
 	@Override

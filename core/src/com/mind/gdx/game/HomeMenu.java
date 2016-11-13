@@ -11,12 +11,12 @@ public class HomeMenu extends Menu{
 	private static int bar2Down = Keys.S;
 	private static int bar2Active = Keys.G;
 	
-	public static final int onePlayer = 0;
-	public static final int twoPlayer = 1;
-	public static final int setting = 2;
-	public static final int help = 3;
+	public static final int ONEPLAYER = 0;
+	public static final int TWOPLAYERS = 1;
+	public static final int SETTING = 2;
+	public static final int HELP = 3;
 	public static final int NBOFMENU = 4;
-	static int selectedHomeMenu = onePlayer;
+	static int selectedHomeMenu = ONEPLAYER;
 	
 	public static void update() {
 		selectedHomeMenu = updateSelected(selectedHomeMenu,NBOFMENU - 1);
@@ -26,16 +26,16 @@ public class HomeMenu extends Menu{
 	public static void selectedHomeMenuEnd(int selected) {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			switch(selectedHomeMenu) {
-				case onePlayer:
+				case ONEPLAYER:
 					startingWithOnePlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
-				case twoPlayer:
+				case TWOPLAYERS:
 					startingWithTwoPlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
-				case setting:
+				case SETTING:
 					setting(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
-				case help:
+				case HELP:
 					help(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
 				default:

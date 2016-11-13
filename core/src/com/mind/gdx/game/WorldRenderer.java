@@ -14,8 +14,7 @@ public class WorldRenderer {
 	private static float bar2ScoreXPosition = oneHalfFour;
 	private static float bar1ScoreXPosition = GameScreen.width / 2 + oneHalfFour;
 
-	private static float endingXPosition;
-	private static float endingYPosition;
+	private static float [] endPosition = new float [2];
 	static float abilityXPosition = (GameScreen.width - GameScreen.abilityListImg[Ability.FIREBALL].getWidth()) / 2;
 	static float abilityYPosition = (GameScreen.height - GameScreen.abilityListImg[Ability.FIREBALL].getHeight()) / 2;
 	private static float shield1XPosition = World.bar1.position.x - GameScreen.shieldImg[0].getWidth();
@@ -29,6 +28,7 @@ public class WorldRenderer {
 	
 	private static float [][] pauseMenuChoices = new float [PauseMenu.NBOFMENU][2];
 	private static float [][] homeMenuChoices = new float [HomeMenu.NBOFMENU][2];
+	private static float [][] endMenuChoices = new float [EndMenu.NBOFMENU][2];
 	
 	private static SpriteBatch batch = GameScreen.pongGame.batch;
 	
@@ -43,6 +43,11 @@ public class WorldRenderer {
 			pauseMenuChoices[i][1] = centerY - i * 100;
 		}
 		
+		for(int i = 0 ; i < EndMenu.NBOFMENU ; i++) {
+			endMenuChoices[i][0] = mkImgXCenter(GameScreen.endMenuChoicesImg[i][GameScreen.UNSELECTED]);
+			endMenuChoices[i][1] = centerY - i * 100;
+		}
+
 		batch.begin();
 		
 		if(World.menuStatus) {
@@ -60,8 +65,10 @@ public class WorldRenderer {
 				drawWhenPause();
 			}
 		}
-		whenEndGame();
-		
+		if(World.endStatus) {
+			whenEndGame();
+		}
+
 		batch.end();
 	}
 	
@@ -138,20 +145,46 @@ public class WorldRenderer {
 		}
 	}
 	
-	private static void getEndingPosition() {
-		endingXPosition = (GameScreen.width - GameScreen.ending.width) / 2;
-		endingYPosition = (GameScreen.height + GameScreen.ending.height) / 2;
+	private static void whenEndGame() {
+		drawWinner();
+		drawEndMenu();
+		drawSelectedEnd();
 	}
 	
-	private static void whenEndGame() {
+	private static void drawEndMenu() {
+		for(int i = 0 ; i < EndMenu.NBOFMENU ; i++) {
+			batch.draw(GameScreen.endMenuChoicesImg[i][GameScreen.UNSELECTED],endMenuChoices[i][0],endMenuChoices[i][1]);
+		}
+	}
+	
+	private static void drawSelectedEnd() {
+		batch.draw(GameScreen.endMenuChoicesImg[EndMenu.selectedEndMenu][GameScreen.SELECTED],
+				   endMenuChoices[EndMenu.selectedEndMenu][0],endMenuChoices[EndMenu.selectedEndMenu][1]);
+	}
+	
+	private static void getEndingPosition() {
+		endPosition[0] = mkImgXCenter(GameScreen.nowEndGameImg);
+		endPosition[1] = centerY + 100;
+	}
+	
+	private static void drawWinner() {
 		if(World.endStatus) {
+			if(World.bar1.score == World.maxScore) {
+				GameScreen.nowEndGameImg = GameScreen.endGameImg[Bar.PLAYER1];
+			}
+			if(World.bar2.score == World.maxScore) {
+				GameScreen.nowEndGameImg = GameScreen.endGameImg[Bar.PLAYER2];
+			}
+			getEndingPosition();
+			batch.draw(GameScreen.nowEndGameImg,endPosition[0],endPosition[1]);
+				/*
 			if(World.bar1.score>World.bar2.score){
 				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player1 WIN");
 			}else{
 				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player2 WIN");
-			}
-			getEndingPosition();
-			GameScreen.ending_bitmap.draw(batch, GameScreen.ending, endingXPosition, endingYPosition);
+			}*/
+			//getEndingPosition();
+			//GameScreen.ending_bitmap.draw(batch, GameScreen.ending, endingXPosition, endingYPosition);
 		}
 	}
 	
