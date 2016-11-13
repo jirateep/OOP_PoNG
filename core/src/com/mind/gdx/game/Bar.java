@@ -82,7 +82,7 @@ public class Bar {
 	}
 	
 	public void update() {
-		if(!World.endGame) {
+		if(!World.endStatus) {
 			if(this.pressUp == Bar.BOT && this.pressDown == Bar.BOT && this.pressActive == Bar.BOT) {
 				botMove();
 				botShoot();
@@ -226,7 +226,7 @@ public class Bar {
 			countNextRandom = 0;
 			int random = (int)(Math.random() * 10000);
 			//System.out.println(random%countRandom);
-			if(random % countRandom < 8) {
+			if(random % countRandom < 10) {
 				botWinStatus = false;
 			} else {
 				botWinStatus = true;

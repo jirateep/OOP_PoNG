@@ -143,11 +143,13 @@ public class Ability {
 	private static void workShield() {
 		Bar bar = Ball.getOwner();
 		bar.shieldStatus = true;
+		bar.shieldCount = 0;
 	}
 	
 	private static void workStickybat() {
 		Bar bar = Ball.getOwner();
 		bar.stickybatStatus = true;
+		bar.stickybatCount = 0;
 		bar.ballStayAtSamePosition = true;
 	}
 }

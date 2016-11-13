@@ -3,7 +3,7 @@ package com.mind.gdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
-public class PauseMenu {
+public class PauseMenu extends Menu{
 	public static final int RESUME = 0;
 	public static final int RESTART = 1;
 	public static final int MENU = 2;
@@ -12,7 +12,7 @@ public class PauseMenu {
 	static int selectedPauseMenu = RESUME;
 	
 	public static void update() {
-		selectedPauseMenu = Menu.updateSelected(selectedPauseMenu,2);
+		selectedPauseMenu = Menu.updateSelected(selectedPauseMenu,NBOFMENU - 1);
 		selectedPauseEnd();
 	}
 	
@@ -20,38 +20,20 @@ public class PauseMenu {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			switch(selectedPauseMenu) {
 				case RESUME:
-					resume();
+					resume(World.pauseStatus,selectedPauseMenu);
 					break;
 				case RESTART:
-					restart();
+					restart(World.pauseStatus,selectedPauseMenu);
 					break;
 				case MENU:
-					startMenu();
+					startMenu(World.pauseStatus,selectedPauseMenu);
 					break;
 				default:
 					break;
 			}
+
+			World.pauseStatus = resetStatus();
+			selectedPauseMenu = resetSelected();
 		}
-	}
-	
-	public static void resume() {
-		World.pauseStatus = false;
-		selectedPauseMenu = 1;
-	}
-	
-	public static void restart() {
-		World.bar1.score = 0;
-		World.bar2.score = 0;
-		World.reset();
-		World.ball.hitStatusLeftRight = Ball.hitPlayer1;
-		World.pauseStatus = false;
-		World.selectedPause = 1;
-		World.endGame = false;
-	}
-	
-	public static void startMenu() {
-		restart();
-		World.pauseStatus = false;
-		World.menuStatus = true;
 	}
 }

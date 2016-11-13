@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 
 public class World {
 
-	public static boolean endGame = false;
+	public static boolean endStatus = false;
 	public static int maxScore = 5;
 	public static Bar bar1;
 	public static Bar bar2;
@@ -64,7 +64,9 @@ public class World {
 			} else {
 				PauseMenu.update();
 			}
-			pauseGame();
+			if(!endStatus) {
+				pauseGame();
+			}
 		}
 	}
 	
@@ -194,7 +196,7 @@ public class World {
 	
 	private static void checkEnding() {
 		if((bar1.score == maxScore) || (bar2.score == maxScore)){
-			endGame = true;
+			endStatus = true;
 			ball.moveStatus = false;
 		}
 	}

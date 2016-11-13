@@ -59,7 +59,7 @@ public class Ball {
 	}
 	
 	public void update() {
-		if(!moveStatus && !World.endGame) {
+		if(!moveStatus && !World.endStatus) {
 			checkStartMove();
 		}
 		move();

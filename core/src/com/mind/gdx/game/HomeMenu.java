@@ -19,7 +19,7 @@ public class HomeMenu extends Menu{
 	static int selectedHomeMenu = onePlayer;
 	
 	public static void update() {
-		selectedHomeMenu = updateSelected(selectedHomeMenu,3);
+		selectedHomeMenu = updateSelected(selectedHomeMenu,NBOFMENU - 1);
 		selectedHomeMenuEnd(selectedHomeMenu);
 	}
 	
@@ -27,39 +27,41 @@ public class HomeMenu extends Menu{
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			switch(selectedHomeMenu) {
 				case onePlayer:
-					startingWithOnePlayerSetting();
+					startingWithOnePlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
 				case twoPlayer:
-					startingWithTwoPlayerSetting();
+					startingWithTwoPlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
 				case setting:
-					setting();
+					setting(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
 				case help:
-					help();
+					help(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
 				default:
 					break;
 			}
+			
+			World.menuStatus = resetStatus();
+			selectedHomeMenu = resetSelected();
 		}
 	}
-	public static void startingWithOnePlayerSetting() {
+	
+	public static void startingWithOnePlayerSetting(boolean status,int selected) {
 		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
 		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,Bar.PLAYER2);
-		World.menuStatus = false;
 	}
 
-	public static void startingWithTwoPlayerSetting() {
+	public static void startingWithTwoPlayerSetting(boolean status,int selected) {
 		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
 		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,bar2Up,bar2Down,bar2Active,Bar.PLAYER2);
-		World.menuStatus = false;
 	}
 
-	public static void help() {
+	public static void help(boolean status,int selected) {
 		/////////////////////////////
 	}
 
-	public static void setting() {
+	public static void setting(boolean status,int selected) {
 		/////////////////////////////
 	}
 }

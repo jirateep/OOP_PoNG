@@ -29,4 +29,28 @@ public class Menu {
 		}
 		return selected;
 	}
+	
+	public static boolean resetStatus() {
+		return false;
+	}
+	
+	public static int resetSelected() {
+		return 0;
+	}
+	
+	public static void resume(boolean status,int selected) {
+	}
+	
+	public static void restart(boolean status,int selected) {
+		World.bar1.score = 0;
+		World.bar2.score = 0;
+		World.reset();
+		World.ball.hitStatusLeftRight = Ball.hitPlayer1;
+		World.endStatus = false;
+	}
+	
+	public static void startMenu(boolean status,int selected) {
+		restart(status,selected);
+		World.menuStatus = true;
+	}
 }

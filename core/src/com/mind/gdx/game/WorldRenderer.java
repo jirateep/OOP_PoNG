@@ -144,7 +144,7 @@ public class WorldRenderer {
 	}
 	
 	private static void whenEndGame() {
-		if(World.endGame) {
+		if(World.endStatus) {
 			if(World.bar1.score>World.bar2.score){
 				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player1 WIN");
 			}else{
