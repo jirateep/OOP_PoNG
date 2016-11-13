@@ -14,7 +14,7 @@ public class Ball {
 	public static final int NOTHING = 0;
 	public int ballAbilityStatus = NOTHING;
 	
-	public static final float INITSPEED = 20;
+	public static final float INITSPEED = 18;
 	public float speed = INITSPEED;
 	public float speedX;
 	public float speedY;
@@ -69,20 +69,21 @@ public class Ball {
 	}
 	
 	public void checkStartMove() {
-
-		if(hitStatusLeftRight == hitPlayer1 && World.bar1.pressActive != Bar.BOT) {
-			if(Gdx.input.isKeyPressed(World.bar1.pressActive)) {
+		System.out.println(moveStatus);
+		if(hitStatusLeftRight == hitPlayer1) {
+			if(World.bar1.pressActive != Bar.BOT && Gdx.input.isKeyPressed(World.bar1.pressActive)) {
+				System.out.println("hi1");
 				moveStatus = true;
-				World.bar1.ballStayAtSamePosition = false;
 			}
 		}
-		if(hitStatusLeftRight == hitPlayer2 && World.bar2.pressActive != Bar.BOT) {
+		if(World.bar2.pressActive != Bar.BOT && hitStatusLeftRight == hitPlayer2) {
 			if(Gdx.input.isKeyPressed(World.bar2.pressActive)) {
+				System.out.println("hi2");
 				moveStatus = true;
-				World.bar2.ballStayAtSamePosition = false;
 			}
 		}
-	
+		System.out.println(moveStatus);
+		System.out.println();
 	}
 	
 	public void move() {
@@ -116,13 +117,13 @@ public class Ball {
 		if(hitStatusLeftRight == hitPlayer2) {
 			startingX = World.bar2.position.x + World.bar2.length;
 			startingY = World.bar2.position.y + World.bar2.width / 2 - radius;
-			if(World.bar2.stickybatStatus || World.bar2.ballStayAtSamePosition) {
+			if(World.bar2.stickybatStatus) {
 				startingY -= diffYDistance;
 			}
 		} else if (hitStatusLeftRight == hitPlayer1) {
 			startingX = World.bar1.position.x - Ball.dilimiter;
 			startingY = World.bar1.position.y + World.bar1.width / 2 - radius;
-			if(World.bar1.stickybatStatus || World.bar1.ballStayAtSamePosition) {
+			if(World.bar1.stickybatStatus) {
 				startingY -= diffYDistance;
 			}
 		}
@@ -141,7 +142,7 @@ public class Ball {
 		if(hitingbar1()) {
 			soundEffect.play(SoundEffect.HITSOUND);
 			hitStatusLeftRight = hitPlayer1;
-			if(World.bar1.stickybatStatus || World.bar1.ballStayAtSamePosition) {
+			if(World.bar1.stickybatStatus) {
 				moveStatus = false;
 				diffYDistance = World.bar1.position.y + World.bar1.barImg.getHeight() / 2 - position.y;
 			}
@@ -149,7 +150,7 @@ public class Ball {
 		if(hitingbar2()) {
 			soundEffect.play(SoundEffect.HITSOUND);
 			hitStatusLeftRight = hitPlayer2;
-			if(World.bar2.stickybatStatus || World.bar2.ballStayAtSamePosition) {
+			if(World.bar2.stickybatStatus) {
 				moveStatus = false;
 				diffYDistance = World.bar2.position.y + World.bar2.barImg.getHeight() / 2 - position.y;
 			}

@@ -52,7 +52,6 @@ public class Bar {
 	public boolean stickybatStatus = false;
 	public int stickybatCount = 0;
 	private int maxStickybatCount = 500;
-	public boolean ballStayAtSamePosition = false;
 	
 	public int initCountRandom = 800;
 	public int countRandom = initCountRandom;
@@ -135,6 +134,7 @@ public class Bar {
 			stickybatCount++;
 			if(stickybatCount == maxStickybatCount) {
 				stickybatStatus = false;
+				World.ball.moveStatus = true;
 				stickybatCount = 0;
 			}
 		}
@@ -255,32 +255,39 @@ public class Bar {
 	}
 	
 	private void botMoving() {
-		if(Math.abs(position.y + width / 2 - World.ball.position.y)<=50) {
-			moveUpDownStatus = STAY;
+		if(!botWinStatus || (stickybatStatus && !World.ball.moveStatus)) {
+			if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
+				moveUpDownStatus = MOVEDOWN;
+			} else if(position.y <= 0) {
+				moveUpDownStatus = MOVEUP;
+			}
 		} else {
-			if(botWinStatus) {
-				if(position.y + width / 2 <= World.ball.position.y)
-					moveUpDownStatus = MOVEUP;
-				else
-					moveUpDownStatus = MOVEDOWN;
-			} else {
-				if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
-					moveUpDownStatus = MOVEDOWN;
-				} else if(position.y <= 0) {
-					moveUpDownStatus = MOVEUP;
+			if(position.y + width / 2 <= World.ball.position.y)
+				moveUpDownStatus = MOVEUP;
+			else
+				moveUpDownStatus = MOVEDOWN;
+		}/*
+		if(botWinStatus) {
+			if(position.y + width / 2 <= World.ball.position.y)
+				moveUpDownStatus = MOVEUP;
+			else
+				moveUpDownStatus = MOVEDOWN;
+		} else {
+			if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
+				moveUpDownStatus = MOVEDOWN;
+			} else if(position.y <= 0) {
+				moveUpDownStatus = MOVEUP;
 				}
-			}
-			if(countMovement == maxCountMovement) {
-				botMovement();
-				countMovement = 0;
-			}
-			countMovement++;
+		}*/
+		if(countMovement == maxCountMovement) {
+			botMovement();
+			countMovement = 0;
 		}
+		countMovement++;
 		if(checkBotHitStickyBat()) {
-			System.out.println("hi1");
 			countToStart ++;
 			if(countToStart == maxCountToStart) {
-				System.out.println("hi2");
+				System.out.println("hit1");
 				World.ball.moveStatus = true;
 			}
 		} else {
@@ -289,7 +296,7 @@ public class Bar {
 	}
 	
 	private boolean checkBotHitStickyBat() {
-		return !World.ball.moveStatus & World.bar2.stickybatStatus & World.ball.hitStatusLeftRight == Ball.hitPlayer2;
+		return !World.ball.moveStatus && World.bar2.stickybatStatus && World.ball.hitStatusLeftRight == Ball.hitPlayer2;
 	}
 	
 	private void botMovement() {
@@ -331,11 +338,9 @@ public class Bar {
 	
 	private void botReleaseBall() {
 		if(World.bar2.pressActive == Bar.BOT && World.ball.hitStatusLeftRight == Ball.hitPlayer2 && !World.ball.moveStatus) {
-			System.out.println("hit1");
 			if(countReleaseBall==maxCountReleaseBall) {
 				System.out.println("hit2");
 				World.ball.moveStatus = true;
-				countReleaseBall = 0;
 			}
 			countReleaseBall++;
 		} else {

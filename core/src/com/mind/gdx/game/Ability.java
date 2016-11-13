@@ -77,7 +77,7 @@ public class Ability {
 	}
 	
 	public void updateShowAbility (int selectedAbility) {
-		showAbility = selectedAbility;
+		showAbility = STICKYBAT;//selectedAbility;
 	}
 	
 	public void checkNowAbility() {
@@ -157,6 +157,5 @@ public class Ability {
 		Bar bar = World.ball.getOwner();
 		bar.stickybatStatus = true;
 		bar.stickybatCount = 0;
-		bar.ballStayAtSamePosition = true;
 	}
 }

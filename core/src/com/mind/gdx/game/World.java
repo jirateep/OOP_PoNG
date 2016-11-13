@@ -169,7 +169,6 @@ public class World {
 		bar.shieldStatus = false;
 		bar.stickybatStatus = false;
 		bar.stickybatCount = 0;
-		bar.ballStayAtSamePosition = false;
 		bar.countNextRandom = 0;
 		bar.countRandom = bar.initCountRandom;
 	}
