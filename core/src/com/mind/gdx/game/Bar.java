@@ -34,7 +34,7 @@ public class Bar {
 	int pressUp;
 	private int pressDown;
 	private float speed = 20;
-	private float botSpeedFactor = 7.0f/10;
+	private float botSpeedFactor =9.0f/11;
 	public static final int BOT = -1;
 	
 	public boolean shieldStatus = false;
@@ -60,12 +60,17 @@ public class Bar {
 	public int maxCountNextRandom = 60;
 	
 	private boolean botWinStatus = true;
-	private boolean moveUpDownStatus = true;
+	private static final int STAY = 0;
+	private static final int MOVEUP = 1;
+	private static final int MOVEDOWN = 2;
+	private int moveUpDownStatus = STAY;
 	
 	private int countMovement = 0;
 	private int maxCountMovement = 1;
 	
-	public Bar(Texture barImg,float x,int up,int down,int active, int p) {
+	public SoundEffect soundEffect;
+	
+	public Bar(Texture barImg,float x,int up,int down,int active, int p, SoundEffect soundEffect) {
 		this.barImg = barImg;
 		length = barImg.getWidth();
 		width = barImg.getHeight();
@@ -75,6 +80,7 @@ public class Bar {
 		pressDown = down;
 		pressActive = active;
 		player = p;
+		this.soundEffect = soundEffect;
 	}
 	
 	public Vector2 getPosition() {
@@ -132,6 +138,7 @@ public class Bar {
 		if(World.ball.moveStatus) {
 			if(frozenBullet > 0) {
 				if(Gdx.input.isKeyJustPressed(pressActive)) {
+					soundEffect.play(SoundEffect.SHOOTSOUND);
 					frozenBullet--;
 					int reserved = Bullet.findAvailable();
 					World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),player);
@@ -216,9 +223,11 @@ public class Bar {
 	}
 	
 	private void botMove() {
-		botRandomMove();
-		botMoving();
-		moveScope();
+		if(World.ball.moveStatus) {
+			botRandomMove();
+		}
+			botMoving();
+			moveScope();
 	}
 	
 	private void botRandomMove() {
@@ -232,32 +241,35 @@ public class Bar {
 				botWinStatus = true;
 			}
 			countRandom -= 5;
-			if(countRandom <= 0)
+			if(countRandom <= 0) {
 				countRandom = 10;
+			}
 		}
-		if(World.ball.moveStatus) {
-			countNextRandom++;
-		}
+		countNextRandom++;
 	}
 	
 	private void botMoving() {
-		if(botWinStatus) {
-			if(position.y + width / 2 <= World.ball.position.y)
-				moveUpDownStatus = true;
-			else
-				moveUpDownStatus = false;
+		if(Math.abs(position.y + width / 2 - World.ball.position.y)<=50) {
+			moveUpDownStatus = STAY;
 		} else {
-			if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
-				moveUpDownStatus = false;
-			} else if(position.y <= 0) {
-				moveUpDownStatus = true;
+			if(botWinStatus) {
+				if(position.y + width / 2 <= World.ball.position.y)
+					moveUpDownStatus = MOVEUP;
+				else
+					moveUpDownStatus = MOVEDOWN;
+			} else {
+				if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
+					moveUpDownStatus = MOVEDOWN;
+				} else if(position.y <= 0) {
+					moveUpDownStatus = MOVEUP;
+				}
 			}
+			if(countMovement == maxCountMovement) {
+				botMovement();
+				countMovement = 0;
+			}
+			countMovement++;
 		}
-		if(countMovement == maxCountMovement) {
-			botMovement();
-			countMovement = 0;
-		}
-		countMovement++;
 		if(World.ball.moveStatus == false & World.bar2.stickybatStatus & World.ball.hitStatusLeftRight == Ball.hitPlayer2)
 			World.ball.moveStatus = true;
 	}
@@ -272,18 +284,30 @@ public class Bar {
 	}
 	
 	private void botForzenMove() {
-		if(moveUpDownStatus) {
-			position.y += (speed / frozenSpeedFactor) * botSpeedFactor;
-		} else {
-			position.y -= (speed / frozenSpeedFactor)  * botSpeedFactor;
+		switch(moveUpDownStatus) {
+			case MOVEUP:
+				position.y += (speed / frozenSpeedFactor) * botSpeedFactor;
+				break;
+			case MOVEDOWN:
+				position.y -= (speed / frozenSpeedFactor)  * botSpeedFactor;
+			case STAY:
+				break;
+			default:
+				break;
 		}
 	}
 	
 	private void botNormalMove() {
-		if(moveUpDownStatus) {
+		switch(moveUpDownStatus) {
+		case MOVEUP:
 			position.y += speed * botSpeedFactor;
-		} else {
+			break;
+		case MOVEDOWN:
 			position.y -= speed * botSpeedFactor;
+		case STAY:
+			break;
+		default:
+			break;
 		}
 	}
 	
@@ -291,6 +315,7 @@ public class Bar {
 		if(frozenBullet > 0) {
 			int random = (int)(Math.random()*100);
 			if(random % 400 == 0) {
+				soundEffect.play(SoundEffect.SHOOTSOUND);
 				frozenBullet--;
 				int reserved = Bullet.findAvailable();
 				World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),player);

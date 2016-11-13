@@ -6,42 +6,54 @@ import com.badlogic.gdx.Input.Keys;
 public class Menu {
 	
 	private static int min = 0;
+	public SoundEffect soundEffect;
 	
-	public static int [] initSelectedChoice(int [] choices) {
+	
+	public Menu(SoundEffect soundEffect) {
+		this.soundEffect = soundEffect;
+	}
+	
+	public int [] initSelectedChoice(int [] choices) {
 		for(int i = 0 ; i < choices.length ; i++) {
 			choices[i] = i;
 		}
 		return choices;
 	}
 	
-	public static int updateSelected(int selected, int max) {
+	public int updateSelected(int selected, int max) {
 		if(Gdx.input.isKeyJustPressed(Keys.UP)) {
 			selected--;
+			if(selected < min) {
+				selected = min;
+				soundEffect.play(SoundEffect.ERRORSOUND);
+			} else {
+				soundEffect.play(SoundEffect.SELECTEDSOUND);
+			}
 		}
 		if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
 			selected++;
-		}
-		if(selected > max) {
-			selected = max;
-		}
-		if(selected < min) {
-			selected = min;
+			if(selected > max) {
+				selected = max;
+				soundEffect.play(SoundEffect.ERRORSOUND);
+			} else {
+				soundEffect.play(SoundEffect.SELECTEDSOUND);
+			}
 		}
 		return selected;
 	}
 	
-	public static boolean resetStatus() {
+	public boolean resetStatus() {
 		return false;
 	}
 	
-	public static int resetSelected() {
+	public int resetSelected() {
 		return 0;
 	}
 	
-	public static void resume(boolean status,int selected) {
+	public void resume(boolean status,int selected) {
 	}
 	
-	public static void restart(boolean status,int selected) {
+	public void restart(boolean status,int selected) {
 		World.bar1.score = 0;
 		World.bar2.score = 0;
 		World.reset();
@@ -49,7 +61,7 @@ public class Menu {
 		World.endStatus = false;
 	}
 	
-	public static void startMenu(boolean status,int selected) {
+	public void startMenu(boolean status,int selected) {
 		restart(status,selected);
 		World.menuStatus = true;
 	}

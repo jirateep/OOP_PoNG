@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 public class PauseMenu extends Menu{
+	
+	public PauseMenu(SoundEffect soundEffect) {
+		super(soundEffect);
+	}
+
 	public static final int RESUME = 0;
 	public static final int RESTART = 1;
 	public static final int MENU = 2;
@@ -11,13 +16,14 @@ public class PauseMenu extends Menu{
 	
 	static int selectedPauseMenu = RESUME;
 	
-	public static void update() {
-		selectedPauseMenu = Menu.updateSelected(selectedPauseMenu,NBOFMENU - 1);
+	public void update() {
+		selectedPauseMenu = updateSelected(selectedPauseMenu,NBOFMENU - 1);
 		selectedPauseEnd();
 	}
 	
-	public static void selectedPauseEnd() {
+	public void selectedPauseEnd() {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			soundEffect.play(SoundEffect.ENTERSOUND);
 			switch(selectedPauseMenu) {
 				case RESUME:
 					resume(World.pauseStatus,selectedPauseMenu);

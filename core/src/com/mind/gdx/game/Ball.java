@@ -41,11 +41,14 @@ public class Ball {
 
 	public boolean moveStatus = false;
 	
-	public Ball(){
+	public SoundEffect soundEffect;
+	
+	public Ball(SoundEffect soundEffect){
 		updateStartingPosition();
 		position = new Vector2(startingX,startingY);
 		speedXFactor = initSpeedXFactor;
 		speedYFactor = initSpeedYFactor;
+		this.soundEffect = soundEffect;
 		getSpeed();
 		randomDirectionUpDown();
 	}
@@ -128,19 +131,23 @@ public class Ball {
 	
 	public void updateDirection() {
 		if(position.y >= GameScreen.height - dilimiter) {
+			soundEffect.play(SoundEffect.HITSOUND);
 			hitStatusUpDown = hitCeilling;
 		}
 		if(position.y <= 0) {
+			soundEffect.play(SoundEffect.HITSOUND);
 			hitStatusUpDown = hitFloor;
 		}
-		if(hitingBar1()) {
+		if(hitingbar1()) {
+			soundEffect.play(SoundEffect.HITSOUND);
 			hitStatusLeftRight = hitPlayer1;
 			if(World.bar1.stickybatStatus || World.bar1.ballStayAtSamePosition) {
 				moveStatus = false;
 				diffYDistance = World.bar1.position.y + World.bar1.barImg.getHeight() / 2 - position.y;
 			}
 		}
-		if(hitingBar2()) {
+		if(hitingbar2()) {
+			soundEffect.play(SoundEffect.HITSOUND);
 			hitStatusLeftRight = hitPlayer2;
 			if(World.bar2.stickybatStatus || World.bar2.ballStayAtSamePosition) {
 				moveStatus = false;
@@ -214,9 +221,9 @@ public class Ball {
 		return !((position.y < bar.position.y + bar.width * topSpace) && (position.y > bar.position.y + bar.width * bottomSpace));
 	}
 	
-	public boolean hitingBar1() {
+	public boolean hitingbar1() {
 		if(getOwner() == World.bar2) {
-			if(checkHitBar1XPosition()) {
+			if(checkHitbar1XPosition()) {
 				if(checkHitBarYPosition(World.bar1)) {
 					hitShield = false;
 					return true;
@@ -236,19 +243,19 @@ public class Ball {
 			   position.y < bar.position.y + bar.width;
 	}
 	
-	public boolean checkHitBar1XPosition() {
+	public boolean checkHitbar1XPosition() {
 		return position.x > World.bar1.position.x - Ball.dilimiter &&
 				position.x < World.bar1.position.x;
 	}
 	
-	public boolean checkHitBar2XPosition() {
+	public boolean checkHitbar2XPosition() {
 		return position.x < World.bar2.position.x + World.bar2.length &&  
 			   position.x > World.bar2.position.x;
 	}
 	
-	public boolean hitingBar2() {
+	public boolean hitingbar2() {
 		if(getOwner() == World.bar1) {
-			if(checkHitBar2XPosition()) {
+			if(checkHitbar2XPosition()) {
 				if(checkHitBarYPosition(World.bar2)) {
 					hitShield = false;
 					return true;
@@ -263,7 +270,7 @@ public class Ball {
 		return false;
 	}
 	
-	public static Bar getOwner() {
+	public Bar getOwner() {
 		if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
 			return World.bar1;
 		}
@@ -273,7 +280,7 @@ public class Ball {
 		return null;
 	}
 	
-	public static Bar getOppositeOwner() {
+	public Bar getOppositeOwner() {
 		if(World.ball.hitStatusLeftRight == Ball.hitPlayer1) {
 			return World.bar2;
 		}

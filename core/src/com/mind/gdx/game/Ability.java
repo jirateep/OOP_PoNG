@@ -22,12 +22,18 @@ public class Ability {
 	public static int wait = 0;
 	public static int maxWait = 600;
 	
-	public static void update() {
+	public SoundEffect soundEffect;
+	
+	public Ability(SoundEffect soundEffect) {
+		this.soundEffect = soundEffect;
+	}
+	
+	public void update() {
 		updateTimer();
 		checkNowAbility();
 	}
 	
-	public static void updateTimer() {
+	public void updateTimer() {
 		updateWaitTimer();
 		updateAbilityTimer();
 		if(World.ball.ballAbilityStatus == Ball.FIREBALL) {
@@ -47,7 +53,7 @@ public class Ability {
 			
 	}
 	
-	public static void updateBallAbilityTimer() {
+	public void updateBallAbilityTimer() {
 		if(startBallAbilityTimer) {
 			ballAbilityTimer++;
 		}
@@ -58,7 +64,7 @@ public class Ability {
 		}
 	}
 	
-	public static void updateAbilityTimer() {
+	public void updateAbilityTimer() {
 		if(startCountAbilityTimer && World.ball.moveStatus){
 			abilityTimer++;
 		}
@@ -66,22 +72,23 @@ public class Ability {
 			startCountAbilityTimer = false;
 			abilityTimer = 0;
 			int random = (int)(Math.random() * 1000);
-			updateShowAbility(random%numberOfAbility);
+			updateShowAbility(1 + random % numberOfAbility);
 		}
 	}
 	
-	public static void updateShowAbility (int selectedAbility) {
+	public void updateShowAbility (int selectedAbility) {
 		showAbility = selectedAbility;
 	}
 	
-	public static void checkNowAbility() {
+	public void checkNowAbility() {
 		if(showAbility == NOTHING) {
 			startCountAbilityTimer = true;
 		}
 	}
 	
-	public static void workAbility() {
+	public void workAbility() {
 		if(showAbility != NOTHING)  {
+			soundEffect.play(SoundEffect.ABILITYSOUND);
 			switch(showAbility) {
 			case FIREBALL:
 				workFireball();
@@ -109,30 +116,30 @@ public class Ability {
 		}
 	}
 	
-	private static void workFireball() {
+	private void workFireball() {
 		World.ball.ballAbilityStatus = Ball.FIREBALL;
 		startBallAbilityTimer = true;
 		ballAbilityTimer = 0;
 	}
 	
-	private static void workBiggerbat() {
-		Bar bar = Ball.getOwner();
+	private void workBiggerbat() {
+		Bar bar = World.ball.getOwner();
 		bar.size += Bar.BIGGERBATINCREASE;
 		if(bar.size > Bar.maxSize) {
 			bar.size = Bar.maxSize;
 		}
 	}
 	
-	private static void workSmallerbat() {
-		Bar bar = Ball.getOppositeOwner();
+	private void workSmallerbat() {
+		Bar bar = World.ball.getOppositeOwner();
 		bar.size -= Bar.SMALLERBATDECREASE;
 		if(bar.size < Bar.minSize) {
 			bar.size = Bar.minSize;
 		}
 	}
 	
-	private static void workFrozenbullet() {
-		Bar bar = Ball.getOwner();
+	private void workFrozenbullet() {
+		Bar bar = World.ball.getOwner();
 		bar.frozenBullet += Bar.increaseBullet;
 		bar.barAbilityStatus = Bar.FROZENBULLET;
 		if(bar.frozenBullet > Bar.maxFrozenBullet) {
@@ -140,14 +147,14 @@ public class Ability {
 		}			
 	}
 	
-	private static void workShield() {
-		Bar bar = Ball.getOwner();
+	private void workShield() {
+		Bar bar = World.ball.getOwner();
 		bar.shieldStatus = true;
 		bar.shieldCount = 0;
 	}
 	
-	private static void workStickybat() {
-		Bar bar = Ball.getOwner();
+	private void workStickybat() {
+		Bar bar = World.ball.getOwner();
 		bar.stickybatStatus = true;
 		bar.stickybatCount = 0;
 		bar.ballStayAtSamePosition = true;

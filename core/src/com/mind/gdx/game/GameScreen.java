@@ -147,6 +147,7 @@ public class GameScreen extends ScreenAdapter {
 		
 		endGameImg[Bar.PLAYER1] = new Texture("rightPlayerWin.png");
 		endGameImg[Bar.PLAYER2] = new Texture("leftPlayerWin.png");
+		nowEndGameImg = endGameImg[Bar.PLAYER1];
 		endMenuChoicesImg[EndMenu.RESTART][UNSELECTED] = new Texture("restart.png");
 		endMenuChoicesImg[EndMenu.MENU][UNSELECTED] = new Texture("menu.png");
 		endMenuChoicesImg[EndMenu.RESTART][SELECTED] = new Texture("restartSelected.png");

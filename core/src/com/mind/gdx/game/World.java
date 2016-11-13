@@ -14,7 +14,9 @@ public class World {
 	public static int maxBullet = 40;
 	public static Bullet [] bullets;
 	
-	//public static HomeMenu homeMenu;
+	public static HomeMenu homeMenu;
+	public static PauseMenu pauseMenu;
+	public static EndMenu endMenu;
 	public static boolean pauseStatus = false;
 	private static int pressPause = Keys.P;
 	public static int selectedPause = 1;
@@ -27,45 +29,54 @@ public class World {
 	private static int countReleaseBall = 0;
 	private static int maxCountReleaseBall = 100;
 	
+	public static SoundEffect soundEffect;
+	public static boolean muteStatus = false;
+	
 	public World() {
 		player2BarXInit = 20;
 		player1BarXInit = GameScreen.width - player2BarXInit - GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1].getWidth();
 		
-		bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.L,Bar.PLAYER1);
-		bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],player2BarXInit,Keys.W,Keys.S,Keys.G,Bar.PLAYER2);
+		soundEffect = new SoundEffect();
 		
-		ball = new Ball();
+		bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],player1BarXInit,Keys.UP,Keys.DOWN,Keys.L,Bar.PLAYER1,soundEffect);
+		bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],player2BarXInit,Keys.W,Keys.S,Keys.G,Bar.PLAYER2,soundEffect);
 		
-		ability = new Ability();
+		ball = new Ball(soundEffect);
+		
+		ability = new Ability(soundEffect);
 		
 		bullets = new Bullet [maxBullet];
 		for(int i = 0 ; i < bullets.length ; i++) {
 			bullets[i] = null;
 		}
 		
-		//homeMenu = new HomeMenu();
+		homeMenu = new HomeMenu(soundEffect);
+		pauseMenu = new PauseMenu(soundEffect);
+		endMenu = new EndMenu(soundEffect);
 		
 	}
 	
 	public static void update() {
 		if(menuStatus) {
-			HomeMenu.update();
+			homeMenu.update();
 		} else {
 			if(!pauseStatus) {
 				bar1.update();
 				bar2.update();
 				ball.update();
 				Bullet.update();
-				Ability.update();
+				ability.update();
 				ballHitAbility();
 				bulletHitBar();
 				scoreUpdate();
 				checkEnding();
 			} else {
-				PauseMenu.update();
+				pauseMenu.update();
 			}
 			if(!endStatus) {
 				pauseGame();
+			} else {
+				endMenu.update();
 			}
 		}
 	}
@@ -95,14 +106,13 @@ public class World {
 						bullets[i] = null;
 					}
 				}
-				
 			}
 		}
 	}
 	
 	private static void ballHitAbility() {
 		if(checkhitAbility()) {
-			Ability.workAbility();			
+			ability.workAbility();			
 		}
 	}
 	

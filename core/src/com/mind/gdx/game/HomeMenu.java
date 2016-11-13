@@ -18,13 +18,18 @@ public class HomeMenu extends Menu{
 	public static final int NBOFMENU = 4;
 	static int selectedHomeMenu = ONEPLAYER;
 	
-	public static void update() {
+	public HomeMenu(SoundEffect soundEffect) {
+		super(soundEffect);
+	}
+	
+	public void update() {
 		selectedHomeMenu = updateSelected(selectedHomeMenu,NBOFMENU - 1);
 		selectedHomeMenuEnd(selectedHomeMenu);
 	}
 	
-	public static void selectedHomeMenuEnd(int selected) {
+	public void selectedHomeMenuEnd(int selected) {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			soundEffect.play(SoundEffect.ENTERSOUND);
 			switch(selectedHomeMenu) {
 				case ONEPLAYER:
 					startingWithOnePlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
@@ -47,14 +52,14 @@ public class HomeMenu extends Menu{
 		}
 	}
 	
-	public static void startingWithOnePlayerSetting(boolean status,int selected) {
-		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
-		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,Bar.PLAYER2);
+	public void startingWithOnePlayerSetting(boolean status,int selected) {
+		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1,World.soundEffect);
+		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,Bar.PLAYER2,World.soundEffect);
 	}
 
-	public static void startingWithTwoPlayerSetting(boolean status,int selected) {
-		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1);
-		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,bar2Up,bar2Down,bar2Active,Bar.PLAYER2);
+	public void startingWithTwoPlayerSetting(boolean status,int selected) {
+		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1,World.soundEffect);
+		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,bar2Up,bar2Down,bar2Active,Bar.PLAYER2,World.soundEffect);
 	}
 
 	public static void help(boolean status,int selected) {
