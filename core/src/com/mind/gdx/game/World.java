@@ -21,7 +21,8 @@ public class World {
 	private static int pressPause = Keys.P;
 	public static int selectedPause = 1;
 	
-	static boolean menuStatus = true;
+	public static boolean menuStatus = true;
+	public static boolean helpStatus = false;
 	
 	public static float player2BarXInit;
 	public static float player1BarXInit;

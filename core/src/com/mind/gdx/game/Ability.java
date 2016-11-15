@@ -77,7 +77,7 @@ public class Ability {
 	}
 	
 	public void updateShowAbility (int selectedAbility) {
-		showAbility = STICKYBAT;//selectedAbility;
+		showAbility = selectedAbility;
 	}
 	
 	public void checkNowAbility() {

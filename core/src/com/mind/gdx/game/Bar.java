@@ -266,19 +266,7 @@ public class Bar {
 				moveUpDownStatus = MOVEUP;
 			else
 				moveUpDownStatus = MOVEDOWN;
-		}/*
-		if(botWinStatus) {
-			if(position.y + width / 2 <= World.ball.position.y)
-				moveUpDownStatus = MOVEUP;
-			else
-				moveUpDownStatus = MOVEDOWN;
-		} else {
-			if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
-				moveUpDownStatus = MOVEDOWN;
-			} else if(position.y <= 0) {
-				moveUpDownStatus = MOVEUP;
-				}
-		}*/
+		}
 		if(countMovement == maxCountMovement) {
 			botMovement();
 			countMovement = 0;
@@ -303,8 +291,7 @@ public class Bar {
 		if(frozenStatus){
 			botForzenMove();
 		} else {
-			botNormalMove();
-			
+			botNormalMove();	
 		}
 	}
 	
@@ -339,7 +326,7 @@ public class Bar {
 	private void botReleaseBall() {
 		if(World.bar2.pressActive == Bar.BOT && World.ball.hitStatusLeftRight == Ball.hitPlayer2 && !World.ball.moveStatus) {
 			if(countReleaseBall==maxCountReleaseBall) {
-				System.out.println("hit2");
+				//System.out.println("hit2");
 				World.ball.moveStatus = true;
 			}
 			countReleaseBall++;

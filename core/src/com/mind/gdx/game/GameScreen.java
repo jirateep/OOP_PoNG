@@ -44,6 +44,8 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture nowEndGameImg;
 	public static Texture [][] endMenuChoicesImg = new Texture [EndMenu.NBOFMENU][2];	
 	
+	public static Texture helpImg;
+	
 	//public static FreeTypeFontGenerator ttf_font;
 	//public static BitmapFont bar1Score_bitmap;
 	//public static BitmapFont bar2Score_bitmap;
@@ -152,6 +154,8 @@ public class GameScreen extends ScreenAdapter {
 		endMenuChoicesImg[EndMenu.MENU][UNSELECTED] = new Texture("menu.png");
 		endMenuChoicesImg[EndMenu.RESTART][SELECTED] = new Texture("restartSelected.png");
 		endMenuChoicesImg[EndMenu.MENU][SELECTED] = new Texture("menuSelected.png");
+		
+		helpImg = new Texture("helpMenu.png");
 		
 		//ttf_font = new FreeTypeFontGenerator("NESCyrillic.ttf");
 		//FreeTypeFontGenerator generator = new FreeTypeFontGenerator("NESCyrillic.ttf");

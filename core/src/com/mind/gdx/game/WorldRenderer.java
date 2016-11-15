@@ -20,6 +20,7 @@ public class WorldRenderer {
 	private static float shield2XPosition = World.bar2.position.x + World.bar2.length;
 	private static float shieldYPosition = 0;
 
+	private static float [] helpPosition = new float [2];
 	private static float [] endPosition = new float [2];
 	private static float [] pongHomePosition = new float[2];
 	private static float [] pausePosition = new float [2];
@@ -79,14 +80,21 @@ public class WorldRenderer {
 			endMenuChoices[i][0] = mkImgXCenter(GameScreen.endMenuChoicesImg[i][GameScreen.UNSELECTED]);
 			endMenuChoices[i][1] = endPosition[1] - 150 - i * 100;
 		}
+		
+		helpPosition[0] = mkImgXCenter(GameScreen.helpImg);
+		helpPosition[1] = mkImgYCenter(GameScreen.helpImg);
 	}
 	
 	private static void drawHomeMenu() {
-		batch.draw(GameScreen.pongHomeImg,pongHomePosition[0],pongHomePosition[1]);
-		for(int i = 0 ; i < HomeMenu.NBOFMENU ; i++) {
-			batch.draw(GameScreen.homeMenuChoicesImg[i][GameScreen.UNSELECTED],homeMenuChoices[i][0],homeMenuChoices[i][1]);
+		if(!World.helpStatus) {
+			batch.draw(GameScreen.pongHomeImg,pongHomePosition[0],pongHomePosition[1]);
+			for(int i = 0 ; i < HomeMenu.NBOFMENU ; i++) {
+				batch.draw(GameScreen.homeMenuChoicesImg[i][GameScreen.UNSELECTED],homeMenuChoices[i][0],homeMenuChoices[i][1]);
+			}
+			drawSelectedHomeMenu();
+		} else {
+			batch.draw(GameScreen.helpImg,helpPosition[0],helpPosition[1]);
 		}
-		drawSelectedHomeMenu();
 	}
 	
 	private static void drawSelectedHomeMenu() {
@@ -122,6 +130,10 @@ public class WorldRenderer {
 	
 	private static float mkImgXCenter(Texture img) {
 		return centerX - img.getWidth() / 2;
+	}
+	
+	private static float mkImgYCenter(Texture img) {
+		return centerY - img.getHeight() / 2;
 	}
 	
 	private static void drawShield() {
