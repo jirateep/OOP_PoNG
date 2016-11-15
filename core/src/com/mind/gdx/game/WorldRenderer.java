@@ -21,6 +21,7 @@ public class WorldRenderer {
 	private static float shieldYPosition = 0;
 
 	private static float [] helpPosition = new float [2];
+	private static float [] creditsPosition = new float [2];
 	private static float [] endPosition = new float [2];
 	private static float [] pongHomePosition = new float[2];
 	private static float [] pausePosition = new float [2];
@@ -83,17 +84,22 @@ public class WorldRenderer {
 		
 		helpPosition[0] = mkImgXCenter(GameScreen.helpImg);
 		helpPosition[1] = mkImgYCenter(GameScreen.helpImg);
+		
+		creditsPosition[0] = mkImgXCenter(GameScreen.creditsImg);
+		creditsPosition[1] = mkImgYCenter(GameScreen.creditsImg);
 	}
 	
 	private static void drawHomeMenu() {
-		if(!World.helpStatus) {
+		if(!World.helpStatus && !World.creditsStatus) {
 			batch.draw(GameScreen.pongHomeImg,pongHomePosition[0],pongHomePosition[1]);
 			for(int i = 0 ; i < HomeMenu.NBOFMENU ; i++) {
 				batch.draw(GameScreen.homeMenuChoicesImg[i][GameScreen.UNSELECTED],homeMenuChoices[i][0],homeMenuChoices[i][1]);
 			}
 			drawSelectedHomeMenu();
-		} else {
+		} else if(World.helpStatus) {
 			batch.draw(GameScreen.helpImg,helpPosition[0],helpPosition[1]);
+		} else if(World.creditsStatus) {
+			batch.draw(GameScreen.creditsImg,creditsPosition[0],creditsPosition[1]);
 		}
 	}
 	

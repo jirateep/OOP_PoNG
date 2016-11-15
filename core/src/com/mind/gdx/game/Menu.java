@@ -8,7 +8,6 @@ public class Menu {
 	private static int min = 0;
 	public SoundEffect soundEffect;
 	
-	
 	public Menu(SoundEffect soundEffect) {
 		this.soundEffect = soundEffect;
 	}

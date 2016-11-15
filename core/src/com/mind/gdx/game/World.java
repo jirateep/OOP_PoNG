@@ -23,6 +23,7 @@ public class World {
 	
 	public static boolean menuStatus = true;
 	public static boolean helpStatus = false;
+	public static boolean creditsStatus = false;
 	
 	public static float player2BarXInit;
 	public static float player1BarXInit;

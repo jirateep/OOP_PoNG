@@ -26,11 +26,12 @@ public class HomeMenu extends Menu{
 	}
 	
 	public void update() {
-		if(!World.helpStatus) {
+		if(!World.helpStatus && !World.creditsStatus) {
 			selectedHomeMenu = updateSelected(selectedHomeMenu,NBOFMENU - 1);
 			selectedHomeMenuEnd(selectedHomeMenu);
 		}
 		setHelpMenu();
+		setCreditsMenu();
 	}
 	
 	public void setHelpMenu() {
@@ -45,41 +46,61 @@ public class HomeMenu extends Menu{
 			
 		}
 	}
+	
+	public void setCreditsMenu() {
+		if(World.creditsStatus) {
+			countCanExitHelp++;
+			if(countCanExitHelp > maxCountCanExitHelp && World.creditsStatus) {
+				if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+					World.creditsStatus = false;
+					countCanExitHelp = 0;
+				}
+			}
+			
+		}
+	}
 		
 	public void selectedHomeMenuEnd(int selected) {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			soundEffect.play(SoundEffect.ENTERSOUND);
 			switch(selectedHomeMenu) {
 				case ONEPLAYER:
-					startingWithOnePlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
+					startingWithOnePlayerSetting(World.menuStatus);
 					break;
 				case TWOPLAYERS:
-					startingWithTwoPlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
+					startingWithTwoPlayerSetting(World.menuStatus);
 					break;
 				case HELP:
-					help(World.menuStatus,HomeMenu.selectedHomeMenu);
+					help();
+					break;
+				case CREDITS:
+					credits();
 					break;
 				default:
 					break;
 			}
-			if(!World.helpStatus) {
+			if(!World.helpStatus && !World.creditsStatus) {
 				World.menuStatus = resetStatus();
 				selectedHomeMenu = resetSelected();
 			}
 		}
 	}
 	
-	public void startingWithOnePlayerSetting(boolean status,int selected) {
+	public void startingWithOnePlayerSetting(boolean status) {
 		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1,World.soundEffect);
 		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,Bar.BOT,Bar.BOT,Bar.BOT,Bar.PLAYER2,World.soundEffect);
 	}
 
-	public void startingWithTwoPlayerSetting(boolean status,int selected) {
+	public void startingWithTwoPlayerSetting(boolean status) {
 		World.bar1 = new Bar(GameScreen.barImg[Bar.PLAYER1][Bar.NOTFROZEN][1],World.player1BarXInit,bar1Up,bar1Down,bar1Active,Bar.PLAYER1,World.soundEffect);
 		World.bar2 = new Bar(GameScreen.barImg[Bar.PLAYER2][Bar.NOTFROZEN][1],World.player2BarXInit,bar2Up,bar2Down,bar2Active,Bar.PLAYER2,World.soundEffect);
 	}
 
-	public static void help(boolean status,int selected) {
+	public static void help() {
 		World.helpStatus = true;
+	}
+	
+	public static void credits() {
+		World.creditsStatus = true;
 	}
 }
