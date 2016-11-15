@@ -13,21 +13,23 @@ public class HomeMenu extends Menu{
 	
 	public static final int ONEPLAYER = 0;
 	public static final int TWOPLAYERS = 1;
-	public static final int SETTING = 2;
-	public static final int HELP = 3;
+	public static final int HELP = 2;
+	public static final int CREDITS = 3;
 	public static final int NBOFMENU = 4;
-	static int selectedHomeMenu = ONEPLAYER;
-	
+	public static int selectedHomeMenu = ONEPLAYER;
+
 	private static int countCanExitHelp = 0;
 	private static int maxCountCanExitHelp = 10;
-	
+
 	public HomeMenu(SoundEffect soundEffect) {
 		super(soundEffect);
 	}
 	
 	public void update() {
-		selectedHomeMenu = updateSelected(selectedHomeMenu,NBOFMENU - 1);
-		selectedHomeMenuEnd(selectedHomeMenu);
+		if(!World.helpStatus) {
+			selectedHomeMenu = updateSelected(selectedHomeMenu,NBOFMENU - 1);
+			selectedHomeMenuEnd(selectedHomeMenu);
+		}
 		setHelpMenu();
 	}
 	
@@ -40,9 +42,10 @@ public class HomeMenu extends Menu{
 					countCanExitHelp = 0;
 				}
 			}
+			
 		}
 	}
-	
+		
 	public void selectedHomeMenuEnd(int selected) {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			soundEffect.play(SoundEffect.ENTERSOUND);
@@ -52,9 +55,6 @@ public class HomeMenu extends Menu{
 					break;
 				case TWOPLAYERS:
 					startingWithTwoPlayerSetting(World.menuStatus,HomeMenu.selectedHomeMenu);
-					break;
-				case SETTING:
-					setting(World.menuStatus,HomeMenu.selectedHomeMenu);
 					break;
 				case HELP:
 					help(World.menuStatus,HomeMenu.selectedHomeMenu);
@@ -81,9 +81,5 @@ public class HomeMenu extends Menu{
 
 	public static void help(boolean status,int selected) {
 		World.helpStatus = true;
-	}
-
-	public static void setting(boolean status,int selected) {
-		/////////////////////////////
 	}
 }

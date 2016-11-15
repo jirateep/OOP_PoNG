@@ -140,12 +140,12 @@ public class GameScreen extends ScreenAdapter {
 		pongHomeImg = new Texture("PoNG.png");
 		homeMenuChoicesImg[HomeMenu.ONEPLAYER][UNSELECTED] = new Texture("1player.png");
 		homeMenuChoicesImg[HomeMenu.TWOPLAYERS][UNSELECTED] = new Texture("2players.png");
-		homeMenuChoicesImg[HomeMenu.SETTING][UNSELECTED] = new Texture("setting.png");
 		homeMenuChoicesImg[HomeMenu.HELP][UNSELECTED] = new Texture("help.png");
+		homeMenuChoicesImg[HomeMenu.CREDITS][UNSELECTED] = new Texture("credits.png");
 		homeMenuChoicesImg[HomeMenu.ONEPLAYER][SELECTED] = new Texture("1playerSelected.png");
 		homeMenuChoicesImg[HomeMenu.TWOPLAYERS][SELECTED] = new Texture("2playersSelected.png");
-		homeMenuChoicesImg[HomeMenu.SETTING][SELECTED] = new Texture("settingSelected.png");
 		homeMenuChoicesImg[HomeMenu.HELP][SELECTED] = new Texture("helpSelected.png");
+		homeMenuChoicesImg[HomeMenu.CREDITS][SELECTED] = new Texture("creditsSelected.png");
 		
 		endGameImg[Bar.PLAYER1] = new Texture("rightPlayerWin.png");
 		endGameImg[Bar.PLAYER2] = new Texture("leftPlayerWin.png");
