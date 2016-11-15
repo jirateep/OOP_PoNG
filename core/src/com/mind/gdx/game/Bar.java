@@ -53,7 +53,7 @@ public class Bar {
 	public int stickybatCount = 0;
 	private int maxStickybatCount = 500;
 	
-	public int initCountRandom = 800;
+	public int initCountRandom = 1000;
 	public int countRandom = initCountRandom;
 	public int countNextRandom = 0;
 	public int maxCountNextRandom = 60;
@@ -241,12 +241,12 @@ public class Bar {
 			countNextRandom = 0;
 			int random = (int)(Math.random() * 10000);
 			//System.out.println(random%countRandom);
-			if(random % countRandom < 10) {
+			if(random % countRandom < 20) {
 				botWinStatus = false;
 			} else {
 				botWinStatus = true;
 			}
-			countRandom -= 5;
+			countRandom -= 10;
 			if(countRandom <= 0) {
 				countRandom = 10;
 			}

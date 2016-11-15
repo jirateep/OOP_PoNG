@@ -18,8 +18,8 @@ public class HomeMenu extends Menu{
 	public static final int NBOFMENU = 4;
 	public static int selectedHomeMenu = ONEPLAYER;
 
-	private static int countCanExitHelp = 0;
-	private static int maxCountCanExitHelp = 10;
+	private static int countCanExit = 0;
+	private static int maxCountCanExit = 10;
 
 	public HomeMenu(SoundEffect soundEffect) {
 		super(soundEffect);
@@ -30,11 +30,25 @@ public class HomeMenu extends Menu{
 			selectedHomeMenu = updateSelected(selectedHomeMenu,NBOFMENU - 1);
 			selectedHomeMenuEnd(selectedHomeMenu);
 		}
-		setHelpMenu();
-		setCreditsMenu();
+		World.helpStatus = setMenu(World.helpStatus);
+		World.creditsStatus = setMenu(World.creditsStatus);
+		//setCreditsMenu();
 	}
 	
-	public void setHelpMenu() {
+	public boolean setMenu(boolean status) {
+		if(status) {
+			countCanExit++;
+			if(countCanExit > maxCountCanExit && status) {
+				if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+					status = false;
+					countCanExit = 0;
+				}
+			}
+		}
+		return status;
+	}
+	
+	/*public void setHelpMenu() {
 		if(World.helpStatus) {
 			countCanExitHelp++;
 			if(countCanExitHelp > maxCountCanExitHelp && World.helpStatus) {
@@ -58,7 +72,7 @@ public class HomeMenu extends Menu{
 			}
 			
 		}
-	}
+	}*/
 		
 	public void selectedHomeMenuEnd(int selected) {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
