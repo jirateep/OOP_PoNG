@@ -19,6 +19,7 @@ public class World {
 	public static EndMenu endMenu;
 	public static boolean pauseStatus = false;
 	private static int pressPause = Keys.P;
+	private static int pressMute = Keys.M;
 	public static int selectedPause = 1;
 	
 	public static boolean menuStatus = true;
@@ -73,17 +74,19 @@ public class World {
 				pauseMenu.update();
 			}
 			if(!endStatus) {
-				pauseGame();
+				pauseStatus = pauseAndMuteGame(pauseStatus,pressPause);
 			} else {
 				endMenu.update();
 			}
 		}
+		muteStatus = pauseAndMuteGame(muteStatus,pressMute);
 	}
 	
-	private static void pauseGame() {
-		if(Gdx.input.isKeyJustPressed(pressPause)) {
-			pauseStatus = !pauseStatus;
+	private static boolean pauseAndMuteGame(boolean status,int press) {
+		if(Gdx.input.isKeyJustPressed(press)) {
+			status = !status;
 		}
+		return status;
 		
 	}
 	
