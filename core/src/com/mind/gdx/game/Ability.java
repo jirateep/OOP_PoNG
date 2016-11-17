@@ -34,33 +34,8 @@ public class Ability {
 	}
 	
 	public void updateTimer() {
-		updateWaitTimer();
-		updateAbilityTimer();
-	}
-	
-	public static void updateWaitTimer() {
 		wait = timer(showAbility != NOTHING,wait,maxWait,CHANGESHOWABILITY,null,null);
-		/*if(showAbility != NOTHING) {
-			wait++;
-			if(maxWait == wait) {
-				showAbility = NOTHING;
-				wait = 0;
-			}
-		}*/
-			
-	}
-	
-	public void updateAbilityTimer() {
 		abilityTimer = timer(startCountAbilityTimer && World.ball.moveStatus,abilityTimer,maxCount,APPEARABILITY,null,null);
-		/*if(startCountAbilityTimer && World.ball.moveStatus){
-			abilityTimer++;
-		}
-		if(abilityTimer==maxCount) {
-			startCountAbilityTimer = false;
-			abilityTimer = 0;
-			int random = (int)(Math.random() * 1000);
-			updateShowAbility(1 + random % numberOfAbility);
-		}*/
 	}
 	
 	public static void updateShowAbility (int selectedAbility) {

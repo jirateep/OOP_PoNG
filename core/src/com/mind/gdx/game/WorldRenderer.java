@@ -60,7 +60,6 @@ public class WorldRenderer {
 	}
 	
 	private static void setPosition() {
-		
 		pongHomePosition[0] = mkImgXCenter(GameScreen.pongHomeImg);
 		pongHomePosition[1] = centerY + 150;
 		for(int i = 0 ; i < HomeMenu.NBOFMENU ; i++) {
@@ -229,16 +228,24 @@ public class WorldRenderer {
 		float centerUp = bar.position.y + bar.width / 2 + distanceBetween / 2;
 		float centerDown = bar.position.y + bar.width / 2 - distanceBetween / 2 - showFrozenBulletDilimiter;
 		if(bar.frozenBullet % 2 == 1) {
-			int n = (bar.frozenBullet-1) / 2;
-			for(int i = -1 * n ; i <= n ; i++)	{
-				batch.draw(GameScreen.showFrozenBulletImg,xPosition,center + i * distanceIncrease);
-			}
+			drawOddBullet(bar,xPosition,center,distanceIncrease);
 		} else if(bar.frozenBullet % 2 == 0 && bar.frozenBullet != 0) {
-			int n = bar.frozenBullet / 2;
-			for(int i = 0;i < n;i++) {
-				batch.draw(GameScreen.showFrozenBulletImg,xPosition,centerUp + i * distanceIncrease);
-				batch.draw(GameScreen.showFrozenBulletImg,xPosition,centerDown - i * distanceIncrease);
-			}
+			drawEvenBullet(bar,xPosition,centerUp,centerDown,distanceIncrease);
+		}
+	}
+	
+	private static void drawOddBullet(Bar bar,float xPosition, float center, float distanceIncrease) {
+		int n = (bar.frozenBullet-1) / 2;
+		for(int i = -1 * n ; i <= n ; i++)	{
+			batch.draw(GameScreen.showFrozenBulletImg,xPosition,center + i * distanceIncrease);
+		}
+	}
+
+	private static void drawEvenBullet(Bar bar,float xPosition,float centerUp,float centerDown,float distanceIncrease) {
+		int n = bar.frozenBullet / 2;
+		for(int i = 0;i < n;i++) {
+			batch.draw(GameScreen.showFrozenBulletImg,xPosition,centerUp + i * distanceIncrease);
+			batch.draw(GameScreen.showFrozenBulletImg,xPosition,centerDown - i * distanceIncrease);
 		}
 	}
 	

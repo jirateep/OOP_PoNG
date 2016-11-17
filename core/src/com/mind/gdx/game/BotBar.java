@@ -42,7 +42,6 @@ public class BotBar {
 		if(countNextRandom == maxCountNextRandom) {
 			countNextRandom = 0;
 			int random = (int)(Math.random() * 10000);
-			//System.out.println(random%countRandom);
 			if(random % countRandom < 20) {
 				botWinStatus = false;
 			} else {

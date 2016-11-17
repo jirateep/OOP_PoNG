@@ -32,7 +32,6 @@ public class HomeMenu extends Menu{
 		}
 		World.helpStatus = setMenu(World.helpStatus);
 		World.creditsStatus = setMenu(World.creditsStatus);
-		//setCreditsMenu();
 	}
 	
 	public boolean setMenu(boolean status) {
@@ -47,32 +46,6 @@ public class HomeMenu extends Menu{
 		}
 		return status;
 	}
-	
-	/*public void setHelpMenu() {
-		if(World.helpStatus) {
-			countCanExitHelp++;
-			if(countCanExitHelp > maxCountCanExitHelp && World.helpStatus) {
-				if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-					World.helpStatus = false;
-					countCanExitHelp = 0;
-				}
-			}
-			
-		}
-	}
-	
-	public void setCreditsMenu() {
-		if(World.creditsStatus) {
-			countCanExitHelp++;
-			if(countCanExitHelp > maxCountCanExitHelp && World.creditsStatus) {
-				if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-					World.creditsStatus = false;
-					countCanExitHelp = 0;
-				}
-			}
-			
-		}
-	}*/
 		
 	public void selectedHomeMenuEnd(int selected) {
 		if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
