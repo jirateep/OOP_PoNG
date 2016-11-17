@@ -87,45 +87,11 @@ public class Bar {
 				move();
 				shoot();
 			}
-			frozenCount = Ability.timer(frozenStatus,frozenCount,maxFrozenCount,Ability.FROZENBULLET,this);
-			shieldCount = Ability.timer(shieldStatus,shieldCount,maxShieldCount,Ability.SHIELD,this);
-			stickybatCount = Ability.timer(stickybatStatus,stickybatCount,maxStickybatCount,Ability.STICKYBAT,this);
-			//frozenTimer();
-			//shieldTimer();
-			//stickybatTimer();
+			frozenCount = Ability.timer(frozenStatus,frozenCount,maxFrozenCount,Ability.FROZENBULLET,this,null);
+			shieldCount = Ability.timer(shieldStatus,shieldCount,maxShieldCount,Ability.SHIELD,this,null);
+			stickybatCount = Ability.timer(stickybatStatus,stickybatCount,maxStickybatCount,Ability.STICKYBAT,this,null);
 			updateBarImg();
 			updateWidthHeight();
-		}
-	}
-	
-	public void shieldTimer() {
-		if(shieldStatus) {
-			shieldCount++;
-			if(shieldCount == maxShieldCount) {
-				shieldStatus = false;
-				shieldCount = 0;
-			}
-		}
-	}
-	
-	public void frozenTimer() {
-		if(frozenStatus) {
-			frozenCount++;
-			if(frozenCount == maxFrozenCount) {
-				frozenStatus = false;
-				frozenCount = 0;
-			}
-		}
-	}
-	
-	public void stickybatTimer() {
-		if(stickybatStatus) {
-			stickybatCount++;
-			if(stickybatCount == maxStickybatCount) {
-				stickybatStatus = false;
-				World.ball.moveStatus = true;
-				stickybatCount = 0;
-			}
 		}
 	}
 	

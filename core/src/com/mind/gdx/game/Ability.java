@@ -17,8 +17,8 @@ public class Ability {
 	public static int showAbility = NOTHING;
 	public static int maxCount = 50;
 	public static int maxAbilityTime = 500;
-	public static int ballAbilityTimer = 0;
-	public static boolean startBallAbilityTimer = false;
+	//public static int ballAbilityTimer = 0;
+	//public static boolean startBallAbilityTimer = false;
 	public static int wait = 0;
 	public static int maxWait = 600;
 	
@@ -36,9 +36,9 @@ public class Ability {
 	public void updateTimer() {
 		updateWaitTimer();
 		updateAbilityTimer();
-		if(World.ball.ballAbilityStatus == Ball.FIREBALL) {
-			updateBallAbilityTimer();
-		}
+		//if(World.ball.ballAbilityStatus == Ball.FIREBALL) {
+			//updateBallAbilityTimer();
+		//}
 	}
 	
 	public static void updateWaitTimer() {
@@ -53,7 +53,7 @@ public class Ability {
 			
 	}
 	
-	public void updateBallAbilityTimer() {
+	/*public void updateBallAbilityTimer() {
 		if(startBallAbilityTimer) {
 			ballAbilityTimer++;
 		}
@@ -62,7 +62,7 @@ public class Ability {
 			ballAbilityTimer = 0;
 			World.ball.ballAbilityStatus = Ball.NOTHING;
 		}
-	}
+	}*/
 	
 	public void updateAbilityTimer() {
 		if(startCountAbilityTimer && World.ball.moveStatus){
@@ -117,9 +117,11 @@ public class Ability {
 	}
 	
 	private void workFireball() {
-		World.ball.ballAbilityStatus = Ball.FIREBALL;
-		startBallAbilityTimer = true;
-		ballAbilityTimer = 0;
+		World.ball.fireballStatus = true;
+		World.ball.fireballCount = 0;
+		//World.ball.ballAbilityStatus = Ball.FIREBALL;
+		//startBallAbilityTimer = true;
+		//ballAbilityTimer = 0;
 	}
 	
 	private void workBiggerbat() {
@@ -159,19 +161,24 @@ public class Ability {
 		bar.stickybatCount = 0;
 	}
 	
-	public static int timer(boolean status,int count,int max,int statusName,Bar bar) {
+	public static int timer(boolean status,int count,int max,int statusName,Bar bar,Ball ball) {
+		if(statusName == Ability.FIREBALL) {
+			System.out.print(status);
+			System.out.println(count);
+		}
 		if(status) {
 			count++;
+			
 			if(count == max) {
-				resetStatus(statusName,bar);
-				status = false;
+					resetStatus(statusName,bar,ball);
+				//status = false;
 				count = 0;
 			}
 		}
 		return count;
 	}
 	
-	public static void resetStatus(int statusName,Bar bar) {
+	public static void resetStatus(int statusName,Bar bar,Ball ball) {
 		switch(statusName) {
 			case Ability.SHIELD:
 				bar.shieldStatus = false;
@@ -182,6 +189,8 @@ public class Ability {
 			case Ability.STICKYBAT:
 				bar.stickybatStatus = false;
 				break;
+			case Ability.FIREBALL:
+				ball.fireballStatus = false;
 			default:
 				break;
 		}

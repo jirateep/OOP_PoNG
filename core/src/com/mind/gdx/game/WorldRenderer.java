@@ -209,11 +209,16 @@ public class WorldRenderer {
 	}
 	
 	private static void drawBall() {
-		if(World.ball.ballAbilityStatus == Ball.NOTHING) {
+		/*if(World.ball.ballAbilityStatus == Ball.NOTHING) {
 				batch.draw(GameScreen.ballImg,World.ball.position.x,World.ball.position.y);
 		}
 		else if(World.ball.ballAbilityStatus == Ball.FIREBALL) {
 			batch.draw(GameScreen.fireballImg,World.ball.position.x,World.ball.position.y);
+		}*/
+		if(World.ball.fireballStatus) {
+			batch.draw(GameScreen.fireballImg,World.ball.position.x,World.ball.position.y);
+		} else {
+			batch.draw(GameScreen.ballImg,World.ball.position.x,World.ball.position.y);
 		}
 	}
 	

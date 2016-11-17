@@ -10,9 +10,9 @@ public class Ball {
 	public static float dilimiter = GameScreen.ballImg.getHeight();
 	public static float radius = dilimiter/2;
 
-	public static final int FIREBALL = 1;
-	public static final int NOTHING = 0;
-	public int ballAbilityStatus = NOTHING;
+	//public static final int FIREBALL = 1;
+	//public static final int NOTHING = 0;
+	//public int ballAbilityStatus = NOTHING;
 	
 	public static final float INITSPEED = 18;
 	public float speed = INITSPEED;
@@ -39,6 +39,10 @@ public class Ball {
 	public int oldHitStatusLeftRight = hitPlayer1;
 	public boolean hitShield;
 
+	public boolean fireballStatus = false;//
+	public int fireballCount = 0;//
+	public int maxFireballCount = 500;//
+	
 	public boolean moveStatus = false;
 	
 	public SoundEffect soundEffect;
@@ -65,6 +69,7 @@ public class Ball {
 		if(!moveStatus && !World.endStatus) {
 			checkStartMove();
 		}
+		fireballCount = Ability.timer(fireballStatus, fireballCount, maxFireballCount, Ability.FIREBALL,null,this);
 		move();
 	}
 	
@@ -102,10 +107,11 @@ public class Ball {
 	}
 	
 	public void getSpeed() {
-		if(ballAbilityStatus == FIREBALL){
+		if(fireballStatus){
+			System.out.println("fire");
 			speedX = speed * fireballSpeedFactor * speedXFactor;
 			speedY = speed * fireballSpeedFactor * speedYFactor;
-		} else if(ballAbilityStatus == NOTHING){
+		} else {
 			speedX = speed * speedXFactor;
 			speedY = speed * speedYFactor;
 		}

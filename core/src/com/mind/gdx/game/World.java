@@ -191,8 +191,10 @@ public class World {
 		ball.randomDirectionUpDown();
 		//System.out.println("speedYFactor" + ball.speedYFactor);
 		ball.oldHitStatusLeftRight = ball.hitStatusLeftRight;
-		ball.ballAbilityStatus = Ball.NOTHING;
-		Ability.ballAbilityTimer = 0;
+		ball.fireballCount = 0;
+		ball.fireballStatus = false;
+		//ball.ballAbilityStatus = Ball.NOTHING;
+		//Ability.ballAbilityTimer = 0;
 	}
 	
 	private static void resetAbility() {
