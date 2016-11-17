@@ -232,8 +232,10 @@ public class Bar {
 		if(World.ball.moveStatus) {
 			botRandomMove();
 		}
-			botMoving();
-			moveScope();
+		botMovement();
+		botStickyBat();
+		botDicisionMove();
+		moveScope();
 	}
 	
 	private void botRandomMove() {
@@ -254,7 +256,7 @@ public class Bar {
 		countNextRandom++;
 	}
 	
-	private void botMoving() {
+	private void botDicisionMove() {
 		if(!botWinStatus || (stickybatStatus && !World.ball.moveStatus)) {
 			if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
 				moveUpDownStatus = MOVEDOWN;
@@ -267,11 +269,9 @@ public class Bar {
 			else
 				moveUpDownStatus = MOVEDOWN;
 		}
-		if(countMovement == maxCountMovement) {
-			botMovement();
-			countMovement = 0;
-		}
-		countMovement++;
+	}
+	
+	private void botStickyBat() {
 		if(checkBotHitStickyBat()) {
 			countToStart ++;
 			if(countToStart == maxCountToStart) {
@@ -288,10 +288,14 @@ public class Bar {
 	}
 	
 	private void botMovement() {
-		if(frozenStatus){
-			botForzenMove();
-		} else {
-			botNormalMove();	
+		countMovement++;
+		if(countMovement == maxCountMovement) {
+			if(frozenStatus){
+				botForzenMove();
+			} else {
+				botNormalMove();	
+			}
+			countMovement = 0;
 		}
 	}
 	
