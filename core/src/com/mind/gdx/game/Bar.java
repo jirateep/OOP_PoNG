@@ -87,9 +87,12 @@ public class Bar {
 				move();
 				shoot();
 			}
-			frozenTimer();
-			shieldTimer();
-			stickybatTimer();
+			frozenCount = Ability.timer(frozenStatus,frozenCount,maxFrozenCount,Ability.FROZENBULLET,this);
+			shieldCount = Ability.timer(shieldStatus,shieldCount,maxShieldCount,Ability.SHIELD,this);
+			stickybatCount = Ability.timer(stickybatStatus,stickybatCount,maxStickybatCount,Ability.STICKYBAT,this);
+			//frozenTimer();
+			//shieldTimer();
+			//stickybatTimer();
 			updateBarImg();
 			updateWidthHeight();
 		}

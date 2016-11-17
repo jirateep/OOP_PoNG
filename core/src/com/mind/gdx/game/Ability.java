@@ -158,4 +158,32 @@ public class Ability {
 		bar.stickybatStatus = true;
 		bar.stickybatCount = 0;
 	}
+	
+	public static int timer(boolean status,int count,int max,int statusName,Bar bar) {
+		if(status) {
+			count++;
+			if(count == max) {
+				resetStatus(statusName,bar);
+				status = false;
+				count = 0;
+			}
+		}
+		return count;
+	}
+	
+	public static void resetStatus(int statusName,Bar bar) {
+		switch(statusName) {
+			case Ability.SHIELD:
+				bar.shieldStatus = false;
+				break;
+			case Ability.FROZENBULLET:
+				bar.frozenStatus = false;
+				break;
+			case Ability.STICKYBAT:
+				bar.stickybatStatus = false;
+				break;
+			default:
+				break;
+		}
+	}
 }
