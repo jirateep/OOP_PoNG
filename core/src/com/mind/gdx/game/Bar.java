@@ -33,8 +33,8 @@ public class Bar {
 	int pressActive;
 	int pressUp;
 	private int pressDown;
-	private float speed = 20;
-	private float botSpeedFactor =9.0f/11;
+	public float speed = 20;
+	//private float botSpeedFactor =9.0f/11;
 	public static final int BOT = -1;
 	
 	public boolean shieldStatus = false;
@@ -52,26 +52,8 @@ public class Bar {
 	public boolean stickybatStatus = false;
 	public int stickybatCount = 0;
 	private int maxStickybatCount = 500;
-	
-	public int initCountRandom = 1000;
-	public int countRandom = initCountRandom;
-	public int countNextRandom = 0;
-	public int maxCountNextRandom = 60;
-	
-	private boolean botWinStatus = true;
-	private static final int STAY = 0;
-	private static final int MOVEUP = 1;
-	private static final int MOVEDOWN = 2;
-	private int moveUpDownStatus = STAY;
-	
-	private int countMovement = 0;
-	private int maxCountMovement = 1;
-	
-	private int countToStart = 0;
-	private int maxCountToStart = 100;
-	private static int countReleaseBall = 0;
-	private static int maxCountReleaseBall = 50;
-	
+	BotBar botBar;
+
 	public SoundEffect soundEffect;
 	
 	public Bar(Texture barImg,float x,int up,int down,int active, int p, SoundEffect soundEffect) {
@@ -83,6 +65,10 @@ public class Bar {
 		pressUp = up;
 		pressDown = down;
 		pressActive = active;
+		if(pressActive == BOT) {
+			botBar = new BotBar(this,soundEffect);
+			World.botBar = botBar;
+		}
 		player = p;
 		this.soundEffect = soundEffect;
 	}
@@ -93,10 +79,10 @@ public class Bar {
 	
 	public void update() {
 		if(!World.endStatus) {
-			if(this.pressUp == Bar.BOT && this.pressDown == Bar.BOT && this.pressActive == Bar.BOT) {
-				botMove();
-				botShoot();
-				botReleaseBall();
+			if(this.pressActive == Bar.BOT) {
+				botBar.move();
+				botBar.shoot();
+				botBar.releaseBall();
 			} else {
 				move();
 				shoot();
@@ -155,7 +141,7 @@ public class Bar {
 		}
 	}
 	
-	private float getBulletXPosition() {
+	public float getBulletXPosition() {
 		float bulletWidth = GameScreen.frozenBulletImg[Bar.PLAYER1].getWidth();
 		if(player == Bar.PLAYER1) {
 			return World.bar1.position.x - bulletWidth;
@@ -164,7 +150,7 @@ public class Bar {
 		}
 	}
 	
-	private float getBulletYPosition() {
+	public float getBulletYPosition() {
 		float bulletHeight = GameScreen.frozenBulletImg[Bar.PLAYER1].getHeight();
 		if(player == Bar.PLAYER1) {
 			return position.y + World.bar1.width / 2 - bulletHeight / 2;
@@ -200,7 +186,7 @@ public class Bar {
 		}
 	}
 	
-	private void moveScope() {
+	public void moveScope() {
 		if(position.y < 0)
 			position.y = 0;
 		if(position.y > GameScreen.height - width)
@@ -226,128 +212,5 @@ public class Bar {
 		World.bar1.width = World.bar1.barImg.getHeight();
 		World.bar2.length = World.bar2.barImg.getWidth();
 		World.bar2.width = World.bar2.barImg.getHeight();	
-	}
-	
-	private void botMove() {
-		if(World.ball.moveStatus) {
-			botRandomMove();
-		}
-		botMovement();
-		botStickyBat();
-		botDicisionMove();
-		moveScope();
-	}
-	
-	private void botRandomMove() {
-		if(countNextRandom == maxCountNextRandom) {
-			countNextRandom = 0;
-			int random = (int)(Math.random() * 10000);
-			//System.out.println(random%countRandom);
-			if(random % countRandom < 20) {
-				botWinStatus = false;
-			} else {
-				botWinStatus = true;
-			}
-			countRandom -= 10;
-			if(countRandom <= 0) {
-				countRandom = 10;
-			}
-		}
-		countNextRandom++;
-	}
-	
-	private void botDicisionMove() {
-		if(!botWinStatus || (stickybatStatus && !World.ball.moveStatus)) {
-			if(position.y + width / 2 >= GameScreen.height - barImg.getHeight()) {
-				moveUpDownStatus = MOVEDOWN;
-			} else if(position.y <= 0) {
-				moveUpDownStatus = MOVEUP;
-			}
-		} else {
-			if(position.y + width / 2 <= World.ball.position.y)
-				moveUpDownStatus = MOVEUP;
-			else
-				moveUpDownStatus = MOVEDOWN;
-		}
-	}
-	
-	private void botStickyBat() {
-		if(checkBotHitStickyBat()) {
-			countToStart ++;
-			if(countToStart == maxCountToStart) {
-				System.out.println("hit1");
-				World.ball.moveStatus = true;
-			}
-		} else {
-			countToStart = 0;
-		}
-	}
-	
-	private boolean checkBotHitStickyBat() {
-		return !World.ball.moveStatus && World.bar2.stickybatStatus && World.ball.hitStatusLeftRight == Ball.hitPlayer2;
-	}
-	
-	private void botMovement() {
-		countMovement++;
-		if(countMovement == maxCountMovement) {
-			if(frozenStatus){
-				botForzenMove();
-			} else {
-				botNormalMove();	
-			}
-			countMovement = 0;
-		}
-	}
-	
-	private void botForzenMove() {
-		switch(moveUpDownStatus) {
-			case MOVEUP:
-				position.y += (speed / frozenSpeedFactor) * botSpeedFactor;
-				break;
-			case MOVEDOWN:
-				position.y -= (speed / frozenSpeedFactor)  * botSpeedFactor;
-			case STAY:
-				break;
-			default:
-				break;
-		}
-	}
-	
-	private void botNormalMove() {
-		switch(moveUpDownStatus) {
-		case MOVEUP:
-			position.y += speed * botSpeedFactor;
-			break;
-		case MOVEDOWN:
-			position.y -= speed * botSpeedFactor;
-		case STAY:
-			break;
-		default:
-			break;
-		}
-	}
-	
-	private void botReleaseBall() {
-		if(World.bar2.pressActive == Bar.BOT && World.ball.hitStatusLeftRight == Ball.hitPlayer2 && !World.ball.moveStatus) {
-			if(countReleaseBall==maxCountReleaseBall) {
-				//System.out.println("hit2");
-				World.ball.moveStatus = true;
-			}
-			countReleaseBall++;
-		} else {
-			countReleaseBall = 0;
-		}
-	}
-	
-	private void botShoot() {
-		if(frozenBullet > 0) {
-			int random = (int)(Math.random()*100);
-			if(random % 400 == 0) {
-				soundEffect.play(SoundEffect.SHOOTSOUND);
-				frozenBullet--;
-				int reserved = Bullet.findAvailable();
-				World.bullets[reserved] = new Bullet(getBulletXPosition(),getBulletYPosition(),player);
-			}
-		}
 	}
 }

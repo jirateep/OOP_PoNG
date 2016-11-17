@@ -72,13 +72,11 @@ public class Ball {
 		//System.out.println(moveStatus);
 		if(hitStatusLeftRight == hitPlayer1) {
 			if(World.bar1.pressActive != Bar.BOT && Gdx.input.isKeyPressed(World.bar1.pressActive)) {
-				//System.out.println("hi1");
 				moveStatus = true;
 			}
 		}
 		if(World.bar2.pressActive != Bar.BOT && hitStatusLeftRight == hitPlayer2) {
 			if(Gdx.input.isKeyPressed(World.bar2.pressActive)) {
-				//System.out.println("hi2");
 				moveStatus = true;
 			}
 		}

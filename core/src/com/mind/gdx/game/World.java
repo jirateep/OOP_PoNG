@@ -31,6 +31,7 @@ public class World {
 	
 	public static SoundEffect soundEffect;
 	public static boolean muteStatus = false;
+	public static BotBar botBar;
 	
 	public World() {
 		player2BarXInit = 20;
@@ -174,8 +175,11 @@ public class World {
 		bar.shieldStatus = false;
 		bar.stickybatStatus = false;
 		bar.stickybatCount = 0;
-		bar.countNextRandom = 0;
-		bar.countRandom = bar.initCountRandom;
+		
+		if(botBar!=null) {
+			botBar.countNextRandom = 0;
+			botBar.countRandom = botBar.initCountRandom;
+		}
 	}
 	
 	private static void resetBall() {
