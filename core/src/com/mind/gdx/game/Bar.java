@@ -34,7 +34,6 @@ public class Bar {
 	int pressUp;
 	private int pressDown;
 	public float speed = 20;
-	//private float botSpeedFactor =9.0f/11;
 	public static final int BOT = -1;
 	
 	public boolean shieldStatus = false;

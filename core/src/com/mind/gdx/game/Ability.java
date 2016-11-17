@@ -5,6 +5,8 @@ public class Ability {
 	public static int abilityTimer = 0; 
 	public static boolean startCountAbilityTimer = true;
 	
+	public static final int APPEARABILITY = -2;
+	public static final int CHANGESHOWABILITY = -1;
 	public static final int NOTHING = 0;
 	public static final int FIREBALL = 1;
 	public static final int BIGGERBAT = 2;
@@ -17,8 +19,6 @@ public class Ability {
 	public static int showAbility = NOTHING;
 	public static int maxCount = 50;
 	public static int maxAbilityTime = 500;
-	//public static int ballAbilityTimer = 0;
-	//public static boolean startBallAbilityTimer = false;
 	public static int wait = 0;
 	public static int maxWait = 600;
 	
@@ -36,36 +36,23 @@ public class Ability {
 	public void updateTimer() {
 		updateWaitTimer();
 		updateAbilityTimer();
-		//if(World.ball.ballAbilityStatus == Ball.FIREBALL) {
-			//updateBallAbilityTimer();
-		//}
 	}
 	
 	public static void updateWaitTimer() {
-		if(showAbility != NOTHING) {
+		wait = timer(showAbility != NOTHING,wait,maxWait,CHANGESHOWABILITY,null,null);
+		/*if(showAbility != NOTHING) {
 			wait++;
 			if(maxWait == wait) {
 				showAbility = NOTHING;
-				//abilityTimer=maxCount;
 				wait = 0;
 			}
-		}
+		}*/
 			
 	}
 	
-	/*public void updateBallAbilityTimer() {
-		if(startBallAbilityTimer) {
-			ballAbilityTimer++;
-		}
-		if(ballAbilityTimer==maxAbilityTime) {
-			startBallAbilityTimer = false;
-			ballAbilityTimer = 0;
-			World.ball.ballAbilityStatus = Ball.NOTHING;
-		}
-	}*/
-	
 	public void updateAbilityTimer() {
-		if(startCountAbilityTimer && World.ball.moveStatus){
+		abilityTimer = timer(startCountAbilityTimer && World.ball.moveStatus,abilityTimer,maxCount,APPEARABILITY,null,null);
+		/*if(startCountAbilityTimer && World.ball.moveStatus){
 			abilityTimer++;
 		}
 		if(abilityTimer==maxCount) {
@@ -73,10 +60,10 @@ public class Ability {
 			abilityTimer = 0;
 			int random = (int)(Math.random() * 1000);
 			updateShowAbility(1 + random % numberOfAbility);
-		}
+		}*/
 	}
 	
-	public void updateShowAbility (int selectedAbility) {
+	public static void updateShowAbility (int selectedAbility) {
 		showAbility = selectedAbility;
 	}
 	
@@ -119,9 +106,6 @@ public class Ability {
 	private void workFireball() {
 		World.ball.fireballStatus = true;
 		World.ball.fireballCount = 0;
-		//World.ball.ballAbilityStatus = Ball.FIREBALL;
-		//startBallAbilityTimer = true;
-		//ballAbilityTimer = 0;
 	}
 	
 	private void workBiggerbat() {
@@ -162,16 +146,10 @@ public class Ability {
 	}
 	
 	public static int timer(boolean status,int count,int max,int statusName,Bar bar,Ball ball) {
-		if(statusName == Ability.FIREBALL) {
-			System.out.print(status);
-			System.out.println(count);
-		}
 		if(status) {
 			count++;
-			
 			if(count == max) {
-					resetStatus(statusName,bar,ball);
-				//status = false;
+				resetStatus(statusName,bar,ball);
 				count = 0;
 			}
 		}
@@ -180,17 +158,26 @@ public class Ability {
 	
 	public static void resetStatus(int statusName,Bar bar,Ball ball) {
 		switch(statusName) {
-			case Ability.SHIELD:
+			case SHIELD:
 				bar.shieldStatus = false;
 				break;
-			case Ability.FROZENBULLET:
+			case FROZENBULLET:
 				bar.frozenStatus = false;
 				break;
-			case Ability.STICKYBAT:
+			case STICKYBAT:
 				bar.stickybatStatus = false;
 				break;
-			case Ability.FIREBALL:
+			case FIREBALL:
 				ball.fireballStatus = false;
+				break;
+			case CHANGESHOWABILITY:
+				showAbility = NOTHING;
+				break;
+			case APPEARABILITY:
+				startCountAbilityTimer = false;
+				int random = (int)(Math.random() * 1000);
+				updateShowAbility(1 + random % numberOfAbility);
+				break;
 			default:
 				break;
 		}

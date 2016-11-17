@@ -47,17 +47,8 @@ public class GameScreen extends ScreenAdapter {
 	public static Texture helpImg;
 	public static Texture creditsImg;
 	
-	//public static FreeTypeFontGenerator ttf_font;
-	//public static BitmapFont bar1Score_bitmap;
-	//public static BitmapFont bar2Score_bitmap;
-	//public static BitmapFont ending_bitmap;
-	
-	//static GlyphLayout ending;
-	
-	public static int width = 1536;//1920
-	public static int height = 800;//1000
-	//static float fontsize = 6;
-	//static float endingfontsize = 8;
+	public static int width = 1536;
+	public static int height = 800;
 	
 	public GameScreen(PongGame pongGame) {
 		GameScreen.pongGame = pongGame;
@@ -159,17 +150,7 @@ public class GameScreen extends ScreenAdapter {
 		helpImg = new Texture("helpMenu.png");
 		creditsImg = new Texture("creditsMenu.png");
 		
-		//ttf_font = new FreeTypeFontGenerator("NESCyrillic.ttf");
-		//FreeTypeFontGenerator generator = new FreeTypeFontGenerator("NESCyrillic.ttf");
-		//bar1Score_bitmap = new BitmapFont();
-		//bar2Score_bitmap = new BitmapFont();
-		//ending_bitmap = new BitmapFont();
-		
 		world = new World();
-		
-		//ending = new GlyphLayout(ending_bitmap, "Player1 WIN");
-		
-		//ending_bitmap.getData().setScale(endingfontsize, endingfontsize);
 	}
 	
 	@Override

@@ -9,10 +9,6 @@ public class Ball {
 	
 	public static float dilimiter = GameScreen.ballImg.getHeight();
 	public static float radius = dilimiter/2;
-
-	//public static final int FIREBALL = 1;
-	//public static final int NOTHING = 0;
-	//public int ballAbilityStatus = NOTHING;
 	
 	public static final float INITSPEED = 18;
 	public float speed = INITSPEED;
@@ -85,8 +81,6 @@ public class Ball {
 				moveStatus = true;
 			}
 		}
-		//System.out.println(moveStatus);
-		//System.out.println();
 	}
 	
 	public void move() {

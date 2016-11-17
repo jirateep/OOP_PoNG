@@ -189,12 +189,9 @@ public class World {
 		ball.speedXFactor = ball.initSpeedXFactor;
 		ball.speedYFactor = ball.initSpeedYFactor;
 		ball.randomDirectionUpDown();
-		//System.out.println("speedYFactor" + ball.speedYFactor);
 		ball.oldHitStatusLeftRight = ball.hitStatusLeftRight;
 		ball.fireballCount = 0;
 		ball.fireballStatus = false;
-		//ball.ballAbilityStatus = Ball.NOTHING;
-		//Ability.ballAbilityTimer = 0;
 	}
 	
 	private static void resetAbility() {

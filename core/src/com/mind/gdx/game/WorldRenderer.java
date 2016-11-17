@@ -197,24 +197,10 @@ public class WorldRenderer {
 				GameScreen.nowEndGameImg = GameScreen.endGameImg[Bar.PLAYER2];
 			}
 			batch.draw(GameScreen.nowEndGameImg,endPosition[0],endPosition[1]);
-				/*
-			if(World.bar1.score>World.bar2.score){
-				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player1 WIN");
-			}else{
-				GameScreen.ending.setText(GameScreen.ending_bitmap,"Player2 WIN");
-			}*/
-			//getEndingPosition();
-			//GameScreen.ending_bitmap.draw(batch, GameScreen.ending, endingXPosition, endingYPosition);
 		}
 	}
 	
 	private static void drawBall() {
-		/*if(World.ball.ballAbilityStatus == Ball.NOTHING) {
-				batch.draw(GameScreen.ballImg,World.ball.position.x,World.ball.position.y);
-		}
-		else if(World.ball.ballAbilityStatus == Ball.FIREBALL) {
-			batch.draw(GameScreen.fireballImg,World.ball.position.x,World.ball.position.y);
-		}*/
 		if(World.ball.fireballStatus) {
 			batch.draw(GameScreen.fireballImg,World.ball.position.x,World.ball.position.y);
 		} else {
