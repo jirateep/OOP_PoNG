@@ -102,7 +102,6 @@ public class Ball {
 	
 	public void getSpeed() {
 		if(fireballStatus){
-			System.out.println("fire");
 			speedX = speed * fireballSpeedFactor * speedXFactor;
 			speedY = speed * fireballSpeedFactor * speedYFactor;
 		} else {

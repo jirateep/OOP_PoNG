@@ -58,6 +58,7 @@ public class Menu {
 		World.reset();
 		World.ball.hitStatusLeftRight = Ball.hitPlayer1;
 		World.endStatus = false;
+		World.hasPlayedEndSound = false;
 	}
 	
 	public void startMenu(boolean status,int selected) {

@@ -13,8 +13,9 @@ public class SoundEffect {
 	public static final int HITSOUND = 4;
 	public static final int SHOOTSOUND = 5;
 	public static final int ABILITYSOUND = 6;
-	public static final int NBOFSOUNDS = 7;
-	
+	public static final int UPDATESCORESOUND = 7;
+	public static final int ENDGAMESOUND = 8;
+	public static final int NBOFSOUNDS = 9;
 	public SoundEffect() {
 		sounds = new Sound [NBOFSOUNDS];
 		sounds[ERRORSOUND] = Gdx.audio.newSound(Gdx.files.internal("errorSound.mp3"));
@@ -23,6 +24,8 @@ public class SoundEffect {
 		sounds[HITSOUND] = Gdx.audio.newSound(Gdx.files.internal("hitSound.mp3"));
 		sounds[SHOOTSOUND] = Gdx.audio.newSound(Gdx.files.internal("shootSound.mp3"));
 		sounds[ABILITYSOUND] = Gdx.audio.newSound(Gdx.files.internal("abilitySound.mp3"));
+		sounds[UPDATESCORESOUND] = Gdx.audio.newSound(Gdx.files.internal("updateScoreSound.mp3"));
+		sounds[ENDGAMESOUND] = Gdx.audio.newSound(Gdx.files.internal("endGameSound.mp3"));
 	}
 	
 	public boolean canPlaySound() {

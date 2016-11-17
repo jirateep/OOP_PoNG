@@ -32,6 +32,7 @@ public class World {
 	public static SoundEffect soundEffect;
 	public static boolean muteStatus = false;
 	public static BotBar botBar;
+	public static boolean hasPlayedEndSound = false;
 	
 	public World() {
 		player2BarXInit = 20;
@@ -134,12 +135,14 @@ public class World {
 	private static void scoreUpdate(){
 		if(ball.position.x < 0) {
 			bar1.score += 1;
+			soundEffect.play(SoundEffect.UPDATESCORESOUND);
 			//System.out.println("bar1 score = "+GameScreen.bar1.score);
 			ball.hitStatusLeftRight = Ball.hitPlayer2;
 			reset();
 		}
 		else if(ball.position.x > GameScreen.width) {
 			bar2.score += 1;
+			soundEffect.play(SoundEffect.UPDATESCORESOUND);
 			//System.out.println("bar2 score = "+GameScreen.bar2.score);
 			ball.hitStatusLeftRight = Ball.hitPlayer1;
 			reset();
@@ -205,6 +208,10 @@ public class World {
 		if((bar1.score == maxScore) || (bar2.score == maxScore)){
 			endStatus = true;
 			ball.moveStatus = false;
+			if(!hasPlayedEndSound) {
+				soundEffect.play(SoundEffect.ENDGAMESOUND);
+				hasPlayedEndSound = true;
+			}
 		}
 	}
 	
