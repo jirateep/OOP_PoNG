@@ -33,6 +33,7 @@ public class World {
 	public static boolean muteStatus = false;
 	public static BotBar botBar;
 	public static boolean hasPlayedEndSound = false;
+	public static boolean botVsBot = false;
 	
 	public World() {
 		player2BarXInit = 20;

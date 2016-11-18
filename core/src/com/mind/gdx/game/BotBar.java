@@ -23,12 +23,18 @@ public class BotBar {
 	private Bar bar;
 	private SoundEffect soundEffect;
 	
+	//private boolean startFirst = false;
+	
 	public BotBar(Bar bar,SoundEffect soundEffect) {
 		this.bar = bar;
 		this.soundEffect = soundEffect;
 	}
 	
 	public void move() {
+		/*if(!startFirst) {
+			World.ball.moveStatus = true;
+			startFirst = true;
+		}*/
 		if(World.ball.moveStatus) {
 			randomMove();
 		}
@@ -50,6 +56,9 @@ public class BotBar {
 			countRandom -= 10;
 			if(countRandom <= 0) {
 				countRandom = 10;
+				if(World.botVsBot) {
+					countRandom = initCountRandom;
+				}
 			}
 		}
 		countNextRandom++;

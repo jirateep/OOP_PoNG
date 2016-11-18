@@ -64,6 +64,9 @@ public class Ball {
 	public void update() {
 		if(!moveStatus && !World.endStatus) {
 			checkStartMove();
+			if(World.botVsBot) {
+				moveStatus = true;
+			}
 		}
 		fireballCount = Ability.timer(fireballStatus, fireballCount, maxFireballCount, Ability.FIREBALL,null,this);
 		move();
