@@ -89,7 +89,7 @@ public class BotBar {
 	private void movement() {
 		countMovement++;
 		if(countMovement == maxCountMovement) {
-			if(bar.frozenStatus){
+			if(bar.frozenStatus) {
 				frozenMove();
 			} else {
 				normalMove();	
@@ -105,8 +105,6 @@ public class BotBar {
 				break;
 			case MOVEDOWN:
 				bar.position.y -= (bar.speed / bar.frozenSpeedFactor)  * botSpeedFactor;
-			case STAY:
-				break;
 			default:
 				break;
 		}
